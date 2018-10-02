@@ -40,6 +40,7 @@ function create(){
   // Pick & show first word
   currentWord = newWord(WORDS);
   currentWordImg = currentWord.slice(0);
+  this.wordContainer = this.add.container(config.width / 2, config.height / 5);
   newWordToScreen(this);
 
   this.scoretext = this.add
@@ -49,7 +50,6 @@ function create(){
         padding: { x: 20, y: 10 },
         backgroundColor: "#ffffff"
       })
-
 }
 
 function update() {
@@ -80,13 +80,17 @@ function newWord(wordlist) {
 }
 
 function newWordToScreen(scene) {
+  scene.wordContainer.x = config.width / 2
   if (currentWordImg > currentWord.length) {
     currentWordImg = currentWord.slice(0);
   }
 
   for (let i = 0; i < currentWord.length; i++) {
     // find letters in current word and set placement on screen with ax / y300
-    let ax = (config.width / 2) + (i * 40);
-    currentWordImg[i] = scene.add.image(ax, config.height/5, currentWord[i]).setOrigin(0);
+    //let ax = (config.width / 2) + (i * 40);
+    currentWordImg[i] = scene.add.image(i * 40, 0, currentWord[i]).setOrigin(0);
+    scene.wordContainer.add([currentWordImg[i]]);
   }
+  // Center wordContainer to half of current word's x-per-character offset
+  scene.wordContainer.x = (scene.wordContainer.x - ((currentWord.length * 40) / 2));
 }
