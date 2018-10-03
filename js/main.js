@@ -7,6 +7,12 @@ const config = {
     preload: preload,
     create: create,
     update: update
+  },
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: { y: 1000 }
+    }
   }
 };
 
@@ -24,6 +30,7 @@ function preload(){
 
   // NOTE: "this" === Phaser.Scene
   this.load.image("background", "./assets/img/background.gif")
+  this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
 
   for (i in alphabet) {
     this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
@@ -36,6 +43,31 @@ function create(){
   bg.setDisplaySize(config.width, config.height);
 
   this.keys = this.input.keyboard.addKeys(alphabet.join(","));
+  this.keys.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+  this.akuma = this.add.sprite(config.width / 8, config.height / 2, 'akuma', 'AkumaClean_.png');
+
+  // AKUMA GOSHORYU ANIMATION
+  this.frameNames = this.anims.generateFrameNames('akuma', {
+    start: 246, end: 266,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  this.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
+  this.anims.create({ key: 'shoryuken', frames: this.frameNames, frameRate: 20, repeat: 0 });
+  
+  
+  // AKUMA WALK ANIMATION
+  this.frameNames = this.anims.generateFrameNames('akuma', {
+    start: 18, end: 28,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  this.anims.create({ key: 'idleright', frames: this.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', BackToIdle, this);
+  this.akuma.anims.play('idleright');
+  ///////
+
+  // Add a timed event to slow the animation with pause/unpause in a dedicated function at the bottom of the codebase
+  //this.time.addEvent({ delay: 20, callback: AkumaStutter, callbackScope: this, repeat: 99999 });
 
   // Pick & show first word
   currentWord = newWord(WORDS);
@@ -70,6 +102,11 @@ function update() {
     currentWord = newWord(WORDS);
     newWordToScreen(this);
   }
+
+  if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
+    this.akuma.anims.play('shoryuken');
+
+   }
 }
 
 function newWord(wordlist) {
@@ -93,4 +130,16 @@ function newWordToScreen(scene) {
   }
   // Center wordContainer to half of current word's x-per-character offset
   scene.wordContainer.x = (scene.wordContainer.x - ((currentWord.length * 40) / 2));
+}
+
+// function AkumaStutter(scene) {
+//   if (this.akuma.anims.isPaused === false) {
+//     this.akuma.anims.pause();
+//   } else {
+//     this.akuma.anims.resume();
+//    }
+// }
+
+function BackToIdle() {
+  this.akuma.anims.play('idleright');
 }
