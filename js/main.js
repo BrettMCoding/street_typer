@@ -30,6 +30,7 @@ function preload(){
 
   // NOTE: "this" === Phaser.Scene
   this.load.image("background", "./assets/img/background.gif")
+  this.load.image('ground', './assets/img/platform.png');
   this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
 
   for (i in alphabet) {
@@ -38,18 +39,33 @@ function preload(){
 
 }
 function create(){
-  //Background
+  // Background
   const bg = this.add.image(config.width / 2, config.height / 2, "background");
   bg.setDisplaySize(config.width, config.height);
+
+  // Platforms
+  platforms = this.physics.add.staticGroup();
+  platforms.create(config.width / 8, (config.height / 2) + 100, 'ground')
+    .setScale(0.5);
 
   this.keys = this.input.keyboard.addKeys(alphabet.join(","));
   this.keys.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-  this.akuma = this.add.sprite(config.width / 8, config.height / 2, 'akuma', 'AkumaClean_.png');
+  // Akuma
+  this.akuma = this.physics.add.sprite(config.width / 8, config.height / 2, 'akuma', 'AkumaClean_.png')
+    .setScale(1.5);
+
+  //  Player physics properties. Give the little guy a slight bounce.
+  this.akuma.setBounce(0.2);
+  this.akuma.setCollideWorldBounds(true);
+
+  // Colliders
+  this.physics.add.collider(this.akuma, platforms);
 
   // AKUMA GOSHORYU ANIMATION
   this.frameNames = this.anims.generateFrameNames('akuma', {
-    start: 246, end: 266,
+    // normal start: 246
+    start: 248, end: 266,
     prefix: 'AkumaClean_', suffix: '.png'
   });
   this.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
@@ -101,12 +117,9 @@ function update() {
     }
     currentWord = newWord(WORDS);
     newWordToScreen(this);
+    AkumaUppercut(this);
   }
 
-  if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
-    this.akuma.anims.play('shoryuken');
-
-   }
 }
 
 function newWord(wordlist) {
@@ -132,6 +145,10 @@ function newWordToScreen(scene) {
   scene.wordContainer.x = (scene.wordContainer.x - ((currentWord.length * 40) / 2));
 }
 
+function AkumaUppercut(scene) {
+    scene.akuma.anims.play('shoryuken');
+    scene.akuma.setVelocityY(-700);
+}
 // function AkumaStutter(scene) {
 //   if (this.akuma.anims.isPaused === false) {
 //     this.akuma.anims.pause();
