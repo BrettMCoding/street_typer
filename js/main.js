@@ -70,6 +70,14 @@ function create(){
   });
   this.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
   this.anims.create({ key: 'shoryuken', frames: this.frameNames, frameRate: 20, repeat: 0 });
+
+  // AKUMA HADOKEN ANIMATION
+  this.frameNames = this.anims.generateFrameNames('akuma', {
+    // normal start: 246
+    start: 199, end: 203,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  this.anims.create({ key: 'hadoken', frames: this.frameNames, frameRate: 15, repeat: 0, yoyo: true})
   
   
   // AKUMA WALK ANIMATION
@@ -81,6 +89,16 @@ function create(){
   this.akuma.on('animationcomplete', BackToIdle, this);
   this.akuma.anims.play('idleright');
   ///////
+
+  // Hadoken
+  this.hadoken = this.physics.add.group();
+  this.physics.add.sprite(this.akuma.getCenter().x + 100, this.akuma.getCenter().y, 'akuma', 'AkumaClean_207.png');
+  this.hadoken.body.gravity.y = -(this.physics.config.gravity.y)
+  this.hadoken.setVelocityX(50);
+  //let hadokenFrames = [{ key: 'hadokenproj', frame: 'AkumaClean_207.png' },{ key: 'hadokenproj', frame: 'AkumaClean_209.png' },{ key: 'hadokenproj', frame: 'AkumaClean_213.png' },{ key: 'hadokenproj', frame: 'AkumaClean_211.png' }];
+  
+  //this.anims.create({ key: 'hadokenproj', frames: hadokenFrames, repeat: -1 });
+  //this.hadoken.anims.play('hadokenproj');
 
   // Add a timed event to slow the animation with pause/unpause in a dedicated function at the bottom of the codebase
   //this.time.addEvent({ delay: 20, callback: AkumaStutter, callbackScope: this, repeat: 99999 });
@@ -146,8 +164,8 @@ function newWordToScreen(scene) {
 }
 
 function AkumaUppercut(scene) {
-    scene.akuma.anims.play('shoryuken');
-    scene.akuma.setVelocityY(-700);
+    scene.akuma.anims.play('hadoken');
+    //scene.akuma.setVelocityY(-700);
 }
 // function AkumaStutter(scene) {
 //   if (this.akuma.anims.isPaused === false) {
@@ -159,4 +177,8 @@ function AkumaUppercut(scene) {
 
 function BackToIdle() {
   this.akuma.anims.play('idleright');
+}
+
+function hadoken(scene){
+
 }
