@@ -32,6 +32,7 @@ function preload(){
   this.load.image("background", "./assets/img/background.gif")
   this.load.image('ground', './assets/img/platform.png');
   this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
+  this.load.image('skeleton', './assets/img/skeleton.png');
 
   for (i in alphabet) {
     this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
@@ -47,6 +48,8 @@ function create(){
   platforms = this.physics.add.staticGroup();
   platforms.create(config.width / 8, (config.height / 2) + 100, 'ground')
     .setScale(0.5);
+  platforms.create((config.width / 8) + 700, (config.height / 2) + 100, 'ground')
+  .setScale(0.5);
 
   this.keys = this.input.keyboard.addKeys(alphabet.join(","));
   this.keys.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -59,8 +62,15 @@ function create(){
   this.akuma.setBounce(0.2);
   this.akuma.setCollideWorldBounds(true);
 
-  // Colliders
-  this.physics.add.collider(this.akuma, platforms);
+  // Skeleton
+  this.skeleton = this.physics.add.sprite(config.width / 8 + 700, config.height / 2, 'skeleton')
+    .setScale(0.25);
+
+  //  Player physics properties. Give the little guy a slight bounce.
+  this.skeleton.setBounce(0.2);
+  this.skeleton.setCollideWorldBounds(true);
+  this.skeleton.flipX = true;
+  this.skeleton.body.width = 10;
 
   // AKUMA GOSHORYU ANIMATION
   this.frameNames = this.anims.generateFrameNames('akuma', {
@@ -77,7 +87,7 @@ function create(){
     start: 199, end: 203,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  this.anims.create({ key: 'hadoken', frames: this.frameNames, frameRate: 15, repeat: 0, yoyo: true})
+  this.anims.create({ key: 'hadoken', frames: this.frameNames, frameRate: 20, repeat: 0, yoyo: true})
   
   
   // AKUMA WALK ANIMATION
@@ -92,9 +102,6 @@ function create(){
 
   // Hadoken
   this.hadoken = this.physics.add.group();
-  this.physics.add.sprite(this.akuma.getCenter().x + 100, this.akuma.getCenter().y, 'akuma', 'AkumaClean_207.png');
-  this.hadoken.body.gravity.y = -(this.physics.config.gravity.y)
-  this.hadoken.setVelocityX(50);
   //let hadokenFrames = [{ key: 'hadokenproj', frame: 'AkumaClean_207.png' },{ key: 'hadokenproj', frame: 'AkumaClean_209.png' },{ key: 'hadokenproj', frame: 'AkumaClean_213.png' },{ key: 'hadokenproj', frame: 'AkumaClean_211.png' }];
   
   //this.anims.create({ key: 'hadokenproj', frames: hadokenFrames, repeat: -1 });
@@ -116,6 +123,25 @@ function create(){
         padding: { x: 20, y: 10 },
         backgroundColor: "#ffffff"
       })
+
+  // Colliders
+  this.physics.add.collider(this.akuma, platforms);
+  this.physics.add.collider(this.skeleton, platforms);
+  this.physics.add.collider(this.hadoken, this.skeleton, SkeletonDeath, null, this);
+
+  //DEATHPARTICLE TESTING
+  particles.createEmitter({
+    frame: 'blue',
+    x: 200,
+    y: 300,
+    lifespan: 2000,
+    speed: { min: 400, max: 600 },
+    angle: 330,
+    gravityY: 300,
+    scale: { start: 0.4, end: 0 },
+    quantity: 2,
+    blendMode: 'ADD'
+  });
 }
 
 function update() {
@@ -135,7 +161,8 @@ function update() {
     }
     currentWord = newWord(WORDS);
     newWordToScreen(this);
-    AkumaUppercut(this);
+    Hadoken(this);
+    debugger;
   }
 
 }
@@ -164,9 +191,11 @@ function newWordToScreen(scene) {
 }
 
 function AkumaUppercut(scene) {
-    scene.akuma.anims.play('hadoken');
+    scene.akuma.anims.play('shoryuken');
     //scene.akuma.setVelocityY(-700);
 }
+
+
 // function AkumaStutter(scene) {
 //   if (this.akuma.anims.isPaused === false) {
 //     this.akuma.anims.pause();
@@ -179,6 +208,20 @@ function BackToIdle() {
   this.akuma.anims.play('idleright');
 }
 
-function hadoken(scene){
+function Hadoken(scene){
+  scene.akuma.anims.play('hadoken');
+  scene.time.delayedCall(200, Hadoken2, [scene]);
+}
 
+function Hadoken2(scene) { 
+  let hadoken = scene.hadoken.create(scene.akuma.getCenter().x + 100, scene.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
+  hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
+  hadoken.body.width = 10;
+  hadoken.setVelocityX(500);
+ }
+
+function SkeletonDeath(skeleton, hadoken) {
+  skeleton.setVelocityY(-2000);
+  skeleton.setVelocityX(0);
+  hadoken.disableBody(true, true);
 }
