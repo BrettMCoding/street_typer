@@ -1,3 +1,5 @@
+import PlayerCharacter from "./akuma.js";
+
 const config = {
   type: Phaser.AUTO,
   width: 1280,
@@ -36,7 +38,7 @@ function preload(){
   this.load.image('red', './assets/img/particles/red.png');
   this.load.image('bone', './assets/img/particles/bone.png');
 
-  for (i in alphabet) {
+  for (let i in alphabet) {
     this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
   }
 
@@ -47,7 +49,7 @@ function create(){
   bg.setDisplaySize(config.width, config.height);
 
   // Platforms
-  platforms = this.physics.add.staticGroup();
+  let platforms = this.physics.add.staticGroup();
   platforms.create(config.width / 8, (config.height / 2) + 100, 'ground')
     .setScale(0.5);
   platforms.create((config.width / 8) + 700, (config.height / 2) + 100, 'ground')
@@ -56,13 +58,8 @@ function create(){
   this.keys = this.input.keyboard.addKeys(alphabet.join(","));
   this.keys.SPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-  // Akuma
-  this.akuma = this.physics.add.sprite(config.width / 8, config.height / 2, 'akuma', 'AkumaClean_.png')
-    .setScale(1.5);
-
-  //  Player physics properties. Give the little guy a slight bounce.
-  this.akuma.setBounce(0.2);
-  this.akuma.setCollideWorldBounds(true);
+  // Add Player Character
+  this.PlayerCharacter = new PlayerCharacter(this, config.width / 8, config.height / 2)
 
   // Skeleton
   this.skeleton = this.physics.add.sprite(config.width / 8 + 700, config.height / 2, 'skeleton')
@@ -73,44 +70,6 @@ function create(){
   this.skeleton.setCollideWorldBounds(true);
   this.skeleton.flipX = true;
   this.skeleton.body.width = 10;
-
-  // AKUMA GOSHORYU ANIMATION
-  this.frameNames = this.anims.generateFrameNames('akuma', {
-    // normal start: 246
-    start: 248, end: 266,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  this.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
-  this.anims.create({ key: 'shoryuken', frames: this.frameNames, frameRate: 20, repeat: 0 });
-
-  // AKUMA HADOKEN ANIMATION
-  this.frameNames = this.anims.generateFrameNames('akuma', {
-    // normal start: 246
-    start: 199, end: 203,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  this.anims.create({ key: 'hadoken', frames: this.frameNames, frameRate: 20, repeat: 0, yoyo: true})
-  
-  
-  // AKUMA WALK ANIMATION
-  this.frameNames = this.anims.generateFrameNames('akuma', {
-    start: 18, end: 28,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  this.anims.create({ key: 'idleright', frames: this.frameNames, frameRate: 25, repeat: -1 });
-  this.akuma.on('animationcomplete', BackToIdle, this);
-  this.akuma.anims.play('idleright');
-  ///////
-
-  // Hadoken
-  this.hadoken = this.physics.add.group();
-  //let hadokenFrames = [{ key: 'hadokenproj', frame: 'AkumaClean_207.png' },{ key: 'hadokenproj', frame: 'AkumaClean_209.png' },{ key: 'hadokenproj', frame: 'AkumaClean_213.png' },{ key: 'hadokenproj', frame: 'AkumaClean_211.png' }];
-  
-  //this.anims.create({ key: 'hadokenproj', frames: hadokenFrames, repeat: -1 });
-  //this.hadoken.anims.play('hadokenproj');
-
-  // Add a timed event to slow the animation with pause/unpause in a dedicated function at the bottom of the codebase
-  //this.time.addEvent({ delay: 20, callback: AkumaStutter, callbackScope: this, repeat: 99999 });
 
   // Pick & show first word
   currentWord = newWord(WORDS);
@@ -127,7 +86,7 @@ function create(){
       })
 
   // Colliders
-  this.physics.add.collider(this.akuma, platforms);
+  this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
   this.physics.add.collider(this.skeleton, platforms);
   this.physics.add.collider(this.hadoken, this.skeleton, SkeletonDeath, null, this);
 
@@ -177,14 +136,14 @@ function update() {
     }
   // else destroy images and make a new word
   } else {
-    for (i in currentWordImg) {
+    for (let i in currentWordImg) {
       score += 5;
       this.scoretext.setText("Score: " + score);
       currentWordImg[i].destroy();
     }
     currentWord = newWord(WORDS);
     newWordToScreen(this);
-    Hadoken(this);
+    PlayerCharacter.Hadoken(this);
   }
 
 }
@@ -212,56 +171,11 @@ function newWordToScreen(scene) {
   scene.wordContainer.x = (scene.wordContainer.x - ((currentWord.length * 40) / 2));
 }
 
-function AkumaUppercut(scene) {
-    scene.akuma.anims.play('shoryuken');
-    //scene.akuma.setVelocityY(-700);
-}
-
-
-// function AkumaStutter(scene) {
-//   if (this.akuma.anims.isPaused === false) {
-//     this.akuma.anims.pause();
-//   } else {
-//     this.akuma.anims.resume();
-//    }
-// }
-
-function BackToIdle() {
-  this.akuma.anims.play('idleright');
-}
-
-function Hadoken(scene){
-  scene.akuma.anims.play('hadoken');
-  scene.time.delayedCall(200, Hadoken2, [scene]);
-}
-
-function Hadoken2(scene) { 
-  let hadoken = scene.hadoken.create(scene.akuma.getCenter().x + 100, scene.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
-  hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
-  hadoken.body.width = 10;
-  hadoken.setVelocityX(500);
-
-  let particles = scene.particles.hadoken.createEmitter({
-    x: scene.hadoken.x,
-    y: scene.hadoken.y,
-    lifespan: 500,
-    quantity: 2,
-    speed: { min: 40, max: 400 },
-    angle: { min: 0, max: 270 },
-    gravityY: 50,
-    scale: { start: 0.4, end: 0 },
-    blendMode: 'ADD',
-    //on: false
-  });
-  particles.startFollow(hadoken);
- }
-
 function SkeletonDeath(skeleton, hadoken) {
   //skeleton.setVelocityY(-2000);
   skeleton.setVelocityX(0);
-  hadoken.disableBody(true, true);
+  PlayerCharacter.hadoken.disableBody(true, true);
   this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
   this.particles.red.emitParticleAt(hadoken.x, hadoken.y);
-  debugger;
   this.particles.hadoken.setVisible(false);
 }
