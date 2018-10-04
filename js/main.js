@@ -33,6 +33,8 @@ function preload(){
   this.load.image('ground', './assets/img/platform.png');
   this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
   this.load.image('skeleton', './assets/img/skeleton.png');
+  this.load.image('red', './assets/img/particles/red.png');
+  this.load.image('bone', './assets/img/particles/bone.png');
 
   for (i in alphabet) {
     this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
@@ -130,24 +132,45 @@ function create(){
   this.physics.add.collider(this.hadoken, this.skeleton, SkeletonDeath, null, this);
 
   //DEATHPARTICLE TESTING
-  particles.createEmitter({
-    frame: 'blue',
+  this.particles = {};
+  this.particles.bone = this.add.particles('bone');
+  this.particles.red = this.add.particles('red');
+  this.particles.hadoken = this.add.particles('red');
+  
+    this.particles.bone.createEmitter({
+      x: 200,
+      y: 300,
+      lifespan: 2000,
+      quantity: {min: 20, max: 60},
+      speed: { min: 40, max: 1000 },
+      angle: { min: 180, max: 440 },
+      rotate: { start:0, end:360, ease: 'Back.easeOut'},
+      gravityY: 700,
+      scale: { start: 0.01, end: 0.004 },
+      //blendMode: 'ADD',
+      on: false
+    });
+  
+  this.particles.red.createEmitter({
     x: 200,
     y: 300,
     lifespan: 2000,
-    speed: { min: 400, max: 600 },
-    angle: 330,
-    gravityY: 300,
+    quantity: {min: 50, max: 200},
+    speed: { min: 40, max: 600 },
+    angle: { min: 330, max: 380 },
+    gravityY: 0,
     scale: { start: 0.4, end: 0 },
-    quantity: 2,
-    blendMode: 'ADD'
+    blendMode: 'ADD',
+    on: false
   });
 }
 
 function update() {
   // if there are characters left to type
   if (currentWord.length > 0) {
-    if ((this.keys[currentWord[0]].isDown)) {
+    
+    // this.keys[currentWord[0]].isDown
+    if (Phaser.Input.Keyboard.JustDown(this.keys[currentWord[0]])) {
       currentWordImg[0].setTint(0x00ff00);
       currentWordImg.push(currentWordImg.shift());
       currentWord.shift();
@@ -162,7 +185,6 @@ function update() {
     currentWord = newWord(WORDS);
     newWordToScreen(this);
     Hadoken(this);
-    debugger;
   }
 
 }
@@ -218,10 +240,28 @@ function Hadoken2(scene) {
   hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
   hadoken.body.width = 10;
   hadoken.setVelocityX(500);
+
+  let particles = scene.particles.hadoken.createEmitter({
+    x: scene.hadoken.x,
+    y: scene.hadoken.y,
+    lifespan: 500,
+    quantity: 2,
+    speed: { min: 40, max: 400 },
+    angle: { min: 0, max: 270 },
+    gravityY: 50,
+    scale: { start: 0.4, end: 0 },
+    blendMode: 'ADD',
+    //on: false
+  });
+  particles.startFollow(hadoken);
  }
 
 function SkeletonDeath(skeleton, hadoken) {
-  skeleton.setVelocityY(-2000);
+  //skeleton.setVelocityY(-2000);
   skeleton.setVelocityX(0);
   hadoken.disableBody(true, true);
+  this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
+  this.particles.red.emitParticleAt(hadoken.x, hadoken.y);
+  debugger;
+  this.particles.hadoken.setVisible(false);
 }
