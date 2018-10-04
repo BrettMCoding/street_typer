@@ -173,7 +173,8 @@ function newWordToScreen(scene) {
 function SkeletonDeath(skeleton, hadoken) {
   //skeleton.setVelocityY(-2000);
   skeleton.setVelocityX(0);
-  PlayerCharacter.hadoken.disableBody(true, true);
+  debugger;
+  // hadoken.destroy()
   this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
   this.particles.red.emitParticleAt(hadoken.x, hadoken.y);
   this.particles.hadoken.setVisible(false);

@@ -86,19 +86,19 @@ BackToIdle() {
 // Hadoken Animation
 Hadoken(scene){
   this.akuma.anims.play('hadoken');
-  scene.time.delayedCall(200, this.Hadoken2, [scene]);
+  scene.time.delayedCall(200, this.Hadoken2, [this, scene]);
 }
 
 // Hadoken construct / particles
-Hadoken2(scene) { 
-  let hadoken = this.hadoken.create(this.akuma.getCenter().x + 100, this.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
+Hadoken2(PlayerCharacter, scene) { 
+  let hadoken = PlayerCharacter.hadoken.create(PlayerCharacter.akuma.getCenter().x + 100, PlayerCharacter.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
   hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
   hadoken.body.width = 10;
   hadoken.setVelocityX(500);
 
   let particles = scene.particles.hadoken.createEmitter({
-    x: scene.hadoken.x,
-    y: scene.hadoken.y,
+    x: PlayerCharacter.hadoken.x,
+    y: PlayerCharacter.hadoken.y,
     lifespan: 500,
     quantity: 2,
     speed: { min: 40, max: 400 },
