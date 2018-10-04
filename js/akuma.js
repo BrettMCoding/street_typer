@@ -21,7 +21,6 @@ export default class PlayerCharacter {
 
   // AKUMA HADOKEN ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    // normal start: 246
     start: 199, end: 203,
     prefix: 'AkumaClean_', suffix: '.png'
   });
@@ -39,17 +38,6 @@ export default class PlayerCharacter {
 
   // Hadoken
   this.hadoken = scene.physics.add.group();
-
-    // // Create the animations we need from the player spritesheet
-    // const anims = scene.anims;
-    // anims.create({
-    //   key: "player-idle",
-    //   frames: anims.generateFrameNumbers("player", { start: 0, end: 3 }),
-    //   frameRate: 3,
-    //   repeat: -1
-    // });
-
-    // Create the physics-based sprite that we will move around and animate
 
   }
 
@@ -86,6 +74,7 @@ BackToIdle() {
 // Hadoken Animation
 Hadoken(scene){
   this.akuma.anims.play('hadoken');
+  console.log("fireball!");
   scene.time.delayedCall(200, this.Hadoken2, [this, scene]);
 }
 

@@ -1,4 +1,5 @@
 import PlayerCharacter from "./akuma.js";
+import DICTIONARY from "./words.js";
 
 const config = {
   type: Phaser.AUTO,
@@ -19,14 +20,15 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-
-const WORDS = ["chicken", "alphabet", "skill"];
 let alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-let alphaImg = alphabet.slice(0);
+//let alphaImg = alphabet.slice(0);
 let currentWord;
 let currentWordImg;
-let score = 0;
-
+let combo = 0;
+let timer = 5;
+let WORDS;
+let roundEndSwitch = 0;
+let RoundInHackyGlobalZBullshit;
 function preload(){
   // Runs once and loads assets
 
@@ -44,6 +46,9 @@ function preload(){
 
 }
 function create(){
+  // Dictionary
+  this.dictionary = new DICTIONARY();
+  WORDS = this.dictionary.WORDS;
   // Background
   const bg = this.add.image(config.width / 2, config.height / 2, "background");
   bg.setDisplaySize(config.width, config.height);
@@ -77,19 +82,31 @@ function create(){
   this.wordContainer = this.add.container(config.width / 2, config.height / 5);
   newWordToScreen(this);
 
-  this.scoretext = this.add
-      .text(16, 16, ("Score: " + score), {
+  this.timertext = this.add
+      .text(config.width / 2, 10, ("Time Left: " + timer), {
         font: "18px monospace",
         fill: "#000000",
         padding: { x: 20, y: 10 },
-        backgroundColor: "#ffffff"
-      })
+        backgroundColor: "#ffffff",
+        originX : 0.5
+      });
+
+ this.timertext.x -= this.timertext.width / 2;
+
+  this.combotext = this.add
+    .text(16, 16, ("combo: " + combo), {
+      font: "18px monospace",
+      fill: "#000000",
+      padding: { x: 20, y: 10 },
+      backgroundColor: "#ffffff"
+   })
+
   // Colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
   this.physics.add.collider(this.skeleton, platforms);
   this.physics.add.collider(this.PlayerCharacter.hadoken, this.skeleton, SkeletonDeath, null, this);
 
-  //DEATHPARTICLE TESTING
+  // Particles
   this.particles = {};
   this.particles.bone = this.add.particles('bone');
   this.particles.red = this.add.particles('red');
@@ -121,6 +138,9 @@ function create(){
     blendMode: 'ADD',
     on: false
   });
+
+  // Game timer
+  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: 4});
 }
 
 function update() {
@@ -136,15 +156,20 @@ function update() {
   // else destroy images and make a new word
   } else {
     for (let i in currentWordImg) {
-      score += 5;
-      this.scoretext.setText("Score: " + score);
       currentWordImg[i].destroy();
     }
+    combo += 1;
+    this.combotext.setText("COMBO: " + combo);
     currentWord = newWord(WORDS);
     newWordToScreen(this);
     this.PlayerCharacter.Hadoken(this);
   }
 
+  // Round Over calls
+  if (timer === 0 && roundEndSwitch === 0){
+    roundEndSwitch = 1;
+    RoundEnd(this);
+  }
 }
 
 function newWord(wordlist) {
@@ -173,9 +198,22 @@ function newWordToScreen(scene) {
 function SkeletonDeath(skeleton, hadoken) {
   //skeleton.setVelocityY(-2000);
   skeleton.setVelocityX(0);
-  debugger;
-  // hadoken.destroy()
+  hadoken.destroy()
   this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
   this.particles.red.emitParticleAt(hadoken.x, hadoken.y);
   this.particles.hadoken.setVisible(false);
+}
+
+function countDown() {
+  timer--;
+  this.timertext.setText("Time Left: " + timer);
+}
+
+function RoundEnd(scene) {
+  scene.combotext.destroy();
+  scene.timertext.destroy();
+    for (let i in currentWordImg) {
+     currentWordImg[i].destroy();
+    }
+  scene.time.addEvent({ delay: 500, callback: scene.PlayerCharacter.Hadoken(scene), callbackScope: this, repeat: 500})
 }
