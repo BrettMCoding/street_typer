@@ -11,34 +11,34 @@ export default class PlayerCharacter {
   this.akuma.setCollideWorldBounds(true);
 
   // AKUMA GOSHORYU ANIMATION
-  this.frameNames = this.anims.generateFrameNames('akuma', {
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
     // normal start: 246
     start: 248, end: 266,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  this.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
-  this.anims.create({ key: 'shoryuken', frames: this.frameNames, frameRate: 20, repeat: 0 });
+  scene.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
+  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 20, repeat: 0 });
 
   // AKUMA HADOKEN ANIMATION
-  this.frameNames = this.anims.generateFrameNames('akuma', {
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
     // normal start: 246
     start: 199, end: 203,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  this.anims.create({ key: 'hadoken', frames: this.frameNames, frameRate: 20, repeat: 0, yoyo: true})
+  scene.anims.create({ key: 'hadoken', frames: scene.frameNames, frameRate: 20, repeat: 0, yoyo: true})
   
   
   // AKUMA WALK ANIMATION
-  this.frameNames = this.anims.generateFrameNames('akuma', {
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 18, end: 28,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  this.anims.create({ key: 'idleright', frames: this.frameNames, frameRate: 25, repeat: -1 });
-  this.akuma.on('animationcomplete', PlayerCharacter.BackToIdle, this);
+  scene.anims.create({ key: 'idleright', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
   this.akuma.anims.play('idleright');
 
   // Hadoken
-  this.hadoken = this.physics.add.group();
+  this.hadoken = scene.physics.add.group();
 
     // // Create the animations we need from the player spritesheet
     // const anims = scene.anims;
@@ -80,18 +80,18 @@ export default class PlayerCharacter {
 // }
 
 BackToIdle() {
-  this.PlayerCharacter.akuma.anims.play('idleright');
+  this.akuma.anims.play('idleright');
 }
 
 // Hadoken Animation
 Hadoken(scene){
   this.akuma.anims.play('hadoken');
-  scene.time.delayedCall(200, Hadoken2, [scene]);
+  scene.time.delayedCall(200, this.Hadoken2, [scene]);
 }
 
 // Hadoken construct / particles
 Hadoken2(scene) { 
-  let hadoken = scene.hadoken.create(scene.akuma.getCenter().x + 100, scene.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
+  let hadoken = this.hadoken.create(this.akuma.getCenter().x + 100, this.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
   hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
   hadoken.body.width = 10;
   hadoken.setVelocityX(500);

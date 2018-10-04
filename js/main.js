@@ -84,11 +84,10 @@ function create(){
         padding: { x: 20, y: 10 },
         backgroundColor: "#ffffff"
       })
-
   // Colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
   this.physics.add.collider(this.skeleton, platforms);
-  this.physics.add.collider(this.hadoken, this.skeleton, SkeletonDeath, null, this);
+  this.physics.add.collider(this.PlayerCharacter.hadoken, this.skeleton, SkeletonDeath, null, this);
 
   //DEATHPARTICLE TESTING
   this.particles = {};
@@ -143,7 +142,7 @@ function update() {
     }
     currentWord = newWord(WORDS);
     newWordToScreen(this);
-    PlayerCharacter.Hadoken(this);
+    this.PlayerCharacter.Hadoken(this);
   }
 
 }
