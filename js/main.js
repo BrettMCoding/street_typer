@@ -24,7 +24,6 @@ let alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
 //let alphaImg = alphabet.slice(0);
 let currentWord;
 let currentWordImg;
-let combo = 0;
 let timer = 5;
 let WORDS;
 let roundEndSwitch = 0;
@@ -90,11 +89,11 @@ function create(){
         backgroundColor: "#ffffff",
         originX : 0.5
       });
+  this.timertext.x -= this.timertext.width / 2;
 
- this.timertext.x -= this.timertext.width / 2;
-
+  this.combo = 15;
   this.combotext = this.add
-    .text(16, 16, ("combo: " + combo), {
+    .text(16, 16, ("combo: " + this.combo), {
       font: "18px monospace",
       fill: "#000000",
       padding: { x: 20, y: 10 },
@@ -140,7 +139,7 @@ function create(){
   });
 
   // Game timer
-  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: 4});
+  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (this.combo - 1)});
 }
 
 function update() {
@@ -158,8 +157,8 @@ function update() {
     for (let i in currentWordImg) {
       currentWordImg[i].destroy();
     }
-    combo += 1;
-    this.combotext.setText("COMBO: " + combo);
+    this.combo += 1;
+    this.combotext.setText("COMBO: " + this.combo);
     currentWord = newWord(WORDS);
     newWordToScreen(this);
     this.PlayerCharacter.Hadoken(this);
@@ -215,5 +214,5 @@ function RoundEnd(scene) {
     for (let i in currentWordImg) {
      currentWordImg[i].destroy();
     }
-  scene.time.addEvent({ delay: 500, callback: scene.PlayerCharacter.Hadoken(scene), callbackScope: this, repeat: 500})
+  scene.PlayerCharacter.Hadoken(scene, scene.combo, true)
 }
