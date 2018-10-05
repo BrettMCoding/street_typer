@@ -40,6 +40,12 @@ function preload(){
   this.load.image('red', './assets/img/particles/red.png');
   this.load.image('bone', './assets/img/particles/bone.png');
 
+  this.load.audio('fiercekick', './assets/sounds/fiercekickA3.wav',);
+  this.load.audio('fiercepunch', './assets/sounds/fiercepunchA3.wav',);
+  this.load.audio('lightkick', './assets/sounds/lightkickA3.wav',);
+  this.load.audio('lightpunch', './assets/sounds/lightpunchA3.wav',);
+  this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.wav',);
+
   for (let i in alphabet) {
     this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
   }
@@ -142,6 +148,11 @@ function create(){
     on: false
   });
   
+  // Hit Sound Array
+  debugger;
+  this.sounds = {};
+  this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
+
   // this.particles.red.createEmitter({
   //   x: 200,
   //   y: 300,
@@ -219,6 +230,12 @@ function SkeletonDeath(skeleton, hadoken) {
   this.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
   //this.particles.red.emitParticleAt(hadoken.x, hadoken.y);
   this.particles.hadoken.setVisible(false);
+
+  // Hit sound effect tied to hadoken exploding
+  let hitSounds = this.sounds.hits
+  let random = Math.floor(Math.random() * hitSounds.length)
+  let randomHitSound = this.sound.add(hitSounds[random]);
+  randomHitSound.play();
 }
 
 function countDown() {
