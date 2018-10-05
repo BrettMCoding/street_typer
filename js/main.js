@@ -216,3 +216,5 @@ function RoundEnd(scene) {
     }
   scene.PlayerCharacter.Hadoken(scene, scene.combo, true)
 }
+
+//Math.floor(Math.random() * wordlist.length)

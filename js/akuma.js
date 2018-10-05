@@ -36,6 +36,71 @@ export default class PlayerCharacter {
   this.akuma.on('animationcomplete', this.BackToIdle, this);
   this.akuma.anims.play('idleright');
 
+  // AKUMA LIGHT PUNCH ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 89, end: 91,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'lightpunch', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
+  this.akuma.anims.play('idleright');
+
+  // AKUMA MEDIUM PUNCH ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 93, end: 97,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'standinguppercut', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
+  this.akuma.anims.play('standinguppercut');
+
+  // AKUMA FIERCE PUNCH ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 99, end: 103,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'fiercepunch', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
+  this.akuma.anims.play('fiercepunch');
+
+  // AKUMA LIGHT KICK ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 105, end: 109,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'lightkick', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
+  this.akuma.anims.play('lightkick');
+
+  // AKUMA MEDIUM KICK ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 111, end: 114,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'mediumkick', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
+  this.akuma.anims.play('mediumkick');
+
+  // AKUMA HEAVY KICK ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 115, end: 120,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'heavykick', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
+  this.akuma.anims.play('heavykick');
+
+  // AKUMA OVERHEAD ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 115, end: 120,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'overhead', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  this.akuma.on('animationcomplete', this.BackToIdle, this);
+  this.akuma.anims.play('overhead');
+
+  this.akuma.attackNames = ['shoryuken', 'lightpunch', 'mediumpunch', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
+
   // Hadoken
   this.hadoken = scene.physics.add.group();
 
@@ -88,7 +153,8 @@ Hadoken(scene, combo, RoundOver){
 }
 
 RoundOverCombo(scene) {
-  scene.PlayerCharacter.akuma.anims.play('hadoken');
+  let attack = scene.playerCharacter.akuma.attackNames;
+  scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * wordlist.length)]);
 }
 
 // Hadoken construct / particles
