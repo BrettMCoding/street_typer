@@ -104,7 +104,7 @@ export default class PlayerCharacter {
   // JUST FOR FUN: Space to uppercut
   AkumaUppercut(scene) {
     this.akuma.anims.play('shoryuken');
-    this.Hadoken2(this, scene);
+    this.createHadokenProjectile(this, scene);
     this.akuma.setVelocityY(-700);
   }
 
@@ -113,48 +113,38 @@ BackToIdle() {
   this.akuma.anims.play('idleright');
 }
 
-// Use random attack. If the round is over
-Hadoken(scene, combo, RoundOver){
-  let attack = scene.PlayerCharacter.akuma.attackNames;
-  scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
+// Main attack function. Calls a random animation, and creates a hadoken projectile.
+// The sound effect and particles are tied to the hitSkeleton function
+akumaAttack(scene, combo, RoundOver) {
+  this.randomAttackAnimation(scene);
 
-  scene.time.delayedCall(200, this.Hadoken2, [this, scene]);
+  scene.time.delayedCall(100, this.createHadokenProjectile, [this, scene]);
 
   if (RoundOver === true){
-      this.akuma.anims.play('hadoken');
-      //scene.time.delayedCall(200, this.Hadoken2, [this, scene]);
 
-
-      scene.time.addEvent({ delay: 200, callback: scene.PlayerCharacter.RoundOverCombo, args: [scene], repeat: combo - 1});
-
-      scene.time.addEvent({ delay: 200, callback: scene.PlayerCharacter.Hadoken2, args: [scene.PlayerCharacter, scene], repeat: combo - 1});
+      
   }
 }
 
-RoundOverCombo(scene) {
+// At the end of the round, do an attack for every word in combo
+superCombo(scene, combo) {
+  // Add a deleyed call to randomAttackAnimation that repeats (combo) times
+  scene.time.addEvent({ delay: 200, callback: this.randomAttackAnimation, args: [scene], repeat: combo - 1});
+  // Add a deleyed call to createHadokenProjectile that repeats (combo) times
+  scene.time.addEvent({ delay: 200, callback: this.createHadokenProjectile, args: [this, scene], repeat: combo - 1});
+}
+
+// Random attack animation
+randomAttackAnimation(scene) {
   let attack = scene.PlayerCharacter.akuma.attackNames;
   scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
 }
 
-// Hadoken construct / particles
-Hadoken2(PlayerCharacter, scene) { 
+// Hadoken construct
+createHadokenProjectile(PlayerCharacter, scene) { 
   let hadoken = PlayerCharacter.hadoken.create(PlayerCharacter.akuma.getCenter().x + 100, PlayerCharacter.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
   hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
   hadoken.body.width = 100;
   hadoken.setVelocityX(500);
-
-  // let particles = scene.particles.hadoken.createEmitter({
-  //   x: PlayerCharacter.hadoken.x,
-  //   y: PlayerCharacter.hadoken.y,
-  //   lifespan: 500,
-  //   quantity: 2,
-  //   speed: { min: 40, max: 400 },
-  //   angle: { min: 0, max: 270 },
-  //   gravityY: 50,
-  //   scale: { start: 0.4, end: 0 },
-  //   blendMode: 'ADD',
-  //   //on: false
-  // });
-  // particles.startFollow(hadoken);
- }
+  }
 }

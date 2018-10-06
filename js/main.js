@@ -33,7 +33,7 @@ let currentWord;
 let currentWordImg;
 
 // Timer. Adjust to change the length of a round
-let timer = 30;
+let timer = 2;
 
 // WORDS will be our imported dictionary of words in an array
 let WORDS;
@@ -124,7 +124,7 @@ function create(){
   this.timertext.x -= this.timertext.width / 2;
 
   // Add players total word combo to screen
-  this.combo = 0;
+  this.combo = 3;
   this.combotext = this.add
     .text(16, 16, ("combo: " + this.combo), {
       font: "18px monospace",
@@ -213,7 +213,7 @@ function update() {
     newWordToScreen(this);
 
     // Attack the enemy
-    this.PlayerCharacter.Hadoken(this);
+    this.PlayerCharacter.akumaAttack(this);
   }
 
   // If the round is over and we haven't thrown the switch yet,
@@ -317,5 +317,5 @@ function roundEnd(scene) {
      currentWordImg[i].destroy();
     }
   // Call the attack function with end of round = true.
-  scene.PlayerCharacter.Hadoken(scene, scene.combo, true)
+  scene.PlayerCharacter.superCombo(scene, scene.combo)
 }
