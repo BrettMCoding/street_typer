@@ -2,17 +2,14 @@ export default class PlayerCharacter {
   constructor(scene, x, y) {
     this.scene = scene;
 
-    // Create Akumad
+  // Create Akuma
   this.akuma = scene.physics.add.sprite(x, y, 'akuma', 'AkumaClean_.png')
-  .setScale(1.5);
-
-  //  Player physics properties.
-  this.akuma.setBounce(0.2);
-  this.akuma.setCollideWorldBounds(true);
+    .setScale(1.5)
+    .setBounce(0.2)
+    .setCollideWorldBounds(true);
 
   // AKUMA GOSHORYU ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    // normal start: 246
     start: 248, end: 266,
     prefix: 'AkumaClean_', suffix: '.png'
   });
@@ -25,7 +22,6 @@ export default class PlayerCharacter {
     prefix: 'AkumaClean_', suffix: '.png'
   });
   scene.anims.create({ key: 'hadoken', frames: scene.frameNames, frameRate: 20, repeat: 0, yoyo: true})
-  
   
   // AKUMA WALK ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -85,10 +81,10 @@ export default class PlayerCharacter {
   });
   scene.anims.create({ key: 'overhead', frames: scene.frameNames, frameRate: 25, repeat: 0 });
 
-  
+  // Array of string names of attack animations to be used as keys later
   this.akuma.attackNames = ['shoryuken', 'lightpunch', 'mediumpunch', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
-  // Hadoken
+  // Hadoken physical body (now set to invisible and used as hit detection)
   this.hadoken = scene.physics.add.group();
 
   }
