@@ -16,6 +16,14 @@ export default class PlayerCharacter {
   scene.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
   scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 20, repeat: 0 });
 
+  // AKUMA SUPERCHARGE ANIMATION
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    // ParseInt to bypass octal literals strict mode error
+    start: 3, end: 17,
+    prefix: 'AkumaClean_', suffix: '.png'
+  });
+  scene.anims.create({ key: 'supercharge', frames: scene.frameNames, frameRate: 2, repeat: 0 });
+
   // AKUMA HADOKEN ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 199, end: 203,
@@ -28,7 +36,7 @@ export default class PlayerCharacter {
     start: 18, end: 28,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'idleright', frames: scene.frameNames, frameRate: 25, repeat: -1 });
+  scene.anims.create({ key: 'idleright', frames: scene.frameNames, frameRate: 15, repeat: -1 });
   this.akuma.anims.play('idleright');
   this.akuma.on('animationcomplete', this.BackToIdle, this);
 
@@ -103,9 +111,9 @@ export default class PlayerCharacter {
 
   // JUST FOR FUN: Space to uppercut
   AkumaUppercut(scene) {
-    this.akuma.anims.play('shoryuken');
-    this.createHadokenProjectile(this, scene);
-    this.akuma.setVelocityY(-700);
+    this.akuma.anims.play('supercharge');
+    //this.createHadokenProjectile(this, scene);
+    //this.akuma.setVelocityY(-700);
   }
 
 // After any animation, resume playing idle animation
@@ -131,6 +139,8 @@ superCombo(scene, combo) {
 
 // Random attack animation
 randomAttackAnimation(scene) {
+  const shakecam = scene.cameras.add().setName('shakecam');
+  shakecam.shake(100, 0.01);
   let attack = scene.PlayerCharacter.akuma.attackNames;
   scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
 }

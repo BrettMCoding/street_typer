@@ -46,12 +46,18 @@ function preload(){
   // NOTE: "this" === Phaser.Scene
 
   // Load image assets
-  this.load.image("background", "./assets/img/background.gif")
+  for (let i = 1; i <= 8; i++) {
+    this.load.image("background" + i, "./assets/img/backgroundsprite/background" + i + ".png")
+    console.log("background" + i)
+  }
+  //this.load.image("background", "./assets/img/background.gif")
+
   this.load.image('ground', './assets/img/platform.png');
   this.load.image('skeleton', './assets/img/skeleton.png');
   this.load.image('bloodchunk', './assets/img/particles/bloodchunk.png');
   this.load.image('red', './assets/img/particles/red.png');
   this.load.image('bone', './assets/img/particles/bone.png');
+  this.load.image('fire', './assets/img/particles/muzzleflash3.png');
 
   // Load Akuma sprites
   this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
@@ -64,6 +70,9 @@ function preload(){
   this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.wav',);
   this.load.audio('memescream', './assets/sounds/memescream.wav',);
 
+
+  // Load combo word
+  this.load.image('comboword', './assets/img/comboword.png');
   // Load alphabet images (in a for loop to save space)
   for (let i in alphabet) {
     this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
@@ -78,8 +87,23 @@ function create(){
   
   // Background
   // NOTE: We'll be using config.width or height a lot to get the dimensions of our game
-  const bg = this.add.image(config.width / 2, config.height / 2, "background");
-  bg.setDisplaySize(config.width, config.height);
+  this.anims.create({
+    key: "background",
+    frames: [
+      { key: "background1"},
+      { key: "background2"},
+      { key: "background3"},
+      { key: "background4"},
+      { key: "background5"},
+      { key: "background6"},
+      { key: "background7"},
+      { key: "background8"}
+    ],
+    frameRate: 15,
+    repeat: -1
+  });
+  const bg = this.add.sprite(config.width / 2, config.height / 2, "background");
+  bg.play("background");
 
   // Platforms
   let platforms = this.physics.add.staticGroup();
@@ -97,8 +121,8 @@ function create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Skeleton Enemy
-  this.skeleton = this.physics.add.sprite(config.width / 8 + 50, config.height / 2, 'skeleton')
-    .setScale(0.25)
+  this.skeleton = this.physics.add.sprite(config.width / 8 + 70, config.height / 2 - 40, 'skeleton')
+    .setScale(0.35)
     .setBounce(0.2)
     .setCollideWorldBounds(true);
   this.skeleton.flipX = true;
@@ -114,25 +138,34 @@ function create(){
 
   // Add round timer to screen
   this.timertext = this.add
-      .text(config.width / 2, 10, ("Time Left: " + timer), {
-        font: "18px monospace",
-        fill: "#000000",
+      .text(config.width / 2, 10, ("TIME LEFT: " + timer), {
+        fontFamily: "Impact",
+        fontSize: 50,
+        fill: "#f8d838",
         padding: { x: 20, y: 10 },
-        backgroundColor: "#ffffff",
         originX : 0.5
-      });
+      }).setStroke('#312088', 3)
+      .setDepth(10);
   this.timertext.x -= this.timertext.width / 2;
 
   // Add players total word combo to screen
-  this.combo = 3;
-  this.combotext = this.add
-    .text(16, 16, ("combo: " + this.combo), {
-      font: "18px monospace",
-      fill: "#000000",
-      padding: { x: 20, y: 10 },
-      backgroundColor: "#ffffff"
-   })
+  this.combo = 0;
 
+  this.comboContainer = this.add.container(16, 16);
+  this.combotext = this.add
+    .text(31, 40, (this.combo), {
+      fontFamily: "Impact",
+      fontSize: 60,
+      fill: "#f8d838",
+      padding: { x: 20, y: 10 }})
+      .setStroke('#312088', 3)
+      .setDepth(10);
+   this.comboContainer
+        .add(this.combotext)
+        .add(this.add.image(70, 40, 'comboword'))
+        .setVisible(true);
+  
+        
   // Colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
   this.physics.add.collider(this.skeleton, platforms);
@@ -142,6 +175,7 @@ function create(){
   this.particles = {};
   this.particles.bone = this.add.particles('bone');
   this.particles.bloodchunk = this.add.particles('bloodchunk');
+  this.particles.fire = this.add.particles('fire');
   this.particles.hadoken = this.add.particles('red');
   
   this.particles.bone.createEmitter({
@@ -170,6 +204,24 @@ function create(){
     scale: { start: 0.1, end: 0.004 },
     //blendMode: 'ADD',
     on: false
+  });
+
+  // add fire to attach to combo
+  this.particles.fire.createEmitter({
+      alpha: { start: 1, end: 0 },
+      scale: { start: 0.5, end: 1.5 },
+      quantity: 5,
+      speed: {min: 40, max: 200},
+      //tint: { start: 0xff945e, end: 0xff945e },
+      angle: { min: 0, max: 360 },
+      rotate: { min: -45, max: 0 },
+      lifespan: { min: 100, max: 200 },
+      blendMode: 'ADD',
+      frequency: 1100,
+      maxParticles: 10,
+      x: this.combotext.getCenter().x + 17,
+      y: this.combotext.getCenter().y + 20,
+      on: false
   });
   
   // Attack *Hit* Sound Array
@@ -204,9 +256,14 @@ function update() {
       // Destroy the word's sprites
       currentWordImg[i].destroy();
     }
+
     // Add to combo
     this.combo += 1;
-    this.combotext.setText("COMBO: " + this.combo);
+    this.combotext.setText(this.combo);
+
+    if (this.combo === 2) {
+        this.comboContainer.setVisible(true);
+    }
 
     // New word to screen
     currentWord = newWord(WORDS);
@@ -221,8 +278,8 @@ function update() {
     // Throw the switch
     roundEndSwitch = 1;
 
-    //let meme = this.sound.add('memescream');
-    //meme.play();
+    // let meme = this.sound.add('memescream');
+    // meme.play();
 
     // End of round function
     roundEnd(this);
@@ -279,7 +336,8 @@ function hitSkeleton(skeleton, hadoken) {
   // Destroy the projectile
   hadoken.destroy()
 
-  // Emit bones and blood
+  // Emit bones and blood and combo fire
+  this.particles.fire.emitParticle();
   this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
   this.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
 
@@ -294,28 +352,30 @@ function hitSkeleton(skeleton, hadoken) {
   randomHitSound.play();
 
   // ASK FOR HELP OR FIX YOURSELF : Camera shaking everything. shake skeleton only?
-  this.cameras.main.setName('cam1');
+  //this.cameras.main.setName('cam1');
   // Camera shake
-  const shakecam = this.cameras.add().setName('shakecam');
-  shakecam.ignore = (this.timertext);
-  shakecam.shake(100, 0.01);
+  
 
 }
 
 // Called by our create() game timer event
 function countDown() {
   timer--;
-  this.timertext.setText("Time Left: " + timer);
+  this.timertext.setText("TIME LEFT: " + timer);
 }
 
 // End of round function
 function roundEnd(scene) {
-  // Destroy text on screen
-  scene.combotext.destroy();
+  // hide comboContainer, destroy timer
+  scene.comboContainer.setVisible(false);
   scene.timertext.destroy();
-    for (let i in currentWordImg) {
-     currentWordImg[i].destroy();
-    }
-  // Call the attack function with end of round = true.
+
+  // destroy currentWordImg
+  for (let i in currentWordImg) {
+    currentWordImg[i].destroy();
+  }
+  // Call the attack function with end of round = true & combo > 0.
+  if (scene.combo > 0) {
   scene.PlayerCharacter.superCombo(scene, scene.combo)
+  }
 }
