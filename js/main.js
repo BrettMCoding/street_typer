@@ -92,6 +92,9 @@ function create(){
 
   // Add A-Z as clickable keys for our game
   this.keys = this.input.keyboard.addKeys(alphabet.join(","));
+  // Add spacebar for testing attacks I guess
+  this.keys.SPACE = this.input.keyboard.addKey
+        (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Skeleton Enemy
   this.skeleton = this.physics.add.sprite(config.width / 8 + 50, config.height / 2, 'skeleton')
@@ -178,6 +181,9 @@ function create(){
 }
 
 function update() {
+  if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
+    this.PlayerCharacter.AkumaUppercut(this);
+  }
   // If there are characters left to type
   if (currentWord.length > 0) {
     

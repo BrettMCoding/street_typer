@@ -101,25 +101,19 @@ export default class PlayerCharacter {
     this.sprite.destroy();
   }
 
+  // JUST FOR FUN: Space to uppercut
   AkumaUppercut(scene) {
-    scene.akuma.anims.play('shoryuken');
-    //scene.akuma.setVelocityY(-700);
+    this.akuma.anims.play('shoryuken');
+    this.Hadoken2(this, scene);
+    this.akuma.setVelocityY(-700);
   }
 
-
-// function AkumaStutter(scene) {
-//   if (this.PlayerCharacter.akuma.anims.isPaused === false) {
-//     this.PlayerCharacter.akuma.anims.pause();
-//   } else {
-//     this.PlayerCharacter.akuma.anims.resume();
-//    }
-// }
-
+// After any animation, resume playing idle animation
 BackToIdle() {
   this.akuma.anims.play('idleright');
 }
 
-// Hadoken Animation
+// Use random attack. If the round is over
 Hadoken(scene, combo, RoundOver){
   let attack = scene.PlayerCharacter.akuma.attackNames;
   scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
