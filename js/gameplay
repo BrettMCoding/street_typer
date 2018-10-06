@@ -1,23 +1,10 @@
-TYPEFIGHTER SINGLEPLAYER GAMEPLAY IDEAS
-
-write as many words as you can in 30/60 seconds.
-
-score is saved and a combo plays with the number of words completed ending with your chosen finishing move (shoryuken / metsu-hadoken / raging demon)
-
-TO IMPLEMENT THIS:
-
-MODULIZE CODE:
-Akuma anims / functions
+TO DO:
 
 add start button (with a 3 2 1 fight countdown)
-add gameplay timer
 
-add combo tracker
-add combo function
+add round start animations
 
-create anims for all attacks, put each in a function
-add all attacks to an array
-call a random attack for each hit in the combo
+add round end animations
 
 add finishing moves and append them to the end of the combo
 

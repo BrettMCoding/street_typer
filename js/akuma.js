@@ -115,15 +115,10 @@ BackToIdle() {
 
 // Main attack function. Calls a random animation, and creates a hadoken projectile.
 // The sound effect and particles are tied to the hitSkeleton function
-akumaAttack(scene, combo, RoundOver) {
+akumaAttack(scene) {
   this.randomAttackAnimation(scene);
 
   scene.time.delayedCall(100, this.createHadokenProjectile, [this, scene]);
-
-  if (RoundOver === true){
-
-      
-  }
 }
 
 // At the end of the round, do an attack for every word in combo
