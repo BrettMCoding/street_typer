@@ -33,7 +33,7 @@ let currentWord;
 let currentWordImg;
 
 // Timer. Adjust to change the length of a round
-let timer = 2;
+let timer = 200;
 
 // WORDS will be our imported dictionary of words in an array
 let WORDS;
@@ -46,23 +46,25 @@ function preload(){
   // NOTE: "this" === Phaser.Scene
 
   // Load image assets
+  // Loop for background frames
   for (let i = 1; i <= 8; i++) {
     this.load.image("background" + i, "./assets/img/backgroundsprite/background" + i + ".png")
     console.log("background" + i)
   }
-  //this.load.image("background", "./assets/img/background.gif")
-
   this.load.image('ground', './assets/img/platform.png');
   this.load.image('skeleton', './assets/img/skeleton.png');
   this.load.image('bloodchunk', './assets/img/particles/bloodchunk.png');
   this.load.image('red', './assets/img/particles/red.png');
   this.load.image('bone', './assets/img/particles/bone.png');
   this.load.image('fire', './assets/img/particles/muzzleflash3.png');
+  this.load.image('flares', './assets/img/particles/sparkle1.png');
+  this.load.atlas('lazer', './assets/img/particles/lazer/lazer.png', './assets/img/particles/lazer/lazer.json');
 
   // Load Akuma sprites
   this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
 
   // Load audio assets
+  this.load.audio('super', './assets/sounds/super.wav',);
   this.load.audio('fiercekick', './assets/sounds/fiercekickA3.wav',);
   this.load.audio('fiercepunch', './assets/sounds/fiercepunchA3.wav',);
   this.load.audio('lightkick', './assets/sounds/lightkickA3.wav',);
@@ -102,8 +104,8 @@ function create(){
     frameRate: 15,
     repeat: -1
   });
-  const bg = this.add.sprite(config.width / 2, config.height / 2, "background");
-  bg.play("background");
+  this.background = this.add.sprite(config.width / 2, config.height / 2, "background");
+  this.background.play("background");
 
   // Platforms
   let platforms = this.physics.add.staticGroup();
@@ -149,7 +151,7 @@ function create(){
   this.timertext.x -= this.timertext.width / 2;
 
   // Add players total word combo to screen
-  this.combo = 0;
+  this.combo = 50;
 
   this.comboContainer = this.add.container(16, 16);
   this.combotext = this.add
@@ -176,6 +178,8 @@ function create(){
   this.particles.bone = this.add.particles('bone');
   this.particles.bloodchunk = this.add.particles('bloodchunk');
   this.particles.fire = this.add.particles('fire');
+  this.particles.vortex = this.add.particles('flares');
+  this.particles.vortex2 = this.add.particles('flares');
   this.particles.hadoken = this.add.particles('red');
   
   this.particles.bone.createEmitter({
@@ -223,7 +227,45 @@ function create(){
       y: this.combotext.getCenter().y + 20,
       on: false
   });
+
+  // Super combo vortex particles
+  this.circle = new Phaser.Geom.Circle(this.PlayerCharacter.akuma.x, this.PlayerCharacter.akuma.y, 500);
+  this.particles.vortex.createEmitter({
+    x: 0,
+    y: 0,
+    moveToX: {min: this.PlayerCharacter.akuma.x -15, max: this.PlayerCharacter.akuma.x +15},
+    moveToY: {min: this.PlayerCharacter.akuma.y -15, max: this.PlayerCharacter.akuma.y +15},
+    lifespan: {min:200,max:400},
+    quantity: 100,
+    scale: { start: 0.00, end: 0.08 },
+    delay: {min:0, max:500},
+    blendMode: 'ADD',
+    emitZone: { source: this.circle, type: 'random', quantity: 1 },
+    on: false
+});
+  // Super combo airborn particles
+  this.circle2 = new Phaser.Geom.Circle(this.PlayerCharacter.akuma.x, this.PlayerCharacter.akuma.y + 100, 100);
+  this.particles.vortex2.createEmitter({
+    x: 0,
+    y: 0,
+    moveToX: {min: this.PlayerCharacter.akuma.x -50, max: this.PlayerCharacter.akuma.x +50},
+    moveToY: {min: this.PlayerCharacter.akuma.y -50, max: this.PlayerCharacter.akuma.y -100},
+    lifespan: {min:200,max:400},
+    quantity: 20,
+    scale: { start: 0.00, end: 0.08 },
+    delay: {min:0, max:500},
+    blendMode: 'ADD',
+    emitZone: { source: this.circle, type: 'random', quantity: 1 },
+    on: false
+});
   
+  // add super combo lazer
+  this.anims.create({ key: 'blast', frames: this.anims.generateFrameNames('lazer', { prefix: 'lazer_', start: 0, end: 22, zeroPad: 2 }), frameRate: 50});
+  this.lazer = this.add.sprite(this.PlayerCharacter.akuma.x, 120 , "lazer").setScale(1.3);
+
+  this.lazer2 = this.add.sprite(config.width / 2 + 300, this.PlayerCharacter.akuma.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
+
+
   // Attack *Hit* Sound Array
   this.sounds = {};
   this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
@@ -376,6 +418,6 @@ function roundEnd(scene) {
   }
   // Call the attack function with end of round = true & combo > 0.
   if (scene.combo > 0) {
-  scene.PlayerCharacter.superCombo(scene, scene.combo)
+  scene.PlayerCharacter.superCombo(scene, scene.PlayerCharacter)
   }
 }

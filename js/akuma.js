@@ -18,11 +18,12 @@ export default class PlayerCharacter {
 
   // AKUMA SUPERCHARGE ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    // ParseInt to bypass octal literals strict mode error
-    start: 3, end: 17,
+    // messy unshift calls to bypass octal literals strict mode error
+    start: 10, end: 17,
     prefix: 'AkumaClean_', suffix: '.png'
-  });
-  scene.anims.create({ key: 'supercharge', frames: scene.frameNames, frameRate: 2, repeat: 0 });
+  }); let b=scene.frameNames;b.unshift({ key:'akuma', frame:'AkumaClean_09.png' });b.unshift({ key:'akuma', frame:'AkumaClean_08.png' });b.unshift({ key:'akuma', frame:'AkumaClean_07.png' });b.unshift({ key:'akuma', frame:'AkumaClean_06.png' });b.unshift({ key:'akuma', frame:'AkumaClean_05.png' });b.unshift({ key:'akuma', frame:'AkumaClean_04.png' });b.unshift({ key:'akuma', frame:'AkumaClean_03.png' });
+
+  scene.anims.create({ key: 'supercharge', frames: scene.frameNames, frameRate: 20  , yoyo: true});
 
   // AKUMA HADOKEN ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -111,8 +112,18 @@ export default class PlayerCharacter {
 
   // JUST FOR FUN: Space to uppercut
   AkumaUppercut(scene) {
+    let superSound = scene.sound.add('super');
+    superSound.play();
+
+    var self = this;
+    scene.background.setTint(0x9f00bc);
+    scene.particles.vortex.emitParticle();
+    scene.particles.vortex2.emitParticle();
     this.akuma.anims.play('supercharge');
-    //this.createHadokenProjectile(this, scene);
+    scene.lazer.anims.delayedPlay(400,'blast');
+    scene.lazer2.anims.delayedPlay(650,'blast');
+    scene.time.addEvent({ delay: 1000, callback: this.superCombo, args: [scene, self]});
+    //this.createHadokenProjectile(this, s cene);
     //this.akuma.setVelocityY(-700);
   }
 
@@ -130,15 +141,17 @@ akumaAttack(scene) {
 }
 
 // At the end of the round, do an attack for every word in combo
-superCombo(scene, combo) {
-  // Add a deleyed call to randomAttackAnimation that repeats (combo) times
-  scene.time.addEvent({ delay: 200, callback: this.randomAttackAnimation, args: [scene], repeat: combo - 1});
-  // Add a deleyed call to createHadokenProjectile that repeats (combo) times
-  scene.time.addEvent({ delay: 200, callback: this.createHadokenProjectile, args: [this, scene], repeat: combo - 1});
+superCombo(scene, self) {
+  scene.background.setTint(0xffffff);
+  
+  // Add a delayed call to randomAttackAnimation that repeats (combo) times
+  scene.time.addEvent({ delay: 200, callback: self.randomAttackAnimation, args: [scene], repeat: scene.combo - 1});
+  // Add a delayed call to createHadokenProjectile that repeats (combo) times
+  scene.time.addEvent({ delay: 200, callback: self.createHadokenProjectile, args: [self, scene], repeat: scene.combo - 1});
 }
 
 // Random attack animation
-randomAttackAnimation(scene) {
+randomAttackAnimation(scene, self) {
   const shakecam = scene.cameras.add().setName('shakecam');
   shakecam.shake(100, 0.01);
   let attack = scene.PlayerCharacter.akuma.attackNames;
