@@ -45,6 +45,7 @@ function preload(){
   this.load.audio('lightkick', './assets/sounds/lightkickA3.wav',);
   this.load.audio('lightpunch', './assets/sounds/lightpunchA3.wav',);
   this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.wav',);
+  this.load.audio('memescream', './assets/sounds/memescream.wav',);
 
   for (let i in alphabet) {
     this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
@@ -81,7 +82,6 @@ function create(){
   this.skeleton.setCollideWorldBounds(true);
   this.skeleton.flipX = true;
   //this.skeleton.setSize();
-  debugger;
 
   // Pick & show first word
   currentWord = newWord(WORDS);
@@ -99,7 +99,7 @@ function create(){
       });
   this.timertext.x -= this.timertext.width / 2;
 
-  this.combo = 0;
+  this.combo = 80;
   this.combotext = this.add
     .text(16, 16, ("combo: " + this.combo), {
       font: "18px monospace",
@@ -149,22 +149,9 @@ function create(){
   });
   
   // Hit Sound Array
-  debugger;
   this.sounds = {};
   this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
 
-  // this.particles.red.createEmitter({
-  //   x: 200,
-  //   y: 300,
-  //   lifespan: 2000,
-  //   quantity: {min: 50, max: 200},
-  //   speed: { min: 40, max: 600 },
-  //   angle: { min: 330, max: 380 },
-  //   gravityY: 0,
-  //   scale: { start: 0.4, end: 0 },
-  //   blendMode: 'ADD',
-  //   on: false
-  // });
 
   // Game timer
   this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (this.combo - 1)});
@@ -195,6 +182,8 @@ function update() {
   // Round Over calls
   if (timer === 0 && roundEndSwitch === 0){
     roundEndSwitch = 1;
+    let meme = this.sound.add('memescream');
+    meme.play();
     RoundEnd(this);
   }
 }
@@ -236,6 +225,11 @@ function SkeletonDeath(skeleton, hadoken) {
   let random = Math.floor(Math.random() * hitSounds.length)
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
+  this.cameras.main.setName('cam1');
+  // Camera shake
+  const shakecam = this.cameras.add().setName('shakecam');
+  shakecam.ignore = (this.timertext);
+  shakecam.shake(100, 0.01);
 }
 
 function countDown() {

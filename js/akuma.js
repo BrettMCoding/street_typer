@@ -125,14 +125,16 @@ BackToIdle() {
 
 // Hadoken Animation
 Hadoken(scene, combo, RoundOver){
-  this.akuma.anims.play('hadoken');
-  console.log("fireball!");
+  let attack = scene.PlayerCharacter.akuma.attackNames;
+  scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
+
   scene.time.delayedCall(200, this.Hadoken2, [this, scene]);
 
   if (RoundOver === true){
       this.akuma.anims.play('hadoken');
-      console.log("fireball!");
       //scene.time.delayedCall(200, this.Hadoken2, [this, scene]);
+
+
       scene.time.addEvent({ delay: 200, callback: scene.PlayerCharacter.RoundOverCombo, args: [scene], repeat: combo - 1});
 
       scene.time.addEvent({ delay: 200, callback: scene.PlayerCharacter.Hadoken2, args: [scene.PlayerCharacter, scene], repeat: combo - 1});
