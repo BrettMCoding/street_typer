@@ -33,7 +33,7 @@ let currentWord;
 let currentWordImg;
 
 // Timer. Adjust to change the length of a round
-let timer = 200;
+let timer = 20;
 
 // WORDS will be our imported dictionary of words in an array
 let WORDS;
@@ -418,6 +418,6 @@ function roundEnd(scene) {
   }
   // Call the attack function with end of round = true & combo > 0.
   if (scene.combo > 0) {
-  scene.PlayerCharacter.superCombo(scene, scene.PlayerCharacter)
+  scene.PlayerCharacter.AkumaUppercut(scene, scene.PlayerCharacter)
   }
 }

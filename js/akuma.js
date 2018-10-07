@@ -111,19 +111,26 @@ export default class PlayerCharacter {
   }
 
   // JUST FOR FUN: Space to uppercut
-  AkumaUppercut(scene) {
+  AkumaUppercut(scene, self) {
+    self = this;
     let superSound = scene.sound.add('super');
     superSound.play();
 
-    var self = this;
     scene.background.setTint(0x9f00bc);
+
     scene.particles.vortex.emitParticle();
     scene.particles.vortex2.emitParticle();
+
     this.akuma.anims.play('supercharge');
+
     scene.lazer.anims.delayedPlay(400,'blast');
     scene.lazer2.anims.delayedPlay(650,'blast');
+
+    //scene.comboContainer.x = this.timertext.x
+    //scene.comboContainer.y = this.timertext.y
+
     scene.time.addEvent({ delay: 1000, callback: this.superCombo, args: [scene, self]});
-    //this.createHadokenProjectile(this, s cene);
+
     //this.akuma.setVelocityY(-700);
   }
 
