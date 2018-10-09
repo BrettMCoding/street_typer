@@ -155,6 +155,8 @@ superCombo(scene, self) {
   scene.time.addEvent({ delay: 200, callback: self.randomAttackAnimation, args: [scene], repeat: scene.combo - 1});
   // Add a delayed call to createHadokenProjectile that repeats (combo) times
   scene.time.addEvent({ delay: 200, callback: self.createHadokenProjectile, args: [self, scene], repeat: scene.combo - 1});
+  // Add a delayed call to createHadokenProjectile that repeats (combo) times
+  scene.time.addEvent({ delay: 200, callback: self.superComboTally, args: [self, scene], repeat: scene.combo - 1});
 }
 
 // Random attack animation
@@ -163,6 +165,17 @@ randomAttackAnimation(scene, self) {
   shakecam.shake(100, 0.01);
   let attack = scene.PlayerCharacter.akuma.attackNames;
   scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
+}
+
+superComboTally(self, scene) {
+  scene.comboContainer.setVisible(true);
+
+  scene.particles.fire.emitParticleAt(scene.comboContainer.x + 115, scene.comboContainer.y + 160);
+
+  scene.roundEndCombo += 1
+  scene.combotext.setText(scene.roundEndCombo);
+  // Player combotext animation
+  scene.combotween.restart();
 }
 
 // Hadoken construct

@@ -33,7 +33,7 @@ let currentWord;
 let currentWordImg;
 
 // Timer. Adjust to change the length of a round
-let timer = 20;
+let timer = 2;
 
 // WORDS will be our imported dictionary of words in an array
 let WORDS;
@@ -152,21 +152,41 @@ function create(){
 
   // Add players total word combo to screen
   this.combo = 50;
+  // At the end of the round
+  this.roundEndCombo = 0;
 
+  // Setup combo text, image, and container to hold both.
   this.comboContainer = this.add.container(16, 16);
+
+  this.comboimage = this.add.image(70, 40, 'comboword')
+    .setDepth(20) // this is not working. google why
+    .setOrigin(0.5);
+
   this.combotext = this.add
-    .text(31, 40, (this.combo), {
+      .text(15, 40, (this.combo), {
       fontFamily: "Impact",
       fontSize: 60,
       fill: "#f8d838",
       padding: { x: 20, y: 10 }})
       .setStroke('#312088', 3)
-      .setDepth(10);
-   this.comboContainer
+      .setDepth(10)
+      .setOrigin(0.5);
+  this.combotext.x = this.comboimage.x;
+  this.combotext.y = 105;
+
+  this.comboContainer
         .add(this.combotext)
-        .add(this.add.image(70, 40, 'comboword'))
-        .setVisible(true);
+        .add(this.comboimage);
   
+  // Add a tween animation that makes the combo number *pop*
+  this.combotween = this.tweens.add({
+    targets: this.combotext,
+    scaleX: 2,
+    scaleY: 2,
+    duration: 50,
+    yoyo: true,
+    paused: true,
+  });
         
   // Colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
@@ -235,7 +255,7 @@ function create(){
     y: 0,
     moveToX: {min: this.PlayerCharacter.akuma.x -15, max: this.PlayerCharacter.akuma.x +15},
     moveToY: {min: this.PlayerCharacter.akuma.y -15, max: this.PlayerCharacter.akuma.y +15},
-    lifespan: {min:200,max:400},
+    lifespan: {min:100,max:300},
     quantity: 100,
     scale: { start: 0.00, end: 0.08 },
     delay: {min:0, max:500},
@@ -303,9 +323,8 @@ function update() {
     this.combo += 1;
     this.combotext.setText(this.combo);
 
-    if (this.combo === 2) {
-        this.comboContainer.setVisible(true);
-    }
+    // Player combotext animation
+    this.combotween.restart();
 
     // New word to screen
     currentWord = newWord(WORDS);
@@ -341,7 +360,6 @@ function newWord(arrayOfWords) {
 
 // Generate a word's letters in an array, and assign sprites to them
 function newWordToScreen(scene) {
-  // ASKING FOR HELP, Why do I have to pass scene in here? 
 
   // X location of where to put the word
 
@@ -379,7 +397,6 @@ function hitSkeleton(skeleton, hadoken) {
   hadoken.destroy()
 
   // Emit bones and blood and combo fire
-  this.particles.fire.emitParticle();
   this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
   this.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
 
@@ -404,13 +421,19 @@ function hitSkeleton(skeleton, hadoken) {
 function countDown() {
   timer--;
   this.timertext.setText("TIME LEFT: " + timer);
+  if (timer === 5) {
+    // play 5 sec countdown sound
+  }
 }
 
 // End of round function
 function roundEnd(scene) {
-  // hide comboContainer, destroy timer
-  scene.comboContainer.setVisible(false);
   scene.timertext.destroy();
+  scene.comboContainer.setScale(1.5);
+  scene.comboContainer.x = (config.width / 2) - (scene.comboimage.width / 2);
+  scene.comboContainer.y = 50;
+
+  scene.comboContainer.setVisible(false)
 
   // destroy currentWordImg
   for (let i in currentWordImg) {
@@ -421,3 +444,13 @@ function roundEnd(scene) {
   scene.PlayerCharacter.AkumaUppercut(scene, scene.PlayerCharacter)
   }
 }
+
+function roundEndScoreTally(scene) {
+
+}
+
+
+// function onCompleteHandler (tween) {
+//   debugger;
+//   tween.paused = true;
+// }
