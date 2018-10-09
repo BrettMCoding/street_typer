@@ -153,10 +153,24 @@ superCombo(scene, self) {
   
   // Add a delayed call to randomAttackAnimation that repeats (combo) times
   scene.time.addEvent({ delay: 200, callback: self.randomAttackAnimation, args: [scene], repeat: scene.combo - 1});
+  
   // Add a delayed call to createHadokenProjectile that repeats (combo) times
   scene.time.addEvent({ delay: 200, callback: self.createHadokenProjectile, args: [self, scene], repeat: scene.combo - 1});
+  
   // Add a delayed call to createHadokenProjectile that repeats (combo) times
   scene.time.addEvent({ delay: 200, callback: self.superComboTally, args: [self, scene], repeat: scene.combo - 1});
+  
+  // Delay that takes as long as the super combo to show total points at the end of the round
+
+  // Delay = combo length + 1 second
+  scene.time.addEvent({ delay: ((200 * scene.combo) + 1000), callback: self.roundEndScoreTally, args: [scene, self], repeat: 1});
+}
+
+roundEndScoreTally(scene) {
+  scene.scoretext.setText("TOTAL SCORE: " + scene.score)
+  scene.scoretext.x = scene.comboContainer.x;
+  scene.scoretext.y = 605;
+  scene.scoretext.setVisible(true);
 }
 
 // Random attack animation

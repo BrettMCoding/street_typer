@@ -33,7 +33,7 @@ let currentWord;
 let currentWordImg;
 
 // Timer. Adjust to change the length of a round
-let timer = 2;
+let timer = 10;
 
 // WORDS will be our imported dictionary of words in an array
 let WORDS;
@@ -86,6 +86,9 @@ function create(){
   // Dictionary
   this.dictionary = new DICTIONARY();
   WORDS = this.dictionary.WORDS;
+
+  // Points
+  this.score = 0;
   
   // Background
   // NOTE: We'll be using config.width or height a lot to get the dimensions of our game
@@ -151,7 +154,7 @@ function create(){
   this.timertext.x -= this.timertext.width / 2;
 
   // Add players total word combo to screen
-  this.combo = 50;
+  this.combo = 3;
   // At the end of the round
   this.roundEndCombo = 0;
 
@@ -169,14 +172,14 @@ function create(){
       fill: "#f8d838",
       padding: { x: 20, y: 10 }})
       .setStroke('#312088', 3)
-      .setDepth(10)
       .setOrigin(0.5);
   this.combotext.x = this.comboimage.x;
   this.combotext.y = 105;
 
   this.comboContainer
         .add(this.combotext)
-        .add(this.comboimage);
+        .add(this.comboimage)
+        .setDepth(10);
   
   // Add a tween animation that makes the combo number *pop*
   this.combotween = this.tweens.add({
@@ -187,6 +190,18 @@ function create(){
     yoyo: true,
     paused: true,
   });
+
+  this.scoretext = this.add
+      .text(this.comboContainer.x, 500, ("TOTAL SCORE: " + this.score), {
+      fontFamily: "Impact",
+      fontSize: 60,
+      fill: "#f8d838",
+      padding: { x: 20, y: 10 }})
+      .setStroke('#312088', 3)
+      .setOrigin(0.5)
+      .setVisible(false);
+      this.scoretext.x = this.comboContainer.x
+      this.scoretext.y = 500
         
   // Colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
@@ -233,8 +248,8 @@ function create(){
   // add fire to attach to combo
   this.particles.fire.createEmitter({
       alpha: { start: 1, end: 0 },
-      scale: { start: 0.5, end: 1.5 },
-      quantity: 5,
+      scale: { start: 0.5, end: 2.5 },
+      quantity: 9,
       speed: {min: 40, max: 200},
       //tint: { start: 0xff945e, end: 0xff945e },
       angle: { min: 0, max: 360 },
@@ -291,7 +306,7 @@ function create(){
   this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
 
   // Game timer event
-  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (this.combo - 1)});
+  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (timer)});
 }
 
 function update() {
@@ -301,12 +316,13 @@ function update() {
   // If there are characters left to type
   if (currentWord.length > 0) {
     
-    // If the A-Z keyboard key that matches currentWord[0] is being pressed.
-    if (Phaser.Input.Keyboard.JustDown(this.keys[currentWord[0]])) {
+    // If the A-Z keyboard key that matches currentWord[0] is being pressed. + round isn't over
+    if (Phaser.Input.Keyboard.JustDown(this.keys[currentWord[0]]) & roundEndSwitch !== 1) {
 
       // Color it's sprite green, and push it to the back of the array.
       currentWordImg[0].setTint(0x00ff00);
       currentWordImg.push(currentWordImg.shift());
+      this.score += 5
 
       // Now make shift the array making currentWord[1] the new [0]
       currentWord.shift();
@@ -419,10 +435,13 @@ function hitSkeleton(skeleton, hadoken) {
 
 // Called by our create() game timer event
 function countDown() {
+  console.log("wtf?");
   timer--;
   this.timertext.setText("TIME LEFT: " + timer);
+    
   if (timer === 5) {
     // play 5 sec countdown sound
+    this.timertext.setTint(0xff0000);
   }
 }
 
@@ -445,12 +464,3 @@ function roundEnd(scene) {
   }
 }
 
-function roundEndScoreTally(scene) {
-
-}
-
-
-// function onCompleteHandler (tween) {
-//   debugger;
-//   tween.paused = true;
-// }
