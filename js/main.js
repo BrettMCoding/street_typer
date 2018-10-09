@@ -447,16 +447,17 @@ function roundEnd(scene) {
   scene.comboContainer.setScale(1.5);
   scene.comboContainer.x = (config.width / 2) - (scene.comboImage.width / 2);
   scene.comboContainer.y = 50;
-
-  scene.comboContainer.setVisible(false)
-
+  
+  scene.comboContainer.setVisible(false);
+  
   // destroy this.currentWordImg
   for (let i in scene.currentWordImg) {
     scene.currentWordImg[i].destroy();
   }
   // Call the attack function with end of round = true & combo > 0.
   if (scene.combo > 0) {
-  scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter)
+    scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter);
   }
 }
+
 

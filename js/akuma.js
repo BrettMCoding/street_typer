@@ -123,7 +123,7 @@ export default class PlayerCharacter {
     scene.time.delayedCall(100, this.createHadokenProjectile, [this, scene]);
   }
   
-  
+  // Why can't I get this into main with proper scope? I probably can after I setup scenes...
   roundEndScoreTally(scene) {
     scene.scoreText.setText("TOTAL SCORE: " + scene.score)
     scene.scoreText.x = scene.comboContainer.x;
