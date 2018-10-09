@@ -21,25 +21,7 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-// globals for now
 
-// alphabet is our array of A-Z strings that we use as keys to make new letter sprites
-let alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-
-// currentWord will be a random word from our Dictionary
-let currentWord;
-
-// currentWordImg will be an Array of sprites, where each value is one letter
-let currentWordImg;
-
-// Timer. Adjust to change the length of a round
-let timer = 10;
-
-// WORDS will be our imported dictionary of words in an array
-let WORDS;
-
-// When timer hits 0 we will throw this to 1 to begin the end of round mechanics
-let roundEndSwitch = 0;
 
 function preload(){
   // Runs once and loads assets
@@ -75,17 +57,35 @@ function preload(){
 
   // Load combo word
   this.load.image('comboword', './assets/img/comboword.png');
+
+  // this.alphabet is our array of A-Z strings that we use as keys to make new letter sprites
+  this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
   // Load alphabet images (in a for loop to save space)
-  for (let i in alphabet) {
-    this.load.image(alphabet[i], "./assets/img/alphabet/"+alphabet[i]+".png");
+  for (let i in this.alphabet) {
+    this.load.image(this.alphabet[i], "./assets/img/alphabet/"+this.alphabet[i]+".png");
   }
 
 }
 function create(){
 
+  // this.currentWord will be a random word from our Dictionary
+  this.currentWord;
+
+  // this.currentWordImg will be an Array of sprites, where each value is one letter
+  this.currentWordImg;
+
+  // Timer. Adjust to change the length of a round
+  this.timer = 10;
+
+  // this.WORDS will be our imported dictionary of this.words in an array
+  this.WORDS;
+  // When this.timer hits 0 we will throw this to 1 to begin the end of round mechanics
+  this.roundEndSwitch = 0;
+
+
   // Dictionary
   this.dictionary = new DICTIONARY();
-  WORDS = this.dictionary.WORDS;
+  this.WORDS = this.dictionary.WORDS;
 
   // Points
   this.score = 0;
@@ -120,7 +120,7 @@ function create(){
   .setScale(0.5);
 
   // Add A-Z as clickable keys for our game
-  this.keys = this.input.keyboard.addKeys(alphabet.join(","));
+  this.keys = this.input.keyboard.addKeys(this.alphabet.join(","));
   // Add spacebar for testing attacks I guess
   this.keys.SPACE = this.input.keyboard.addKey
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -136,14 +136,14 @@ function create(){
   this.PlayerCharacter = new PlayerCharacter(this, config.width / 8, config.height / 2)
 
   // Pick & display first word
-  currentWord = newWord(WORDS);
-  currentWordImg = currentWord.slice(0);
+  this.currentWord = newWord(this.WORDS);
+  this.currentWordImg = this.currentWord.slice(0);
   this.wordContainer = this.add.container(config.width / 2, config.height / 5);
   newWordToScreen(this);
 
-  // Add round timer to screen
+  // Add round this.timer to screen
   this.timertext = this.add
-      .text(config.width / 2, 10, ("TIME LEFT: " + timer), {
+      .text(config.width / 2, 10, ("TIME LEFT: " + this.timer), {
         fontFamily: "Impact",
         fontSize: 50,
         fill: "#f8d838",
@@ -305,8 +305,8 @@ function create(){
   this.sounds = {};
   this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
 
-  // Game timer event
-  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (timer)});
+  // Game this.timer event
+  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (this.timer)});
 }
 
 function update() {
@@ -314,25 +314,25 @@ function update() {
     this.PlayerCharacter.AkumaUppercut(this);
   }
   // If there are characters left to type
-  if (currentWord.length > 0) {
+  if (this.currentWord.length > 0) {
     
-    // If the A-Z keyboard key that matches currentWord[0] is being pressed. + round isn't over
-    if (Phaser.Input.Keyboard.JustDown(this.keys[currentWord[0]]) & roundEndSwitch !== 1) {
+    // If the A-Z keyboard key that matches this.currentWord[0] is being pressed. + round isn't over
+    if (Phaser.Input.Keyboard.JustDown(this.keys[this.currentWord[0]]) & this.roundEndSwitch !== 1) {
 
       // Color it's sprite green, and push it to the back of the array.
-      currentWordImg[0].setTint(0x00ff00);
-      currentWordImg.push(currentWordImg.shift());
+      this.currentWordImg[0].setTint(0x00ff00);
+      this.currentWordImg.push(this.currentWordImg.shift());
       this.score += 5
 
-      // Now make shift the array making currentWord[1] the new [0]
-      currentWord.shift();
+      // Now make shift the array making this.currentWord[1] the new [0]
+      this.currentWord.shift();
     }
 
   // If there are not characters left to type,
   } else {
-    for (let i in currentWordImg) {
+    for (let i in this.currentWordImg) {
       // Destroy the word's sprites
-      currentWordImg[i].destroy();
+      this.currentWordImg[i].destroy();
     }
 
     // Add to combo
@@ -343,7 +343,7 @@ function update() {
     this.combotween.restart();
 
     // New word to screen
-    currentWord = newWord(WORDS);
+    this.currentWord = newWord(this.WORDS);
     newWordToScreen(this);
 
     // Attack the enemy
@@ -351,9 +351,9 @@ function update() {
   }
 
   // If the round is over and we haven't thrown the switch yet,
-  if (timer === 0 && roundEndSwitch === 0){
+  if (this.timer === 0 && this.roundEndSwitch === 0){
     // Throw the switch
-    roundEndSwitch = 1;
+    this.roundEndSwitch = 1;
 
     // let meme = this.sound.add('memescream');
     // meme.play();
@@ -363,7 +363,7 @@ function update() {
   }
 }
 
-// Grab a random word from an array of words
+// Grab a random word from an array of this.words
 function newWord(arrayOfWords) {
 
   // Generate random array index
@@ -380,28 +380,28 @@ function newWordToScreen(scene) {
   // X location of where to put the word
 
 
-  // if this isn't the first time we've used currentWordImg,
+  // if this isn't the first time we've used this.currentWordImg,
   // erase it and make it the new word character array
-  if (currentWordImg > currentWord.length) {
-    currentWordImg = currentWord.slice(0);
+  if (scene.currentWordImg > scene.currentWord.length) {
+    scene.currentWordImg = scene.currentWord.slice(0);
   }
 
   // Assign letters to sprites and place them on screen
 
   let xCharacterOffset = 40;
-  for (let i = 0; i < currentWord.length; i++) {
+  for (let i = 0; i < scene.currentWord.length; i++) {
     
                                     // (x, y, key)
-    currentWordImg[i] = scene.add.image(i * xCharacterOffset, 0, currentWord[i]);
+    scene.currentWordImg[i] = scene.add.image(i * xCharacterOffset, 0, scene.currentWord[i]);
       //.setOrigin(0)
 
-    scene.wordContainer.add([currentWordImg[i]]);
+    scene.wordContainer.add([scene.currentWordImg[i]]);
   }
   // Currently, only the first character is centered
   // Center the whole word by using 
   scene.wordContainer.x = 
   //(game width center) - (half of (wordlength * x coordinate offsets) 
-  (config.width / 2 - (((currentWord.length * xCharacterOffset) - 40 ) / 2));
+  (config.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
 }
 
 // Called when our invisible hadoken connects with the skeleton
@@ -433,13 +433,13 @@ function hitSkeleton(skeleton, hadoken) {
 
 }
 
-// Called by our create() game timer event
+// Called by our create() game this.timer event
 function countDown() {
   console.log("wtf?");
-  timer--;
-  this.timertext.setText("TIME LEFT: " + timer);
+  this.timer--;
+  this.timertext.setText("TIME LEFT: " + this.timer);
     
-  if (timer === 5) {
+  if (this.timer === 5) {
     // play 5 sec countdown sound
     this.timertext.setTint(0xff0000);
   }
@@ -454,9 +454,9 @@ function roundEnd(scene) {
 
   scene.comboContainer.setVisible(false)
 
-  // destroy currentWordImg
-  for (let i in currentWordImg) {
-    currentWordImg[i].destroy();
+  // destroy this.currentWordImg
+  for (let i in scene.currentWordImg) {
+    scene.currentWordImg[i].destroy();
   }
   // Call the attack function with end of round = true & combo > 0.
   if (scene.combo > 0) {
