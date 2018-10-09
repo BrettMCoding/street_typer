@@ -1,29 +1,12 @@
 import PlayerCharacter from "./akuma.js";
 import DICTIONARY from "./words.js";
 
-const config = {
-  type: Phaser.AUTO,
-  width: 1280,
-  height: 736,
-  parent: "game-container", // Id of the DOM element to add the canvas to
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
-  },
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 1000 }
-    }
+class GameScene extends Phaser.Scene {
+  constructor() {
+      super(GameScene);
   }
-};
 
-const game = new Phaser.Game(config);
-
-
-
-function preload(){
+preload(){
   // Runs once and loads assets
   // NOTE: "this" === Phaser.Scene
 
@@ -66,7 +49,7 @@ function preload(){
   }
   
 }
-function create(){
+create(){
   
   // this.currentWord will be a random word from our Dictionary
   this.currentWord;
@@ -96,7 +79,7 @@ function create(){
   this.score = 0;
   
   // Background
-  // NOTE: We'll be using config.width or height a lot to get the dimensions of our game
+  // NOTE: We'll be using this.sys.game.config.width or height a lot to get the dimensions of our game
   this.anims.create({
     key: "background",
     frames: [
@@ -112,16 +95,16 @@ function create(){
     frameRate: 15,
     repeat: -1
   });
-  this.background = this.add.sprite(config.width / 2, config.height / 2, "background");
+  this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "background");
   this.background.play("background");
 
   // Platforms
   let platforms = this.physics.add.staticGroup();
 
-  platforms.create(config.width / 8, (config.height / 2) + 100, 'ground')
+  platforms.create(this.sys.game.config.width / 8, (this.sys.game.config.height / 2) + 100, 'ground')
     .setScale(0.5);
 
-  platforms.create((config.width / 8) + 200, (config.height / 2) + 100, 'ground')
+  platforms.create((this.sys.game.config.width / 8) + 200, (this.sys.game.config.height / 2) + 100, 'ground')
   .setScale(0.5);
 
   // Add A-Z as clickable keys for our game
@@ -132,24 +115,24 @@ function create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Skeleton Enemy
-  this.skeleton = this.physics.add.sprite(config.width / 8 + 70, config.height / 2 - 40, 'skeleton')
+  this.skeleton = this.physics.add.sprite(this.sys.game.config.width / 8 + 70, this.sys.game.config.height / 2 - 40, 'skeleton')
     .setScale(0.35)
     .setBounce(0.2)
     .setCollideWorldBounds(true)
     .setFlipX(true);
   
   // Add Player Character
-  this.PlayerCharacter = new PlayerCharacter(this, config.width / 8, config.height / 2)
+  this.PlayerCharacter = new PlayerCharacter(this, this.sys.game.config.width / 8, this.sys.game.config.height / 2)
 
   // Pick & display first word
-  this.currentWord = newWord(this.WORDS);
+  this.currentWord = this.newWord(this.WORDS);
   this.currentWordImg = this.currentWord.slice(0);
-  this.wordContainer = this.add.container(config.width / 2, config.height / 5);
-  newWordToScreen(this);
+  this.wordContainer = this.add.container(this.sys.game.config.width / 2, this.sys.game.config.height / 5);
+  this.newWordToScreen(this);
 
   // Add round timer to screen
   this.timertext = this.add
-      .text(config.width / 2, 10, ("TIME LEFT: " + this.timer), {
+      .text(this.sys.game.config.width / 2, 10, ("TIME LEFT: " + this.timer), {
         fontFamily: "Impact",
         fontSize: 50,
         fill: "#f8d838",
@@ -214,7 +197,7 @@ function create(){
   // Physics colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
   this.physics.add.collider(this.skeleton, platforms);
-  this.physics.add.overlap(this.skeleton, this.PlayerCharacter.hadoken, hitSkeleton, null, this);
+  this.physics.add.overlap(this.skeleton, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
 
   // Particles
   this.particles = {};
@@ -305,7 +288,7 @@ function create(){
   this.anims.create({ key: 'blast', frames: this.anims.generateFrameNames('lazer', { prefix: 'lazer_', start: 0, end: 22, zeroPad: 2 }), frameRate: 50});
   this.lazer = this.add.sprite(this.PlayerCharacter.akuma.x, 120 , "lazer").setScale(1.3);
 
-  this.lazer2 = this.add.sprite(config.width / 2 + 300, this.PlayerCharacter.akuma.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
+  this.lazer2 = this.add.sprite(this.sys.game.config.width / 2 + 300, this.PlayerCharacter.akuma.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
 
 
   // Attack *Hit* Sound Array
@@ -313,10 +296,10 @@ function create(){
   this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
 
   // Game timer event. Every 1 second, call countDown function. repeat (this.timer) times
-  this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (this.timer)});
+  this.time.addEvent({ delay: 1000, callback: this.countDown, callbackScope: this, repeat: (this.timer)});
 }
 
-function update() {
+update() {
 
   // spacebar super for testing
   if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
@@ -353,8 +336,8 @@ function update() {
     this.comboTween.restart();
 
     // New word to screen
-    this.currentWord = newWord(this.WORDS);
-    newWordToScreen(this);
+    this.currentWord = this.newWord(this.WORDS);
+    this.newWordToScreen(this);
 
     // Attack the enemy
     this.PlayerCharacter.akumaAttack(this);
@@ -369,12 +352,12 @@ function update() {
     // meme.play();
 
     // End of round function
-    roundEnd(this);
+    this.roundEnd(this);
   }
 }
 
 // Grab a random word from an array of words
-function newWord(arrayOfWords) {
+newWord(arrayOfWords) {
 
   // Generate random array index
   const randIndex = Math.floor(Math.random() * arrayOfWords.length);
@@ -385,7 +368,7 @@ function newWord(arrayOfWords) {
 }
 
 // Generate a word's letters in an array, and assign sprites to them
-function newWordToScreen(scene) {
+newWordToScreen(scene) {
 
   // if this isn't the first time we've used currentWordImg,
   // erase it and make it the new word character array
@@ -405,11 +388,11 @@ function newWordToScreen(scene) {
   // Center the whole word by using 
   scene.wordContainer.x = 
   //(game width center) - (half of (wordlength * x coordinate offsets) 
-  (config.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
+  (this.sys.game.config.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
 }
 
 // Called when our invisible hadoken connects with the skeleton
-function hitSkeleton(skeleton, hadoken) {
+hitSkeleton(skeleton, hadoken) {
 
   // Set skeletons velocityX to 0 so he doesn't go flying
   skeleton.setVelocityX(0);
@@ -431,7 +414,7 @@ function hitSkeleton(skeleton, hadoken) {
 }
 
 // Called by our create() game this.timer event
-function countDown() {
+countDown() {
   this.timer--;
   this.timertext.setText("TIME LEFT: " + this.timer);
     
@@ -442,10 +425,10 @@ function countDown() {
 }
 
 // End of round function
-function roundEnd(scene) {
+roundEnd(scene) {
   scene.timertext.destroy();
   scene.comboContainer.setScale(1.5);
-  scene.comboContainer.x = (config.width / 2) - (scene.comboImage.width / 2);
+  scene.comboContainer.x = (this.sys.game.config.width / 2) - (scene.comboImage.width / 2);
   scene.comboContainer.y = 50;
   
   scene.comboContainer.setVisible(false);
@@ -459,5 +442,6 @@ function roundEnd(scene) {
     scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter);
   }
 }
+}
 
-
+export default GameScene;
