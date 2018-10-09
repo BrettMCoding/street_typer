@@ -93,7 +93,7 @@ export default class PlayerCharacter {
   // Array of string names of attack animations to be used as keys later
   this.akuma.attackNames = ['shoryuken', 'lightpunch', 'mediumpunch', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
-  // Hadoken physical body (now set to invisible and used as hit detection)
+  // Hadoken physical body (now used as hit detection)
   this.hadoken = scene.physics.add.group();
 
   }
@@ -109,94 +109,100 @@ export default class PlayerCharacter {
   destroy() {
     this.sprite.destroy();
   }
-
-  // JUST FOR FUN: Space to uppercut
-  AkumaUppercut(scene, self) {
+  
+  // After any animation, resume playing idle animation
+  BackToIdle() {
+    this.akuma.anims.play('idleright');
+  }
+  
+  // Main attack function. Calls a random animation, and creates a hadoken projectile.
+  // The sound effect and particles are tied to the hitSkeleton function
+  akumaAttack(scene) {
+    this.randomAttackAnimation(scene);
+    
+    scene.time.delayedCall(100, this.createHadokenProjectile, [this, scene]);
+  }
+  
+  
+  roundEndScoreTally(scene) {
+    scene.scoreText.setText("TOTAL SCORE: " + scene.score)
+    scene.scoreText.x = scene.comboContainer.x;
+    scene.scoreText.y = 605;
+    scene.scoreText.setVisible(true);
+  }
+  
+  // Random attack animation
+  randomAttackAnimation(scene, self) {
+    const shakecam = scene.cameras.add().setName('shakecam');
+    shakecam.shake(100, 0.01);
+    let attack = scene.PlayerCharacter.akuma.attackNames;
+    scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
+  }
+  
+  
+  // Hadoken construct
+  createHadokenProjectile(PlayerCharacter, scene) { 
+    let hadoken = PlayerCharacter.hadoken.create(PlayerCharacter.akuma.getCenter().x + 100, PlayerCharacter.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
+    hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
+    hadoken.body.width = 100;
+    hadoken.setVelocityX(500);
+  }
+  
+  // the first call after end of round
+  superComboOpeningAnimation(scene, self) {
+    // we'll lose scope of "this" so we make self = this;
     self = this;
+    
+    // play supercombo sound
     let superSound = scene.sound.add('super');
     superSound.play();
-
+    
+    // color the background
     scene.background.setTint(0x9f00bc);
-
+    
+    
+    // vortex particles
     scene.particles.vortex.emitParticle();
     scene.particles.vortex2.emitParticle();
-
+    
     this.akuma.anims.play('supercharge');
-
+    
+    // vertical & horizontal lasers
     scene.lazer.anims.delayedPlay(400,'blast');
     scene.lazer2.anims.delayedPlay(650,'blast');
-
-    //scene.comboContainer.x = this.timertext.x
-    //scene.comboContainer.y = this.timertext.y
-
+    
+    // All the while, this delay has been ticking down. 1 second after launching the function, call superCombo function
     scene.time.addEvent({ delay: 1000, callback: this.superCombo, args: [scene, self]});
-
-    //this.akuma.setVelocityY(-700);
   }
-
-// After any animation, resume playing idle animation
-BackToIdle() {
-  this.akuma.anims.play('idleright');
-}
-
-// Main attack function. Calls a random animation, and creates a hadoken projectile.
-// The sound effect and particles are tied to the hitSkeleton function
-akumaAttack(scene) {
-  this.randomAttackAnimation(scene);
-
-  scene.time.delayedCall(100, this.createHadokenProjectile, [this, scene]);
-}
-
-// At the end of the round, do an attack for every word in combo
-superCombo(scene, self) {
-  scene.background.setTint(0xffffff);
   
-  // Add a delayed call to randomAttackAnimation that repeats (combo) times
-  scene.time.addEvent({ delay: 200, callback: self.randomAttackAnimation, args: [scene], repeat: scene.combo - 1});
+  // At the end of the round, do an attack for every word in combo
+  superCombo(scene, self) {
+    scene.background.setTint(0xffffff);
+    
+    // Add a delayed calls that repeat (combo) times
+    
+    // Animation
+    scene.time.addEvent({ delay: 200, callback: self.randomAttackAnimation, args: [scene], repeat: scene.combo - 1});
+    
+    // Attack collisions
+    scene.time.addEvent({ delay: 200, callback: self.createHadokenProjectile, args: [self, scene], repeat: scene.combo - 1});
+    
+    // Combo++ animation
+    scene.time.addEvent({ delay: 200, callback: self.superComboTally, args: [self, scene], repeat: scene.combo - 1});
+    
+    // Display score
+    // Delay = combo length + 1 second
+    scene.time.addEvent({ delay: ((200 * scene.combo) + 1000), callback: self.roundEndScoreTally, args: [scene, self], repeat: 1});
+  }
   
-  // Add a delayed call to createHadokenProjectile that repeats (combo) times
-  scene.time.addEvent({ delay: 200, callback: self.createHadokenProjectile, args: [self, scene], repeat: scene.combo - 1});
-  
-  // Add a delayed call to createHadokenProjectile that repeats (combo) times
-  scene.time.addEvent({ delay: 200, callback: self.superComboTally, args: [self, scene], repeat: scene.combo - 1});
-  
-  // Delay that takes as long as the super combo to show total points at the end of the round
-
-  // Delay = combo length + 1 second
-  scene.time.addEvent({ delay: ((200 * scene.combo) + 1000), callback: self.roundEndScoreTally, args: [scene, self], repeat: 1});
-}
-
-roundEndScoreTally(scene) {
-  scene.scoretext.setText("TOTAL SCORE: " + scene.score)
-  scene.scoretext.x = scene.comboContainer.x;
-  scene.scoretext.y = 605;
-  scene.scoretext.setVisible(true);
-}
-
-// Random attack animation
-randomAttackAnimation(scene, self) {
-  const shakecam = scene.cameras.add().setName('shakecam');
-  shakecam.shake(100, 0.01);
-  let attack = scene.PlayerCharacter.akuma.attackNames;
-  scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
-}
-
-superComboTally(self, scene) {
-  scene.comboContainer.setVisible(true);
-
-  scene.particles.fire.emitParticleAt(scene.comboContainer.x + 115, scene.comboContainer.y + 160);
-
-  scene.roundEndCombo += 1
-  scene.combotext.setText(scene.roundEndCombo);
-  // Player combotext animation
-  scene.combotween.restart();
-}
-
-// Hadoken construct
-createHadokenProjectile(PlayerCharacter, scene) { 
-  let hadoken = PlayerCharacter.hadoken.create(PlayerCharacter.akuma.getCenter().x + 100, PlayerCharacter.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
-  hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
-  hadoken.body.width = 100;
-  hadoken.setVelocityX(500);
+  superComboTally(self, scene) {
+    scene.comboContainer.setVisible(true);
+    
+    scene.particles.fire.emitParticleAt(scene.comboContainer.x + 115, scene.comboContainer.y + 160);
+    
+    scene.roundEndCombo += 1
+    scene.comboText.setText(scene.roundEndCombo);
+    // Player comboText animation
+    scene.comboTween.restart();
   }
 }

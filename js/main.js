@@ -53,40 +53,45 @@ function preload(){
   this.load.audio('lightpunch', './assets/sounds/lightpunchA3.wav',);
   this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.wav',);
   this.load.audio('memescream', './assets/sounds/memescream.wav',);
-
-
+  
+  
   // Load combo word
   this.load.image('comboword', './assets/img/comboword.png');
-
+  
   // this.alphabet is our array of A-Z strings that we use as keys to make new letter sprites
   this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
   // Load alphabet images (in a for loop to save space)
   for (let i in this.alphabet) {
     this.load.image(this.alphabet[i], "./assets/img/alphabet/"+this.alphabet[i]+".png");
   }
-
+  
 }
 function create(){
-
+  
   // this.currentWord will be a random word from our Dictionary
   this.currentWord;
-
+  
   // this.currentWordImg will be an Array of sprites, where each value is one letter
   this.currentWordImg;
-
+  
   // Timer. Adjust to change the length of a round
   this.timer = 10;
-
+  
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
   // When this.timer hits 0 we will throw this to 1 to begin the end of round mechanics
   this.roundEndSwitch = 0;
+  
+  // Players total word combo
+  this.combo = 3;
 
-
+  // At the end of the round
+  this.roundEndCombo = 0;
+  
   // Dictionary
   this.dictionary = new DICTIONARY();
   this.WORDS = this.dictionary.WORDS;
-
+  
   // Points
   this.score = 0;
   
@@ -121,7 +126,8 @@ function create(){
 
   // Add A-Z as clickable keys for our game
   this.keys = this.input.keyboard.addKeys(this.alphabet.join(","));
-  // Add spacebar for testing attacks I guess
+
+  // Add spacebar for testing attacks
   this.keys.SPACE = this.input.keyboard.addKey
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -129,8 +135,8 @@ function create(){
   this.skeleton = this.physics.add.sprite(config.width / 8 + 70, config.height / 2 - 40, 'skeleton')
     .setScale(0.35)
     .setBounce(0.2)
-    .setCollideWorldBounds(true);
-  this.skeleton.flipX = true;
+    .setCollideWorldBounds(true)
+    .setFlipX(true);
   
   // Add Player Character
   this.PlayerCharacter = new PlayerCharacter(this, config.width / 8, config.height / 2)
@@ -141,7 +147,7 @@ function create(){
   this.wordContainer = this.add.container(config.width / 2, config.height / 5);
   newWordToScreen(this);
 
-  // Add round this.timer to screen
+  // Add round timer to screen
   this.timertext = this.add
       .text(config.width / 2, 10, ("TIME LEFT: " + this.timer), {
         fontFamily: "Impact",
@@ -151,21 +157,21 @@ function create(){
         originX : 0.5
       }).setStroke('#312088', 3)
       .setDepth(10);
+  // origin and setOrigin are used to change the pivot point of things,
+  // but I can't get it to work great? So width division like below is used a lot
   this.timertext.x -= this.timertext.width / 2;
 
-  // Add players total word combo to screen
-  this.combo = 3;
-  // At the end of the round
-  this.roundEndCombo = 0;
 
-  // Setup combo text, image, and container to hold both.
+  // comboContainer holds comboText and comboImage to move them together
   this.comboContainer = this.add.container(16, 16);
 
-  this.comboimage = this.add.image(70, 40, 'comboword')
-    .setDepth(20) // this is not working. google why
+  // comboImage is a prebuilt "COMBO" png from the arcade font      
+  this.comboImage = this.add.image(70, 40, 'comboword')
+    .setDepth(20)
     .setOrigin(0.5);
-
-  this.combotext = this.add
+  
+  // the combo integer
+  this.comboText = this.add
       .text(15, 40, (this.combo), {
       fontFamily: "Impact",
       fontSize: 60,
@@ -173,17 +179,18 @@ function create(){
       padding: { x: 20, y: 10 }})
       .setStroke('#312088', 3)
       .setOrigin(0.5);
-  this.combotext.x = this.comboimage.x;
-  this.combotext.y = 105;
-
+  this.comboText.x = this.comboImage.x;
+  this.comboText.y = 105;
+  
+  // add both to container and set depth so the explosion appears under the text
   this.comboContainer
-        .add(this.combotext)
-        .add(this.comboimage)
+        .add(this.comboText)
+        .add(this.comboImage)
         .setDepth(10);
   
-  // Add a tween animation that makes the combo number *pop*
-  this.combotween = this.tweens.add({
-    targets: this.combotext,
+  // Add a tween animation that makes the combo number *pop* every +1
+  this.comboTween = this.tweens.add({
+    targets: this.comboText,
     scaleX: 2,
     scaleY: 2,
     duration: 50,
@@ -191,7 +198,8 @@ function create(){
     paused: true,
   });
 
-  this.scoretext = this.add
+  // Score text for every letter the player gets right
+  this.scoreText = this.add
       .text(this.comboContainer.x, 500, ("TOTAL SCORE: " + this.score), {
       fontFamily: "Impact",
       fontSize: 60,
@@ -200,10 +208,10 @@ function create(){
       .setStroke('#312088', 3)
       .setOrigin(0.5)
       .setVisible(false);
-      this.scoretext.x = this.comboContainer.x
-      this.scoretext.y = 500
+      this.scoreText.x = this.comboContainer.x
+      this.scoreText.y = 500
         
-  // Colliders
+  // Physics colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
   this.physics.add.collider(this.skeleton, platforms);
   this.physics.add.overlap(this.skeleton, this.PlayerCharacter.hadoken, hitSkeleton, null, this);
@@ -215,7 +223,6 @@ function create(){
   this.particles.fire = this.add.particles('fire');
   this.particles.vortex = this.add.particles('flares');
   this.particles.vortex2 = this.add.particles('flares');
-  this.particles.hadoken = this.add.particles('red');
   
   this.particles.bone.createEmitter({
     x: 200,
@@ -258,8 +265,8 @@ function create(){
       blendMode: 'ADD',
       frequency: 1100,
       maxParticles: 10,
-      x: this.combotext.getCenter().x + 17,
-      y: this.combotext.getCenter().y + 20,
+      x: this.comboText.getCenter().x + 17,
+      y: this.comboText.getCenter().y + 20,
       on: false
   });
 
@@ -305,18 +312,21 @@ function create(){
   this.sounds = {};
   this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
 
-  // Game this.timer event
+  // Game timer event. Every 1 second, call countDown function. repeat (this.timer) times
   this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, repeat: (this.timer)});
 }
 
 function update() {
+
+  // spacebar super for testing
   if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
-    this.PlayerCharacter.AkumaUppercut(this);
+    this.PlayerCharacter.superComboOpeningAnimation(this);
   }
+
   // If there are characters left to type
   if (this.currentWord.length > 0) {
     
-    // If the A-Z keyboard key that matches this.currentWord[0] is being pressed. + round isn't over
+    // If the A-Z keyboard key that matches this.currentWord[0] is being pressed AND the round isn't over
     if (Phaser.Input.Keyboard.JustDown(this.keys[this.currentWord[0]]) & this.roundEndSwitch !== 1) {
 
       // Color it's sprite green, and push it to the back of the array.
@@ -324,7 +334,7 @@ function update() {
       this.currentWordImg.push(this.currentWordImg.shift());
       this.score += 5
 
-      // Now make shift the array making this.currentWord[1] the new [0]
+      // Now shift the array making this.currentWord[1] the new [0]
       this.currentWord.shift();
     }
 
@@ -337,10 +347,10 @@ function update() {
 
     // Add to combo
     this.combo += 1;
-    this.combotext.setText(this.combo);
+    this.comboText.setText(this.combo);
 
-    // Player combotext animation
-    this.combotween.restart();
+    // Player comboText animation
+    this.comboTween.restart();
 
     // New word to screen
     this.currentWord = newWord(this.WORDS);
@@ -363,7 +373,7 @@ function update() {
   }
 }
 
-// Grab a random word from an array of this.words
+// Grab a random word from an array of words
 function newWord(arrayOfWords) {
 
   // Generate random array index
@@ -377,23 +387,17 @@ function newWord(arrayOfWords) {
 // Generate a word's letters in an array, and assign sprites to them
 function newWordToScreen(scene) {
 
-  // X location of where to put the word
-
-
-  // if this isn't the first time we've used this.currentWordImg,
+  // if this isn't the first time we've used currentWordImg,
   // erase it and make it the new word character array
   if (scene.currentWordImg > scene.currentWord.length) {
     scene.currentWordImg = scene.currentWord.slice(0);
   }
 
-  // Assign letters to sprites and place them on screen
-
+  // Assign sprites to currentWord's letters, and place them on screen
   let xCharacterOffset = 40;
   for (let i = 0; i < scene.currentWord.length; i++) {
     
-                                    // (x, y, key)
     scene.currentWordImg[i] = scene.add.image(i * xCharacterOffset, 0, scene.currentWord[i]);
-      //.setOrigin(0)
 
     scene.wordContainer.add([scene.currentWordImg[i]]);
   }
@@ -416,8 +420,6 @@ function hitSkeleton(skeleton, hadoken) {
   this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
   this.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
 
-  this.particles.hadoken.setVisible(false);
-
   // Hit sound effect tied to hadoken exploding
   let hitSounds = this.sounds.hits
 
@@ -425,17 +427,11 @@ function hitSkeleton(skeleton, hadoken) {
   let random = Math.floor(Math.random() * hitSounds.length)
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
-
-  // ASK FOR HELP OR FIX YOURSELF : Camera shaking everything. shake skeleton only?
-  //this.cameras.main.setName('cam1');
-  // Camera shake
   
-
 }
 
 // Called by our create() game this.timer event
 function countDown() {
-  console.log("wtf?");
   this.timer--;
   this.timertext.setText("TIME LEFT: " + this.timer);
     
@@ -449,7 +445,7 @@ function countDown() {
 function roundEnd(scene) {
   scene.timertext.destroy();
   scene.comboContainer.setScale(1.5);
-  scene.comboContainer.x = (config.width / 2) - (scene.comboimage.width / 2);
+  scene.comboContainer.x = (config.width / 2) - (scene.comboImage.width / 2);
   scene.comboContainer.y = 50;
 
   scene.comboContainer.setVisible(false)
@@ -460,7 +456,7 @@ function roundEnd(scene) {
   }
   // Call the attack function with end of round = true & combo > 0.
   if (scene.combo > 0) {
-  scene.PlayerCharacter.AkumaUppercut(scene, scene.PlayerCharacter)
+  scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter)
   }
 }
 
