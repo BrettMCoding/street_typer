@@ -32,6 +32,9 @@ class BootScene extends Phaser.Scene {
     this.load.image('fire', './assets/img/particles/muzzleflash3.png');
     this.load.image('flares', './assets/img/particles/sparkle1.png');
     this.load.atlas('lazer', './assets/img/particles/lazer/lazer.png', './assets/img/particles/lazer/lazer.json');
+    this.load.image('playbutton', './assets/img/menu/playbutton.png');
+    this.load.image('squarebutton', './assets/img/menu/squarebutton.png');
+    this.load.image('squarebuttonx', './assets/img/menu/squarebuttonx.png');
   
     // Load Akuma sprites
     this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
@@ -58,6 +61,9 @@ class BootScene extends Phaser.Scene {
   }
 
   create() {
+    let width = this.sys.game.config.width
+    let height = this.sys.game.config.height
+
     this.anims.create({
       key: "background",
       frames: [
@@ -73,15 +79,64 @@ class BootScene extends Phaser.Scene {
       frameRate: 15,
       repeat: -1
     });
-    this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "background");
+    this.background = this.add.sprite( width / 2, height / 2, "background" );
 
     this.background.play("background");
 
-    this.input.manager.enabled = true;
+    let playbutton = this.add.image(0, 0, 'playbutton');
 
-    this.input.once('pointerdown', function () {
+    let memebutton = this.add.image(-80, 80, 'squarebutton');
+
+    let buttoncontainer = this.add.container( width / 2, height / 2 + 50, [ playbutton, memebutton ] );
+
+    playbutton.setInteractive();
+
+    playbutton.on('pointerover', function () {
+
+      playbutton.setTint(0x44ff44);
+
+    });
+
+    playbutton.on('pointerup', function () {
+
       this.scene.start('GameScene');
-    }, this);
+      
+   }, this);
+
+    playbutton.on('pointerout', function () {
+
+      playbutton.clearTint();
+
+    });
+    
+    // X BUTTON TEST
+    memebutton.setInteractive();
+
+    memebutton.on('pointerover', function () {
+
+      memebutton.setTint(0x44ff44);
+
+    });
+
+    memebutton.on('pointerup', function () { 
+        if (memebutton.texture.key === "squarebutton") {
+          memebutton.setTexture('squarebuttonx');
+        } else {
+          memebutton.setTexture('squarebutton');
+        }
+     }, this);
+
+    memebutton.on('pointerout', function () {
+
+      memebutton.clearTint();
+
+    });
+
+    // this.input.manager.enabled = true;
+
+    // this.input.once('pointerdown', function () {
+    //   this.scene.start('GameScene');
+    // }, this);
   }
 }
 
