@@ -3,7 +3,7 @@ import DICTIONARY from "./words.js";
 
 class GameScene extends Phaser.Scene {
   constructor() {
-      super(GameScene);
+      super({ key: 'GameScene'});
   }
 
 preload(){
