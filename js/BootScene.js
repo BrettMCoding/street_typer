@@ -19,7 +19,7 @@ class BootScene extends Phaser.Scene {
       progress.destroy();
 
     });
-
+    
     for (let i = 1; i <= 8; i++) {
       this.load.image("background" + i, "./assets/img/backgroundsprite/background" + i + ".png")
       console.log("background" + i)
@@ -48,7 +48,9 @@ class BootScene extends Phaser.Scene {
     this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.wav',);
     this.load.audio('memescream', './assets/sounds/memescream.wav',);
     
-    
+    // Fonts
+    this.load.bitmapFont('AOF2', './assets/font/AOF2.png', './assets/font/AOF2.fnt');
+
     // Load combo word
     this.load.image('comboword', './assets/img/comboword.png');
     
@@ -57,6 +59,12 @@ class BootScene extends Phaser.Scene {
     // Load alphabet images (in a for loop to save space)
     for (let i in this.alphabet) {
       this.load.image(this.alphabet[i], "./assets/img/alphabet/"+this.alphabet[i]+".png");
+    }
+    // Same for numbers
+    this.numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+    for (let i in this.numbers) {
+      this.load.image(this.alphabet[i], "./assets/img/alphabet/"+this.numbers[i]+".png");
     }
   }
 
@@ -100,7 +108,7 @@ class BootScene extends Phaser.Scene {
     playbutton.on('pointerup', function () {
 
       this.scene.start('GameScene');
-      
+
    }, this);
 
     playbutton.on('pointerout', function () {
@@ -131,6 +139,8 @@ class BootScene extends Phaser.Scene {
       memebutton.clearTint();
 
     });
+
+    let bmptext = this.game.add.bitmapText(this.sys.game.config.width / 2, 200, 'AOF2', 'penispump123', 128);
 
     // this.input.manager.enabled = true;
 
