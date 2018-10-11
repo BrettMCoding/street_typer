@@ -30,6 +30,7 @@ class BootScene extends Phaser.Scene {
       this.load.image("background" + i, "./assets/img/backgroundsprite/background" + i + ".png")
       console.log("background" + i)
     }
+    this.load.image('logo', './assets/img/logo.png');
     this.load.image('ground', './assets/img/platform.png');
     this.load.image('skeleton', './assets/img/skeleton.png');
     this.load.image('bloodchunk', './assets/img/particles/bloodchunk.png');
@@ -53,6 +54,8 @@ class BootScene extends Phaser.Scene {
     this.load.audio('lightpunch', './assets/sounds/lightpunchA3.wav',);
     this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.wav',);
     this.load.audio('memescream', './assets/sounds/memescream.wav',);
+    this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.wav',);
+    this.load.audio('sewersurfin', './assets/sounds/music/SewerSurfin.mp3',);
 
     // Load combo word
     this.load.image('comboword', './assets/img/comboword.png');
@@ -94,17 +97,26 @@ class BootScene extends Phaser.Scene {
 
     this.background.play("background");
 
+    this.logo = this.add.sprite( width / 2, height / 2 - 200, "logo")
+
+    let bgm = this.sound.add('sewersurfin');
+    //bgm.play()
+
+
     let playbutton = this.add.image(0, 0, 'playbutton');
 
     let memebutton = this.add.image(-80, 80, 'squarebutton');
 
     let buttoncontainer = this.add.container( width / 2, height / 2 + 50, [ playbutton, memebutton ] );
 
+    let menusound = this.sound.add('megamanmenu');
+
     playbutton.setInteractive();
 
     playbutton.on('pointerover', function () {
 
       playbutton.setTint(0x44ff44);
+      //menusound.play();
 
     });
 
@@ -126,6 +138,7 @@ class BootScene extends Phaser.Scene {
     memebutton.on('pointerover', function () {
 
       memebutton.setTint(0x44ff44);
+      menusound.play();
 
     });
 

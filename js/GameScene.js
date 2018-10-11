@@ -19,7 +19,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 200;
+  this.timer = 2;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
