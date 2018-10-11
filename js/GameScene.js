@@ -19,7 +19,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 10;
+  this.timer = 200;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -28,7 +28,7 @@ create(){
   this.roundEndSwitch = 0;
   
   // Players total word combo
-  this.combo = 3;
+  this.combo = 10;
 
   // At the end of the round
   this.roundEndCombo = 0;
@@ -80,12 +80,12 @@ create(){
   // Add round timer to screen
   this.timertext = this.add
       .text(this.sys.game.config.width / 2, 10, ("TIME LEFT: " + this.timer), {
-        fontFamily: "Impact",
+        fontFamily: "arcade",
         fontSize: 50,
-        fill: "#f8d838",
+        fill: "#ffffff",
         padding: { x: 20, y: 10 },
         originX : 0.5
-      }).setStroke('#312088', 3)
+      }).setStroke('#312088', 6)
       .setDepth(10);
   // origin and setOrigin are used to change the pivot point of things,
   // but I can't get it to work great? So width division like below is used a lot
@@ -103,11 +103,11 @@ create(){
   // the combo integer
   this.comboText = this.add
       .text(15, 40, (this.combo), {
-      fontFamily: "Impact",
-      fontSize: 60,
-      fill: "#f8d838",
+      fontFamily: "arcade",
+      fontSize: 80,
+      fill: "#ffffff",
       padding: { x: 20, y: 10 }})
-      .setStroke('#312088', 3)
+      .setStroke('#312088', 6)
       .setOrigin(0.5);
   this.comboText.x = this.comboImage.x;
   this.comboText.y = 105;
@@ -118,6 +118,10 @@ create(){
         .add(this.comboImage)
         .setDepth(10);
   
+  // this.comboContainer.tweentarget = this.add.container(0, 0);
+
+  // this.generateNumberImg(this.combo, this.comboContainer.tweentarget, 15, 60, this);
+
   // Add a tween animation that makes the combo number *pop* every +1
   this.comboTween = this.tweens.add({
     targets: this.comboText,
@@ -131,11 +135,11 @@ create(){
   // Score text for every letter the player gets right
   this.scoreText = this.add
       .text(this.comboContainer.x, 500, ("TOTAL SCORE: " + this.score), {
-      fontFamily: "Impact",
+      fontFamily: "arcade",
       fontSize: 60,
       fill: "#f8d838",
       padding: { x: 20, y: 10 }})
-      .setStroke('#312088', 3)
+      .setStroke('#312088', 6)
       .setOrigin(0.5)
       .setVisible(false);
       this.scoreText.x = this.comboContainer.x
@@ -244,6 +248,7 @@ create(){
 
   // Game timer event. Every 1 second, call countDown function. repeat (this.timer) times
   this.time.addEvent({ delay: 1000, callback: this.countDown, callbackScope: this, repeat: (this.timer)});
+
 }
 
 update() {
@@ -278,6 +283,9 @@ update() {
     // Add to combo
     this.combo += 1;
     this.comboText.setText(this.combo);
+
+    // combo text font test
+    // this.generateNumberImg(this.combo, this.comboContainer.tweentarget, 15, 60, this);
 
     // Player comboText animation
     this.comboTween.restart();
@@ -337,6 +345,27 @@ newWordToScreen(scene) {
   //(game width center) - (half of (wordlength * x coordinate offsets) 
   (this.sys.game.config.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
 }
+
+// generateNumberImg(num, container, x, y, scene) {
+
+//   if (container.numbercontainer != undefined) {
+//     container.numbercontainer.destroy()
+//   }
+
+//   container.numbercontainer = scene.add.container(x, y)
+
+//   for (let i = 0; i < num.toString().length; i++) {
+//     let offset = 0;
+//     if (i > 0) {
+//       offset = 25;
+//     }
+//     let currentNumber = scene.add.image(x + offset, y, num.toString()[i]);
+//     container.numbercontainer.add(currentNumber);
+//   }
+
+//   container.add(container.numbercontainer);
+
+// }
 
 // Called when our invisible hadoken connects with the skeleton
 hitSkeleton(skeleton, hadoken) {
