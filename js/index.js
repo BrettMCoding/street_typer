@@ -1,4 +1,5 @@
 import BootScene from "./BootScene.js"
+import MenuScene from "./MenuScene.js"
 import GameScene from "./GameScene.js"
 
 const config = {
@@ -6,7 +7,7 @@ const config = {
   width: 1280,
   height: 736,
   parent: "game-container", // Id of the DOM element to add the canvas to
-  scene: [BootScene, GameScene],
+  scene: [BootScene, MenuScene, GameScene],
   physics: {
     default: "arcade",
     arcade: {
