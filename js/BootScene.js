@@ -30,6 +30,7 @@ class BootScene extends Phaser.Scene {
       this.load.image("background" + i, "./assets/img/backgroundsprite/background" + i + ".png")
       console.log("background" + i)
     }
+    this.load.image('black', './assets/img/black.png');
     this.load.image('logo', './assets/img/logo.png');
     this.load.image('ground', './assets/img/platform.png');
     this.load.image('skeleton', './assets/img/skeleton.png');
@@ -56,6 +57,7 @@ class BootScene extends Phaser.Scene {
     this.load.audio('memescream', './assets/sounds/memescream.wav',);
     this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.wav',);
     this.load.audio('sewersurfin', './assets/sounds/music/SewerSurfin.mp3',);
+    this.load.audio('ff7save', './assets/sounds/UI/ff7save.mp3');
 
     // Load combo word
     this.load.image('comboword', './assets/img/comboword.png');
@@ -95,37 +97,47 @@ class BootScene extends Phaser.Scene {
     });
     this.background = this.add.sprite( width / 2, height / 2, "background" );
 
+    this.black = this.add.image( width / 2, height / 2, "black");
+
     this.background.play("background");
 
+    let presentText = this.add
+      .text(width / 2, height / 2, "MONKEY GAMES", {
+        fontFamily: "arcade",
+        fontSize: 60,
+        fill: "#f8d838",
+        padding: { x: 20, y: 10 }})
+        .setStroke('#312088', 6)
+        .setOrigin(0.5)
+        .setAlpha(0.0);
+    presentText.x = width / 2;
+    presentText.y = height / 2;
+    
 
-    let playbutton = this.add.image(0, 0, 'playbutton');
-
-    let memebutton = this.add.image(-80, 80, 'squarebutton');
-
-    let buttoncontainer = this.add.container( width / 2, height / 2 + 50, [ playbutton, memebutton ] );
-
-    let menusound = this.sound.add('megamanmenu');
-
-    playbutton.setInteractive();
-
-    playbutton.on('pointerover', function () {
-
-      playbutton.setTint(0x44ff44);
-      //menusound.play();
-
+    // Fade out black to background
+    this.tweens.add({
+      targets: this.black,
+      alpha: { value: 0, duration: 5000, ease: 'Power1', delay: 3000 },
     });
 
-    playbutton.on('pointerup', function () {
-
-      this.scene.start('MenuScene');
-
-   }, this);
-
-    playbutton.on('pointerout', function () {
-
-      playbutton.clearTint();
-
+    // Pop text in
+    this.tweens.add({
+      targets: presentText,
+      alpha: { value: 1, duration: 1, ease: 'Power1', delay: 500 },
     });
+
+    // Text sound effect
+    let presentSound = this.sound.add('ff7save');
+    presentSound.play();
+    // Pop text out
+    this.tweens.add({
+      targets: presentText,
+      alpha: { value: 0, duration: 1, ease: 'Power1', delay: 3000 },
+    });
+
+    this.logo = this.physics.add.sprite( width / 2, height / 2 - 2000, "logo")
+
+      //this.scene.start('MenuScene');
   }
 }
 
