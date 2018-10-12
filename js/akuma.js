@@ -127,7 +127,7 @@ export default class PlayerCharacter {
   // Why can't I get this into main with proper scope? I probably can after I setup scenes...
   roundEndScoreTally(scene) {
     scene.scoreText.setText("TOTAL SCORE: " + scene.score)
-    scene.scoreText.x = scene.comboContainer.x;
+    scene.scoreText.x = scene.sys.game.config.width / 2;
     scene.scoreText.y = 605;
     scene.scoreText.setVisible(true);
   }

@@ -57,14 +57,11 @@ create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Skeleton Enemy
-  this.skeleton = this.physics.add.sprite(300, this.sys.game.config.height / 2 - 40, 'skeleton')
-    .setScale(0.5)
-    .setBounce(0.2)
-    .setCollideWorldBounds(true)
-    .setFlipX(true);
+  this.skeletons = this.add.group();
+  this.summonNewSkeleton(this);
   
   // Add Player Character
-  this.PlayerCharacter = new PlayerCharacter(this, this.sys.game.config.width / 8, this.sys.game.config.height / 2)
+  this.PlayerCharacter = new PlayerCharacter(this, this.sys.game.config.width / 8, this.sys.game.config.height / 2 + 180)
 
   // Pick & display first word
   this.currentWord = this.newWord(this.WORDS);
@@ -142,8 +139,8 @@ create(){
         
   // Physics colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
-  this.physics.add.collider(this.skeleton, platforms);
-  this.physics.add.overlap(this.skeleton, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
+  this.physics.add.collider(this.skeletons, platforms);
+  this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
 
   // Particles
   this.particles = {};
@@ -152,12 +149,13 @@ create(){
   this.particles.fire = this.add.particles('fire');
   this.particles.vortex = this.add.particles('flares');
   this.particles.vortex2 = this.add.particles('flares');
+  this.particles.summonSkeleton = this.add.particles('sparklered');
   
   this.particles.bone.createEmitter({
     x: 200,
     y: 300,
     lifespan: 2000,
-    quantity: {min: 4, max: 10},
+    quantity: {min: 20, max: 30},
     speed: { min: 250, max: 500 },
     angle: { min: 180, max: 440 },
     rotate: { start:0, end:360, ease: 'Back.easeOut'},
@@ -229,6 +227,19 @@ create(){
     emitZone: { source: this.circle, type: 'random', quantity: 1 },
     on: false
 });
+
+  // Summon Skeleton particles
+  this.particles.summonSkeleton.createEmitter({
+    x: { min: 260, max: 340 },
+    y: this.sys.game.config.height / 2 + 280,
+    lifespan: { min: 300, max: 500 },
+    speed: { min: 20, max: 1000 },
+    angle: 270,
+    scale: { start: 0.2, end: 0 },
+    quantity: 100,
+    blendMode: 'ADD',
+    on:false
+  });
   
   // add super combo lazer
   this.anims.create({ key: 'blast', frames: this.anims.generateFrameNames('lazer', { prefix: 'lazer_', start: 0, end: 22, zeroPad: 2 }), frameRate: 50});
@@ -366,7 +377,8 @@ newWordToScreen(scene) {
 hitSkeleton(skeleton, hadoken) {
 
   // Set skeletons velocityX to 0 so he doesn't go flying
-  skeleton.setVelocityX(0);
+  skeleton.setVelocityX(1300);
+  skeleton.setVelocityY(-500)
   // Destroy the projectile
   hadoken.destroy()
 
@@ -381,12 +393,35 @@ hitSkeleton(skeleton, hadoken) {
   let random = Math.floor(Math.random() * hitSounds.length)
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
+
+  //function skeletonDestroy(){skeleton.destroy()}; 
+  //this.time.addEvent({ delay: 400, callback: skeletonDestroy});
   skeleton.destroy();
-  this.summonNewSkeleton();
+
+  this.particles.summonSkeleton.emitParticle();
+
+  this.summonNewSkeleton(this);
 }
 
-summonNewSkeleton() {
-  
+summonNewSkeleton(scene) {
+  scene.skeletons.add
+    (scene.physics.add.sprite(300, scene.sys.game.config.height / 2 + 80, 'skeleton')
+    .setScale(0.0)
+    .setBounce(0.2)
+    .setAlpha(0.0)
+    .setCollideWorldBounds(true)
+    .setFlipX(true));
+
+    this.tweens.add({
+      targets: scene.skeletons.children.entries,
+      alpha: { value: 1, duration: 250, ease: 'Power1',}
+    });
+    this.tweens.add({
+      targets: scene.skeletons.children.entries,
+      scaleX: 0.5,
+      scaleY: 0.5,
+      duration: 250,
+    });
 }
 
 // Called by our create() game this.timer event

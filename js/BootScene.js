@@ -39,6 +39,7 @@ class BootScene extends Phaser.Scene {
     this.load.image('bone', './assets/img/particles/bone.png');
     this.load.image('fire', './assets/img/particles/muzzleflash3.png');
     this.load.image('flares', './assets/img/particles/sparkle1.png');
+    this.load.image('sparklered', './assets/img/particles/sparkle2.png');
     this.load.atlas('lazer', './assets/img/particles/lazer/lazer.png', './assets/img/particles/lazer/lazer.json');
     this.load.image('playbutton', './assets/img/menu/playbutton.png');
     this.load.image('helpbutton', './assets/img/menu/helpbutton.png');
