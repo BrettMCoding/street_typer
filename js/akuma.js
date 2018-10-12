@@ -4,9 +4,10 @@ export default class PlayerCharacter {
 
   // Create Akuma
   this.akuma = scene.physics.add.sprite(x, y, 'akuma', 'AkumaClean_.png')
-    .setScale(1.5)
+    .setScale(2.5)
     .setBounce(0.2)
     .setCollideWorldBounds(true);
+  debugger;
 
   // AKUMA GOSHORYU ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {

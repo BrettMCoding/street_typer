@@ -78,6 +78,9 @@ class BootScene extends Phaser.Scene {
   }
 
   create() {
+    // TEMPORARY MENU SKIP
+    this.scene.start('GameScene');
+
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height
 
@@ -147,7 +150,6 @@ class BootScene extends Phaser.Scene {
     this.platform = this.physics.add.staticSprite( width / 2, 310);
 
     this.physics.add.collider(this.logo, this.platform, this.bounceSoundAndNextScene, null, this);
-    debugger;
       //this.scene.start('MenuScene');
   }
 

@@ -19,7 +19,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 2;
+  this.timer = 60;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -46,13 +46,8 @@ create(){
   this.background.play("background");
 
   // Platforms
-  let platforms = this.physics.add.staticGroup();
+  let platforms = this.physics.add.staticSprite(this.sys.game.config.width / 2, this.sys.game.config.height - 50, 'ground')
 
-  platforms.create(this.sys.game.config.width / 8, (this.sys.game.config.height / 2) + 100, 'ground')
-    .setScale(0.5);
-
-  platforms.create((this.sys.game.config.width / 8) + 200, (this.sys.game.config.height / 2) + 100, 'ground')
-  .setScale(0.5);
 
   // Add A-Z as clickable keys for our game
   this.keys = this.input.keyboard.addKeys(this.alphabet.join(","));
@@ -62,7 +57,8 @@ create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Skeleton Enemy
-  this.skeleton = this.physics.add.sprite(this.sys.game.config.width / 8 + 70, this.sys.game.config.height / 2 - 40, 'skeleton')
+  // Old: this.skeleton = this.physics.add.sprite(this.sys.game.config.width / 8 + 70, this.sys.game.config.height / 2 - 40, 'skeleton')
+  this.skeleton = this.physics.add.sprite(this.sys.game.config.width - 200, this.sys.game.config.height / 2 - 40, 'skeleton')
     .setScale(0.35)
     .setBounce(0.2)
     .setCollideWorldBounds(true)
