@@ -32,15 +32,13 @@ class MenuScene extends Phaser.Scene {
 
     this.logo = this.add.sprite( width / 2, height / 2 - 200, "logo")
 
-    let bgm = this.sound.add('sewersurfin');
-    //bgm.play()
-
-
     let playbutton = this.add.image(0, 0, 'playbutton');
+
+    let helpbutton = this.add.image(0, 80, 'helpbutton')
 
     let memebutton = this.add.image(-80, 80, 'squarebutton');
 
-    let buttoncontainer = this.add.container( width / 2, height / 2 + 50, [ playbutton, memebutton ] );
+    let buttoncontainer = this.add.container( width / 2, height / 2 + 50, [ playbutton, helpbutton ] );
 
     let menusound = this.sound.add('megamanmenu');
 
@@ -64,30 +62,55 @@ class MenuScene extends Phaser.Scene {
       playbutton.clearTint();
 
     });
+
+    helpbutton.setInteractive();
     
+    helpbutton.on('pointerover', function () {
+
+      helpbutton.setTint(0x44ff44);
+      //menusound.play();
+
+    });
+
+    helpbutton.on('pointerup', function () {
+
+      this.scene.start('GameScene');
+
+   }, this);
+
+   helpbutton.on('pointerout', function () {
+
+    helpbutton.clearTint();
+
+    });
+    
+    // memescream can be a cheat code later
+    ///////////////////////////////////////////////////////////////
     // X BUTTON TEST
-    memebutton.setInteractive();
+    // memebutton.setInteractive();
 
-    memebutton.on('pointerover', function () {
+    // memebutton.on('pointerover', function () {
 
-      memebutton.setTint(0x44ff44);
-      menusound.play();
+    //   memebutton.setTint(0x44ff44);
+    //   menusound.play();
 
-    });
+    // });
 
-    memebutton.on('pointerup', function () { 
-        if (memebutton.texture.key === "squarebutton") {
-          memebutton.setTexture('squarebuttonx');
-        } else {
-          memebutton.setTexture('squarebutton');
-        }
-     }, this);
+    // memebutton.on('pointerup', function () { 
+    //     if (memebutton.texture.key === "squarebutton") {
+    //       memebutton.setTexture('squarebuttonx');
+    //     } else {
+    //       memebutton.setTexture('squarebutton');
+    //     }
+    //  }, this);
 
-    memebutton.on('pointerout', function () {
+    // memebutton.on('pointerout', function () {
 
-      memebutton.clearTint();
+    //   memebutton.clearTint();
 
-    });
+    // });
+    //////////////////////////////////////////////////////////////////
+
 
     // this.input.manager.enabled = true;
 

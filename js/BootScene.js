@@ -27,7 +27,7 @@ class BootScene extends Phaser.Scene {
     });
 
     for (let i = 1; i <= 8; i++) {
-      this.load.image("background" + i, "./assets/img/backgroundsprite/background" + i + ".png")
+      this.load.image("background" + i, "./assets/img/backgroundsprite/cathedral/cathedral" + i + ".png")
       console.log("background" + i)
     }
     this.load.image('black', './assets/img/black.png');
@@ -41,6 +41,7 @@ class BootScene extends Phaser.Scene {
     this.load.image('flares', './assets/img/particles/sparkle1.png');
     this.load.atlas('lazer', './assets/img/particles/lazer/lazer.png', './assets/img/particles/lazer/lazer.json');
     this.load.image('playbutton', './assets/img/menu/playbutton.png');
+    this.load.image('helpbutton', './assets/img/menu/helpbutton.png');
     this.load.image('squarebutton', './assets/img/menu/squarebutton.png');
     this.load.image('squarebuttonx', './assets/img/menu/squarebuttonx.png');
   
@@ -127,17 +128,53 @@ class BootScene extends Phaser.Scene {
     });
 
     // Text sound effect
-    let presentSound = this.sound.add('ff7save');
-    presentSound.play();
+    this.time.addEvent({ delay: 300, callback: this.monkeyGamesSound, callbackScope: this, repeat: (this.timer)});
+
     // Pop text out
     this.tweens.add({
       targets: presentText,
       alpha: { value: 0, duration: 1, ease: 'Power1', delay: 3000 },
     });
 
-    this.logo = this.physics.add.sprite( width / 2, height / 2 - 2000, "logo")
+    // play background music
+    this.time.addEvent({ delay: 3000, callback: this.backgroundMusic, callbackScope: this, repeat: (this.timer)});
 
+    // Create physics logo
+    this.logo = this.physics.add.sprite( width / 2, height / 2 - 20000, "logo")
+      .setBounce(0.2)
+
+    // Create invisible platform for logo to land on
+    this.platform = this.physics.add.staticSprite( width / 2, 310);
+
+    this.physics.add.collider(this.logo, this.platform, this.bounceSoundAndNextScene, null, this);
+    debugger;
       //this.scene.start('MenuScene');
+  }
+
+  // MUTED SOUND EFFECTS LIE BELOW
+
+  monkeyGamesSound() {
+    let presentSound = this.sound.add('ff7save');
+    //presentSound.play();
+  }
+
+  backgroundMusic() {
+    let bgm = this.sound.add('sewersurfin');
+    //bgm.play()
+  }
+
+  bounceSoundAndNextScene(logo, platform) {
+      let hit = this.sound.add('fiercepunch');
+      // wasTouching.none is a boolean of whether or not object was colliding with nothing last cycle
+      if (logo.body.wasTouching.none === true) {
+        //hit.play();
+        let shakecam = this.cameras.add().setName('shakecam');
+        shakecam.shake(100, 0.01);
+      // if wasTouching.none = true, we've stopped. Start the menu
+      } else {
+        this.scene.start('MenuScene');
+      }
+      //hit.once();
   }
 }
 
