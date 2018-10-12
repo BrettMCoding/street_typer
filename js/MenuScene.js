@@ -47,7 +47,7 @@ class MenuScene extends Phaser.Scene {
     playbutton.on('pointerover', function () {
 
       playbutton.setTint(0x44ff44);
-      //menusound.play();
+      menusound.play();
 
     });
 
@@ -64,11 +64,11 @@ class MenuScene extends Phaser.Scene {
     });
 
     helpbutton.setInteractive();
-    
+
     helpbutton.on('pointerover', function () {
 
       helpbutton.setTint(0x44ff44);
-      //menusound.play();
+      menusound.play();
 
     });
 

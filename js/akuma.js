@@ -7,7 +7,6 @@ export default class PlayerCharacter {
     .setScale(2.5)
     .setBounce(0.2)
     .setCollideWorldBounds(true);
-  debugger;
 
   // AKUMA GOSHORYU ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -25,6 +24,14 @@ export default class PlayerCharacter {
   }); let b=scene.frameNames;b.unshift({ key:'akuma', frame:'AkumaClean_09.png' });b.unshift({ key:'akuma', frame:'AkumaClean_08.png' });b.unshift({ key:'akuma', frame:'AkumaClean_07.png' });b.unshift({ key:'akuma', frame:'AkumaClean_06.png' });b.unshift({ key:'akuma', frame:'AkumaClean_05.png' });b.unshift({ key:'akuma', frame:'AkumaClean_04.png' });b.unshift({ key:'akuma', frame:'AkumaClean_03.png' });
 
   scene.anims.create({ key: 'supercharge', frames: scene.frameNames, frameRate: 20  , yoyo: true});
+
+  // AKUMA SUPERCHARGE IMAGE
+  scene.frameNames = scene.anims.generateFrameNames('akuma', {
+    start: 15, end: 17,
+    prefix: 'AkumaClean_', suffix: '.png'
+  }); 
+
+  scene.anims.create({ key: 'superchargeimage', frames: scene.frameNames, frameRate: 20  , repeat: -1});
 
   // AKUMA HADOKEN ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -167,6 +174,16 @@ export default class PlayerCharacter {
     scene.particles.vortex2.emitParticle();
     
     this.akuma.anims.play('supercharge');
+
+    let akumaimages = scene.add.group();
+    for (let i = 0; i < 10; i++) {
+      akumaimages.add(scene.physics.add.sprite(this.akuma.x, this.akuma.y, 'akuma', 'AkumaClean_17.png')
+      .setScale(2.5)
+      .setBounce(0.2)
+      .setVelocityX(100 * i)
+      .setCollideWorldBounds(true)
+      );
+    }
     
     // vertical & horizontal lasers
     scene.lazer.anims.delayedPlay(400,'blast');

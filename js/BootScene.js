@@ -151,33 +151,31 @@ class BootScene extends Phaser.Scene {
     this.platform = this.physics.add.staticSprite( width / 2, 310);
 
     this.physics.add.collider(this.logo, this.platform, this.bounceSoundAndNextScene, null, this);
-      //this.scene.start('MenuScene');
   }
 
   // MUTED SOUND EFFECTS LIE BELOW
 
   monkeyGamesSound() {
     let presentSound = this.sound.add('ff7save');
-    //presentSound.play();
+    presentSound.play();
   }
 
   backgroundMusic() {
     let bgm = this.sound.add('sewersurfin');
-    //bgm.play()
+    bgm.play()
   }
 
   bounceSoundAndNextScene(logo, platform) {
       let hit = this.sound.add('fiercepunch');
       // wasTouching.none is a boolean of whether or not object was colliding with nothing last cycle
       if (logo.body.wasTouching.none === true) {
-        //hit.play();
+        hit.play();
         let shakecam = this.cameras.add().setName('shakecam');
         shakecam.shake(100, 0.01);
       // if wasTouching.none = true, we've stopped. Start the menu
       } else {
         this.scene.start('MenuScene');
       }
-      //hit.once();
   }
 }
 
