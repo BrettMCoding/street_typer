@@ -46,7 +46,7 @@ create(){
   this.background.play("background");
 
   // Platforms
-  let platforms = this.physics.add.staticSprite(this.sys.game.config.width / 2, this.sys.game.config.height - 50, 'ground')
+  let platforms = this.physics.add.staticSprite(this.sys.game.config.width / 2, this.sys.game.config.height - 50, 'ground').setAlpha(0.0);
 
 
   // Add A-Z as clickable keys for our game
@@ -57,9 +57,8 @@ create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Skeleton Enemy
-  // Old: this.skeleton = this.physics.add.sprite(this.sys.game.config.width / 8 + 70, this.sys.game.config.height / 2 - 40, 'skeleton')
-  this.skeleton = this.physics.add.sprite(this.sys.game.config.width - 200, this.sys.game.config.height / 2 - 40, 'skeleton')
-    .setScale(0.35)
+  this.skeleton = this.physics.add.sprite(300, this.sys.game.config.height / 2 - 40, 'skeleton')
+    .setScale(0.5)
     .setBounce(0.2)
     .setCollideWorldBounds(true)
     .setFlipX(true);
@@ -382,6 +381,11 @@ hitSkeleton(skeleton, hadoken) {
   let random = Math.floor(Math.random() * hitSounds.length)
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
+  skeleton.destroy();
+  this.summonNewSkeleton();
+}
+
+summonNewSkeleton() {
   
 }
 
