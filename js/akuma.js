@@ -6,7 +6,7 @@ export default class PlayerCharacter {
   this.akuma = scene.physics.add.sprite(x, y, 'akuma', 'AkumaClean_.png')
     .setScale(2.5)
     .setBounce(0.2)
-    .setCollideWorldBounds(true);
+    .setCollideWorldBounds(true)
 
   // AKUMA GOSHORYU ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -175,16 +175,7 @@ export default class PlayerCharacter {
     
     this.akuma.anims.play('supercharge');
 
-    let akumaimages = scene.add.group();
-    for (let i = 0; i < 10; i++) {
-      akumaimages.add(scene.physics.add.sprite(this.akuma.x, this.akuma.y, 'akuma', 'AkumaClean_17.png')
-      .setScale(2.5)
-      .setBounce(0.2)
-      .setVelocityX(100 * i)
-      .setCollideWorldBounds(true)
-      );
-    }
-    
+    //this.akuma.bringToTop(this.akuma)
     // vertical & horizontal lasers
     scene.lazer.anims.delayedPlay(400,'blast');
     scene.lazer2.anims.delayedPlay(650,'blast');
@@ -193,12 +184,19 @@ export default class PlayerCharacter {
     scene.time.addEvent({ delay: 1000, callback: this.superCombo, args: [scene, self]});
   }
   
+  teleport(self) {
+    self.akuma.x = 800
+  }
+
   // At the end of the round, do an attack for every word in combo
   superCombo(scene, self) {
     scene.background.setTint(0xffffff);
     
-    // Add a delayed calls that repeat (combo) times
     
+    scene.time.addEvent({ delay: 200, callback: self.teleport, args: [self]});
+
+    
+    // Add delayed calls that repeat (combo) times
     // Animation
     scene.time.addEvent({ delay: 200, callback: self.randomAttackAnimation, args: [scene], repeat: scene.combo - 1});
     
