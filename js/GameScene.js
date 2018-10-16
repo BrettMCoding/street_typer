@@ -19,7 +19,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 60;
+  this.timer = 3;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -369,33 +369,8 @@ newWordToScreen(scene) {
   (this.sys.game.config.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
 }
 
-// generateNumberImg(num, container, x, y, scene) {
-
-//   if (container.numbercontainer != undefined) {
-//     container.numbercontainer.destroy()
-//   }
-
-//   container.numbercontainer = scene.add.container(x, y)
-
-//   for (let i = 0; i < num.toString().length; i++) {
-//     let offset = 0;
-//     if (i > 0) {
-//       offset = 25;
-//     }
-//     let currentNumber = scene.add.image(x + offset, y, num.toString()[i]);
-//     container.numbercontainer.add(currentNumber);
-//   }
-
-//   container.add(container.numbercontainer);
-
-// }
-
 // Called when our invisible hadoken connects with the skeleton
 hitSkeleton(skeleton, hadoken) {
-
-  // Set skeletons velocityX to 0 so he doesn't go flying
-  skeleton.setVelocityX(1300);
-  skeleton.setVelocityY(-500)
   // Destroy the projectile
   hadoken.destroy()
 
@@ -411,8 +386,6 @@ hitSkeleton(skeleton, hadoken) {
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
 
-  //function skeletonDestroy(){skeleton.destroy()}; 
-  //this.time.addEvent({ delay: 400, callback: skeletonDestroy});
   skeleton.destroy();
 
   this.particles.summonSkeleton.emitParticle();

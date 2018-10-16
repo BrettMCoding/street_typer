@@ -184,8 +184,23 @@ export default class PlayerCharacter {
     scene.time.addEvent({ delay: 1000, callback: this.superCombo, args: [scene, self]});
   }
   
-  teleport(self) {
+  teleport(self, scene) {
     self.akuma.x = 800
+
+    let skeleton = { x: 300, y: scene.sys.game.config.height / 2 + 80 };
+
+    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
+    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
+
+    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 30);
+    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 30);
+
+    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 60);
+    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 60);
+
+
+
+    scene.skeletons.children.entries[0].destroy();
   }
 
   // At the end of the round, do an attack for every word in combo
@@ -193,7 +208,7 @@ export default class PlayerCharacter {
     scene.background.setTint(0xffffff);
     
     
-    scene.time.addEvent({ delay: 200, callback: self.teleport, args: [self]});
+    scene.time.addEvent({ delay: 200, callback: self.teleport, args: [self, scene]});
 
     
     // Add delayed calls that repeat (combo) times
@@ -207,8 +222,8 @@ export default class PlayerCharacter {
     scene.time.addEvent({ delay: 200, callback: self.superComboTally, args: [self, scene], repeat: scene.combo - 1});
     
     // Display score
-    // Delay = combo length + 1 second
-    scene.time.addEvent({ delay: ((200 * scene.combo) + 1000), callback: self.roundEndScoreTally, args: [scene, self], repeat: 1});
+    // Delay = combo length + 2 seconds
+    scene.time.addEvent({ delay: ((200 * scene.combo) + 2000), callback: self.roundEndScoreTally, args: [scene, self], repeat: 1});
   }
   
   superComboTally(self, scene) {
