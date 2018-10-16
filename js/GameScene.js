@@ -172,6 +172,7 @@ create(){
   this.particles.bone = this.add.particles('bone');
   this.particles.bloodchunk = this.add.particles('bloodchunk');
   this.particles.fire = this.add.particles('fire');
+  this.particles.hadokenFire = this.add.particles('purplefire');
   this.particles.vortex = this.add.particles('flares');
   this.particles.vortex2 = this.add.particles('flares');
   this.particles.summonSkeleton = this.add.particles('sparklered');
@@ -221,6 +222,21 @@ create(){
       y: this.comboText.getCenter().y + 20,
       on: false
   });
+
+  this.particles.hadokenFire.createEmitter({
+    alpha: { start: 1, end: 0 },
+    scale: { start: 1, end: 0 },
+    quantity: 9,
+    speed: {min: 40, max: 200},
+    angle: { min: 0, max: 360 },
+    rotate: { min: -45, max: 0 },
+    lifespan: { min: 100, max: 200 },
+    frequency: 1100,
+    maxParticles: 10,
+    x: 0,
+    y: 0,
+    on: false
+});
 
   // Super combo vortex particles
   this.circle = new Phaser.Geom.Circle(this.PlayerCharacter.akuma.x, this.PlayerCharacter.akuma.y, 500);
@@ -384,6 +400,7 @@ newWordToScreen(scene) {
 // Called when our invisible hadoken connects with the skeleton
 hitSkeleton(skeleton, hadoken) {
   // Destroy the projectile
+  this.particles.hadokenFire.emitParticleAt(hadoken.getCenter());
   hadoken.destroy()
 
   // Emit bones and blood and combo fire
@@ -406,6 +423,8 @@ hitSkeleton(skeleton, hadoken) {
 }
 
 hitBoss(boss, hadoken) {
+
+  this.particles.hadokenFire.emitParticleAt(hadoken.x, hadoken.y);
   hadoken.destroy()
 
   boss.setTint(0xff0000);
@@ -420,6 +439,9 @@ hitBoss(boss, hadoken) {
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
 
+
+  this.particles.bone.emitParticleAt(boss.x, boss.y);
+  this.particles.bloodchunk.emitParticleAt(boss.x, boss.y);
   //stone particles
 
   //bigger bone particles

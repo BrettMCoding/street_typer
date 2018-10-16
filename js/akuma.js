@@ -7,6 +7,7 @@ export default class PlayerCharacter {
     .setScale(2.5)
     .setBounce(0.2)
     .setCollideWorldBounds(true)
+    this.akuma.body.gravity.y = -700;
 
   // AKUMA GOSHORYU ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -14,7 +15,7 @@ export default class PlayerCharacter {
     prefix: 'AkumaClean_', suffix: '.png'
   });
   scene.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
-  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 20, repeat: 0 });
+  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 10, repeat: 0 });
 
   // AKUMA SUPERCHARGE ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -98,8 +99,8 @@ export default class PlayerCharacter {
   });
   scene.anims.create({ key: 'overhead', frames: scene.frameNames, frameRate: 25, repeat: 0 });
 
-  // Array of string names of attack animations to be used as keys later
-  this.akuma.attackNames = ['shoryuken', 'lightpunch', 'mediumpunch', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
+  // Array of string names of attack animations to be used as keys later 'shoryuken'
+  this.akuma.attackNames = ['lightpunch', 'mediumpunch', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
   // Hadoken physical body (now used as hit detection)
   this.hadoken = scene.physics.add.group();
@@ -144,8 +145,6 @@ export default class PlayerCharacter {
   
   // the first call after end of round
   superComboOpeningAnimation(scene, self) {
-    // we'll lose scope of "this" so we make self = this;
-    self = this;
     
     // play supercombo sound
     let superSound = scene.sound.add('super');
@@ -159,15 +158,14 @@ export default class PlayerCharacter {
     scene.particles.vortex.emitParticle();
     scene.particles.vortex2.emitParticle();
     
-    this.akuma.anims.play('supercharge');
+    self.akuma.anims.play('supercharge');
 
-    //this.akuma.bringToTop(this.akuma)
     // vertical & horizontal lasers
     scene.lazer.anims.delayedPlay(400,'blast');
     scene.lazer2.anims.delayedPlay(650,'blast');
     
     // All the while, this delay has been ticking down. 1 second after launching the function, call superCombo function
-    scene.time.addEvent({ delay: 1000, callback: this.superCombo, args: [scene, self]});
+    scene.time.addEvent({ delay: 1000, callback: self.superCombo, args: [scene, self]});
   }
   
   teleport(self, scene) {
@@ -207,8 +205,39 @@ export default class PlayerCharacter {
     // Combo++ animation
     scene.time.addEvent({ delay: 200, callback: scene.superComboTally, args: [scene], repeat: scene.combo - 1});
     
+    scene.time.addEvent({ delay: ((200 * scene.combo)), callback: self.superComboFinisher, args: [scene, self]});
+
     // Display score
     // Delay = combo length + 2 seconds
     scene.time.addEvent({ delay: ((200 * scene.combo) + 2000), callback: scene.roundEndScoreTally, args: [scene, self], repeat: 1});
+  }
+
+  superComboFinisher(scene, self) {
+    
+    // play supercombo sound
+    //let superSound = scene.sound.add('super');
+    //superSound.play();
+    
+    // color the background
+    scene.background.setTint(0x9f00bc);
+    
+    
+    // vortex particles
+    scene.particles.vortex.emitParticleAt(self.akuma.getCenter());
+    
+    self.akuma.anims.play('supercharge');
+
+    // vertical & horizontal lasers
+    //scene.lazer.anims.delayedPlay(400,'blast');
+    //scene.lazer2.anims.delayedPlay(650,'blast');
+    
+    scene.time.addEvent({ delay: 1000, callback: self.goshoryuken, args: [scene, self]});
+  }
+
+  goshoryuken(scene, self) {
+    scene.background.clearTint();
+    self.akuma.anims.play('shoryuken');
+    scene.time.addEvent({ delay: 150, callback: self.createHadokenProjectile, args: [self, scene], repeat: 10});
+    self.akuma.setVelocityY(-400);
   }
 }
