@@ -80,7 +80,7 @@ class BootScene extends Phaser.Scene {
 
   create() {
     // TEMPORARY MENU SKIP
-    this.scene.start('GameScene');
+    this.scene.start('PreGameScene');
 
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height

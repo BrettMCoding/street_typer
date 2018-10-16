@@ -45,6 +45,23 @@ create(){
   this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "background");
   this.background.play("background");
 
+  // Add starting "GO!" text to the screen
+  this.goText = this.add
+      .text(this.sys.game.config.width / 2, 200, ("GO!"), {
+        fontFamily: "arcade",
+        fontSize: 100,
+        fill: "#ffffff",
+        padding: { x: 20, y: 10 },
+        originX : 0.5
+      }).setStroke('#312088', 6)
+      .setDepth(10);
+      this.goText.x -= this.goText.width / 2;
+
+      this.tweens.add({
+        targets: this.goText,
+        alpha: { value: 0, duration: 1, ease: 'Power1', delay: 1000 },
+      });
+
   // Platforms
   let platforms = this.physics.add.staticSprite(this.sys.game.config.width / 2, this.sys.game.config.height - 50, 'ground').setAlpha(0.0);
 
