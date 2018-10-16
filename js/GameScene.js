@@ -19,7 +19,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 3;
+  this.timer = 2;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -39,6 +39,7 @@ create(){
   
   // Points
   this.score = 0;
+
   
   // Background
   // NOTE: We'll be using this.sys.game.config.width or height a lot to get the dimensions of our game
@@ -72,6 +73,11 @@ create(){
   // Add spacebar for testing attacks
   this.keys.SPACE = this.input.keyboard.addKey
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+  // Boss
+  this.boss = this.physics.add.sprite(1100, 400, 'anakaris')
+    .setCollideWorldBounds(true)
+    .setFlipX(true);
 
   // Skeleton Enemy
   this.skeletons = this.add.group();
@@ -157,7 +163,9 @@ create(){
   // Physics colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
   this.physics.add.collider(this.skeletons, platforms);
+  this.physics.add.collider(this.boss, platforms);
   this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
+  this.physics.add.overlap(this.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
 
   // Particles
   this.particles = {};
@@ -332,6 +340,10 @@ update() {
     // End of round function
     this.roundEnd(this);
   }
+
+  if (this.scoreTween !== undefined) {
+    this.scoreText.setText("TOTAL SCORE: " + Math.floor(this.scoreTween.getValue()))
+  }
 }
 
 // Grab a random word from an array of words
@@ -393,6 +405,26 @@ hitSkeleton(skeleton, hadoken) {
   this.summonNewSkeleton(this);
 }
 
+hitBoss(boss, hadoken) {
+  hadoken.destroy()
+
+  boss.setTint(0xff0000);
+
+  this.time.addEvent({ delay: 50, callback: boss.clearTint, callbackScope: boss});
+
+  // Hit sound effect tied to hadoken exploding
+  let hitSounds = this.sounds.hits
+
+  // Grab a random hitsound from sounds.hits array
+  let random = Math.floor(Math.random() * hitSounds.length)
+  let randomHitSound = this.sound.add(hitSounds[random]);
+  randomHitSound.play();
+
+  //stone particles
+
+  //bigger bone particles
+}
+
 summonNewSkeleton(scene) {
   scene.skeletons.add
     (scene.physics.add.sprite(300, scene.sys.game.config.height / 2 + 80, 'skeleton')
@@ -425,24 +457,51 @@ countDown() {
   }
 }
 
-// End of round function
-roundEnd(scene) {
-  scene.timertext.destroy();
-  scene.comboContainer.setScale(1.5);
-  scene.comboContainer.x = (this.sys.game.config.width / 2) - (scene.comboImage.width / 2);
-  scene.comboContainer.y = 50;
-  
-  scene.comboContainer.setVisible(false);
-  
-  // destroy this.currentWordImg
-  for (let i in scene.currentWordImg) {
-    scene.currentWordImg[i].destroy();
+  // End of round function
+  roundEnd(scene) {
+    scene.timertext.destroy();
+    scene.comboContainer.setScale(1.5);
+    scene.comboContainer.x = (this.sys.game.config.width / 2) - (scene.comboImage.width / 2);
+    scene.comboContainer.y = 50;
+    
+    scene.comboContainer.setVisible(false);
+    
+    // destroy this.currentWordImg
+    for (let i in scene.currentWordImg) {
+      scene.currentWordImg[i].destroy();
+    }
+    // Call the attack function with end of round = true & combo > 0.
+    if (scene.combo > 0) {
+      scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter);
+    }
   }
-  // Call the attack function with end of round = true & combo > 0.
-  if (scene.combo > 0) {
-    scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter);
+
+  roundEndScoreTally(scene) {
+    
+    // Add text animation for score
+    scene.scoreTween = scene.tweens.addCounter({
+    from: 0,
+    to: scene.score,
+    duration: (2.5 * scene.score)
+    });
+
+    
+    scene.scoreText.x = scene.sys.game.config.width / 2;
+    scene.scoreText.y = 605;
+    scene.scoreText.setVisible(true);
   }
-}
+
+    
+  superComboTally(scene) {
+    scene.comboContainer.setVisible(true);
+    
+    scene.particles.fire.emitParticleAt(scene.comboContainer.x + 115, scene.comboContainer.y + 160);
+    
+    scene.roundEndCombo += 1
+    scene.comboText.setText(scene.roundEndCombo);
+    // Player comboText animation
+    scene.comboTween.restart();
+  }
 }
 
 export default GameScene;

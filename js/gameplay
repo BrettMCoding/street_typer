@@ -1,9 +1,18 @@
 TO DO:
 
-add start menu/button (with a 3 2 1 fight countdown)
+Add summoner boss:
+    add boss knockout animation
+    add boss summon animation
+    add boss on hit particles
+    
+Add play again / menu button
 
-add sound to last 5 second countdown
+Add 3 2 1 GO sounds
 
-enemies attack? slow motion about to hit you style? 
-attach each word to an enemy? bigger word bigger enemy?
+Add score tally sound
+
+Add high score system
+
+Add help menu
+
 

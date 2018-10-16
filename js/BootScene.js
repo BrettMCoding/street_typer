@@ -48,6 +48,9 @@ class BootScene extends Phaser.Scene {
   
     // Load Akuma sprites
     this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
+
+    // Load Boss sprites
+    this.load.image('anakaris', './assets/spritesheets/Anakaris/anakaris.png');
   
     // Load audio assets
     this.load.audio('super', './assets/sounds/super.wav',);
@@ -80,7 +83,7 @@ class BootScene extends Phaser.Scene {
 
   create() {
     // TEMPORARY MENU SKIP
-    this.scene.start('PreGameScene');
+    this.scene.start('GameScene');
 
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height

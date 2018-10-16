@@ -106,14 +106,6 @@ export default class PlayerCharacter {
 
   }
 
-  freeze() {
-    this.sprite.body.moves = false;
-  }
-
-  update() {
-    
-  }
-
   destroy() {
     this.sprite.destroy();
   }
@@ -130,14 +122,8 @@ export default class PlayerCharacter {
     
     scene.time.delayedCall(100, this.createHadokenProjectile, [this, scene]);
   }
-  
-  // Why can't I get this into main with proper scope? I probably can after I setup scenes...
-  roundEndScoreTally(scene) {
-    scene.scoreText.setText("TOTAL SCORE: " + scene.score)
-    scene.scoreText.x = scene.sys.game.config.width / 2;
-    scene.scoreText.y = 605;
-    scene.scoreText.setVisible(true);
-  }
+
+
   
   // Random attack animation
   randomAttackAnimation(scene, self) {
@@ -185,18 +171,18 @@ export default class PlayerCharacter {
   }
   
   teleport(self, scene) {
-    self.akuma.x = 800
+    self.akuma.x = 950
 
     let skeleton = { x: 300, y: scene.sys.game.config.height / 2 + 80 };
 
     scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
     scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
 
-    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 30);
-    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 30);
+    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 80);
+    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 80);
 
-    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 60);
-    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 60);
+    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 160);
+    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 160);
 
 
 
@@ -219,21 +205,10 @@ export default class PlayerCharacter {
     scene.time.addEvent({ delay: 200, callback: self.createHadokenProjectile, args: [self, scene], repeat: scene.combo - 1});
     
     // Combo++ animation
-    scene.time.addEvent({ delay: 200, callback: self.superComboTally, args: [self, scene], repeat: scene.combo - 1});
+    scene.time.addEvent({ delay: 200, callback: scene.superComboTally, args: [scene], repeat: scene.combo - 1});
     
     // Display score
     // Delay = combo length + 2 seconds
-    scene.time.addEvent({ delay: ((200 * scene.combo) + 2000), callback: self.roundEndScoreTally, args: [scene, self], repeat: 1});
-  }
-  
-  superComboTally(self, scene) {
-    scene.comboContainer.setVisible(true);
-    
-    scene.particles.fire.emitParticleAt(scene.comboContainer.x + 115, scene.comboContainer.y + 160);
-    
-    scene.roundEndCombo += 1
-    scene.comboText.setText(scene.roundEndCombo);
-    // Player comboText animation
-    scene.comboTween.restart();
+    scene.time.addEvent({ delay: ((200 * scene.combo) + 2000), callback: scene.roundEndScoreTally, args: [scene, self], repeat: 1});
   }
 }
