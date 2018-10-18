@@ -46,12 +46,15 @@ class BootScene extends Phaser.Scene {
     this.load.image('helpbutton', './assets/img/menu/helpbutton.png');
     this.load.image('squarebutton', './assets/img/menu/squarebutton.png');
     this.load.image('squarebuttonx', './assets/img/menu/squarebuttonx.png');
+    this.load.image('againbutton', './assets/img/menu/againbutton.png');
+    this.load.image('menubutton', './assets/img/menu/menubutton.png');
   
     // Load Akuma sprites
     this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
 
     // Load Boss sprites
-    this.load.image('anakaris', './assets/spritesheets/Anakaris/anakaris.png');
+    //this.load.image('anakaris', './assets/spritesheets/Anakaris/anakaris.png');
+    this.load.multiatlas('boss', './assets/spritesheets/anakaris/anakaris.json', './assets/spritesheets/anakaris');
   
     // Load audio assets
     this.load.audio('super', './assets/sounds/super.wav',);
@@ -64,6 +67,10 @@ class BootScene extends Phaser.Scene {
     this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.wav',);
     this.load.audio('sewersurfin', './assets/sounds/music/SewerSurfin.mp3',);
     this.load.audio('ff7save', './assets/sounds/UI/ff7save.mp3');
+    this.load.audio('321go', './assets/sounds/321go.wav');
+    this.load.audio('54321', './assets/sounds/54321.wav');
+    this.load.audio('points', './assets/sounds/points.wav');
+    this.load.audio('pointsfinish', './assets/sounds/pointsfinish.wav');
 
     // Load combo word
     this.load.image('comboword', './assets/img/comboword.png');

@@ -1,4 +1,5 @@
 import PlayerCharacter from "./akuma.js";
+import Boss from "./anakaris.js";
 import DICTIONARY from "./words.js";
 
 class GameScene extends Phaser.Scene {
@@ -7,6 +8,8 @@ class GameScene extends Phaser.Scene {
   }
 
 create(){
+  this.width = this.sys.game.config.width;
+  this.height = this.sys.game.config.height;
   this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
   this.numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -19,7 +22,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 2;
+  this.timer = 60;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -28,17 +31,20 @@ create(){
   this.roundEndSwitch = 0;
   
   // Players total word combo
-  this.combo = 10;
+  this.combo = 0;
 
   // At the end of the round
   this.roundEndCombo = 0;
+
+  // Switch for an "if" statement in our update function
+  this.scoreTweenStart = 0;
   
   // Dictionary
   this.dictionary = new DICTIONARY();
   this.WORDS = this.dictionary.WORDS;
   
   // Points
-  this.score = 0;
+  this.score = 800;
 
   
   // Background
@@ -75,9 +81,7 @@ create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Boss
-  this.boss = this.physics.add.sprite(1100, 400, 'anakaris')
-    .setCollideWorldBounds(true)
-    .setFlipX(true);
+  this.boss = new Boss(this, 1100, 670);
 
   // Skeleton Enemy
   this.skeletons = this.add.group();
@@ -126,13 +130,6 @@ create(){
       .setOrigin(0.5);
   this.comboText.x = this.comboImage.x;
   this.comboText.y = 105;
-  
-  // add both to container and set depth so the explosion appears under the text
-  this.comboContainer
-        .add(this.comboText)
-        .add(this.comboImage)
-        .setDepth(10);
-  
   // this.comboContainer.tweentarget = this.add.container(0, 0);
 
   // this.generateNumberImg(this.combo, this.comboContainer.tweentarget, 15, 60, this);
@@ -159,13 +156,24 @@ create(){
       .setVisible(false);
       this.scoreText.x = this.comboContainer.x
       this.scoreText.y = 500
+  
+  // add both to container and set depth so the explosion appears under the text
+  this.comboContainer
+        .add(this.comboText)
+        .add(this.comboImage)
+        .setDepth(10);
+  
         
   // Physics colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
+  
   this.physics.add.collider(this.skeletons, platforms);
-  this.physics.add.collider(this.boss, platforms);
+
+  this.physics.add.collider(this.boss.boss, platforms);
+
   this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
-  this.physics.add.overlap(this.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
+
+  this.physics.add.overlap(this.boss.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
 
   // Particles
   this.particles = {};
@@ -233,6 +241,8 @@ create(){
     lifespan: { min: 100, max: 200 },
     frequency: 1100,
     maxParticles: 10,
+    width: 200,
+    height: 200,
     x: 0,
     y: 0,
     on: false
@@ -302,7 +312,7 @@ update() {
 
   // spacebar super for testing
   if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
-    this.PlayerCharacter.superComboOpeningAnimation(this);
+    this.PlayerCharacter.superComboOpeningAnimation(this, this.PlayerCharacter);
   }
 
   // If there are characters left to type
@@ -357,8 +367,17 @@ update() {
     this.roundEnd(this);
   }
 
-  if (this.scoreTween !== undefined) {
+  if (this.scoreTweenStart === 1) {
     this.scoreText.setText("TOTAL SCORE: " + Math.floor(this.scoreTween.getValue()))
+    if(this.score !== this.scoreTween.getValue()) {
+      let points = this.sound.add('points');
+      points.play();
+    } else if(this.score === this.scoreTween.getValue() & this.pointsfinish !== 1) {
+      let pointsfinish = this.sound.add('pointsfinish')
+      pointsfinish.play();
+      this.pointsfinish = 1;
+    }
+
   }
 }
 
@@ -423,9 +442,12 @@ hitSkeleton(skeleton, hadoken) {
 }
 
 hitBoss(boss, hadoken) {
+  this.particles.hadokenFire.x = hadoken.x;
+  this.particles.hadokenFire.y = hadoken.y;
+  this.particles.hadokenFire.emitParticle();
+  hadoken.destroy();
 
-  this.particles.hadokenFire.emitParticleAt(hadoken.x, hadoken.y);
-  hadoken.destroy()
+  //boss.anims.play('hit1');
 
   boss.setTint(0xff0000);
 
@@ -440,8 +462,8 @@ hitBoss(boss, hadoken) {
   randomHitSound.play();
 
 
-  this.particles.bone.emitParticleAt(boss.x, boss.y);
-  this.particles.bloodchunk.emitParticleAt(boss.x, boss.y);
+  this.particles.bone.emitParticleAt(boss.x, boss.y + 300);
+  this.particles.bloodchunk.emitParticleAt(boss.x, boss.y + 300);
   //stone particles
 
   //bigger bone particles
@@ -466,6 +488,8 @@ summonNewSkeleton(scene) {
       scaleY: 0.5,
       duration: 250,
     });
+
+    scene.boss.boss.anims.play('summon');
 }
 
 // Called by our create() game this.timer event
@@ -474,7 +498,9 @@ countDown() {
   this.timertext.setText("TIME LEFT: " + this.timer);
     
   if (this.timer === 5) {
-    // play 5 sec countdown sound
+    let fiveSecondsLeftSound = this.sound.add('54321');
+    fiveSecondsLeftSound.play();
+
     this.timertext.setTint(0xff0000);
   }
 }
@@ -483,7 +509,7 @@ countDown() {
   roundEnd(scene) {
     scene.timertext.destroy();
     scene.comboContainer.setScale(1.5);
-    scene.comboContainer.x = (this.sys.game.config.width / 2) - (scene.comboImage.width / 2);
+    scene.comboContainer.x = (this.sys.game.config.width / 2) - (scene.comboImage.width / 2 + 27);
     scene.comboContainer.y = 50;
     
     scene.comboContainer.setVisible(false);
@@ -496,23 +522,25 @@ countDown() {
     if (scene.combo > 0) {
       scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter);
     }
+
+    scene.time.addEvent({ delay: ((200 * scene.combo) + (175 * 15) + 4000), callback: scene.roundEndButtons, args: [ scene ] });
   }
 
   roundEndScoreTally(scene) {
-    
+    let score = scene.score;
     // Add text animation for score
     scene.scoreTween = scene.tweens.addCounter({
-    from: 0,
-    to: scene.score,
-    duration: (2.5 * scene.score)
+      from: 0,
+      to: score,
+      duration: (2.5 * score),
     });
-
+    
+    scene.scoreTweenStart = 1;
     
     scene.scoreText.x = scene.sys.game.config.width / 2;
     scene.scoreText.y = 605;
     scene.scoreText.setVisible(true);
   }
-
     
   superComboTally(scene) {
     scene.comboContainer.setVisible(true);
@@ -523,6 +551,56 @@ countDown() {
     scene.comboText.setText(scene.roundEndCombo);
     // Player comboText animation
     scene.comboTween.restart();
+  }
+
+  roundEndButtons(scene) {
+    let againbutton = scene.add.image(0, 0, 'againbutton').setOrigin(0.5, 0.5);
+    againbutton.setInteractive();
+
+    let menubutton = scene.add.image(0, 80, 'menubutton').setOrigin(0.5, 0.5);
+    menubutton.setInteractive();
+
+    let buttoncontainer = scene.add.container(scene.width / 2, scene.height / 2 + 50, [ againbutton, menubutton ] );
+
+    let menusound = scene.sound.add('megamanmenu');
+    
+    againbutton.on('pointerover', function () {
+
+      againbutton.setTint(0x44ff44);
+      menusound.play();
+
+    });
+
+    againbutton.on('pointerdown', function () {
+
+      scene.scene.start('PreGameScene');
+
+   }, scene);
+
+   againbutton.on('pointerout', function () {
+
+    againbutton.clearTint();
+
+    });
+
+    menubutton.on('pointerover', function () {
+
+      menubutton.setTint(0x44ff44);
+      menusound.play();
+
+    });
+
+    menubutton.on('pointerdown', function () {
+
+      scene.scene.start('MenuScene');
+
+   }, scene);
+
+   menubutton.on('pointerout', function () {
+
+    menubutton.clearTint();
+
+    });
   }
 }
 

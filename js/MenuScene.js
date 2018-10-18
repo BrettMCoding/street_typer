@@ -34,7 +34,7 @@ class MenuScene extends Phaser.Scene {
 
     let playbutton = this.add.image(0, 0, 'playbutton');
 
-    let helpbutton = this.add.image(0, 80, 'helpbutton')
+    let helpbutton = this.add.image(0, 80, 'helpbutton');
 
     let memebutton = this.add.image(-80, 80, 'squarebutton');
 
@@ -51,9 +51,9 @@ class MenuScene extends Phaser.Scene {
 
     });
 
-    playbutton.on('pointerup', function () {
+    playbutton.on('pointerdown', function () {
 
-      this.scene.start('GameScene');
+      this.scene.start('PreGameScene');
 
    }, this);
 
@@ -72,7 +72,7 @@ class MenuScene extends Phaser.Scene {
 
     });
 
-    helpbutton.on('pointerup', function () {
+    helpbutton.on('pointerdown', function () {
 
       this.scene.start('GameScene');
 

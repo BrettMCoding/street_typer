@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.8.3</string>
+        <string>4.9.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -207,6 +207,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Akuma/Akuma/Akuma-2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>512,484,1024,967</rect>
+                <key>scale9Paddings</key>
+                <rect>512,484,1024,967</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Akuma/Akuma/AkumaClean_.png</key>
             <key type="filename">Akuma/Akuma/AkumaClean_132.png</key>
             <key type="filename">Akuma/Akuma/AkumaClean_286.png</key>
@@ -242,92 +255,6 @@
                 <rect>19,27,38,53</rect>
                 <key>scale9Paddings</key>
                 <rect>19,27,38,53</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Akuma/Akuma/AkumaClean_03.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_106.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_108.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_111.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_643.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_648.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>14,25,27,50</rect>
-                <key>scale9Paddings</key>
-                <rect>14,25,27,50</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Akuma/Akuma/AkumaClean_04.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_137.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_196.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_639.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_644.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,26,31,51</rect>
-                <key>scale9Paddings</key>
-                <rect>16,26,31,51</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Akuma/Akuma/AkumaClean_05.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_135.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_138.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_194.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_197.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>15,25,29,49</rect>
-                <key>scale9Paddings</key>
-                <rect>15,25,29,49</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Akuma/Akuma/AkumaClean_06.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_08.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_09.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_417.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_418.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_433.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_434.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_645.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>27,23,53,45</rect>
-                <key>scale9Paddings</key>
-                <rect>27,23,53,45</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Akuma/Akuma/AkumaClean_07.png</key>
-            <key type="filename">Akuma/Akuma/AkumaClean_646.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>27,22,53,45</rect>
-                <key>scale9Paddings</key>
-                <rect>27,22,53,45</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -450,6 +377,24 @@
                 <rect>21,26,41,51</rect>
                 <key>scale9Paddings</key>
                 <rect>21,26,41,51</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Akuma/Akuma/AkumaClean_106.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_108.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_111.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_3.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_643.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_648.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,25,27,50</rect>
+                <key>scale9Paddings</key>
+                <rect>14,25,27,50</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -767,6 +712,40 @@
                 <rect>15,21,31,41</rect>
                 <key>scale9Paddings</key>
                 <rect>15,21,31,41</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Akuma/Akuma/AkumaClean_135.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_138.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_194.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_197.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,25,29,49</rect>
+                <key>scale9Paddings</key>
+                <rect>15,25,29,49</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Akuma/Akuma/AkumaClean_137.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_196.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_4.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_639.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_644.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,26,31,51</rect>
+                <key>scale9Paddings</key>
+                <rect>16,26,31,51</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -2592,6 +2571,26 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Akuma/Akuma/AkumaClean_417.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_418.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_433.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_434.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_6.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_645.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_8.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>27,23,53,45</rect>
+                <key>scale9Paddings</key>
+                <rect>27,23,53,45</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Akuma/Akuma/AkumaClean_42.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -3869,6 +3868,20 @@
                 <rect>15,19,30,37</rect>
                 <key>scale9Paddings</key>
                 <rect>15,19,30,37</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Akuma/Akuma/AkumaClean_646.png</key>
+            <key type="filename">Akuma/Akuma/AkumaClean_7.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>27,22,53,45</rect>
+                <key>scale9Paddings</key>
+                <rect>27,22,53,45</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

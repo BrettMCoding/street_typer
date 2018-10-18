@@ -36,6 +36,10 @@ create(){
   // Physics colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
 
+
+  let go = this.sound.add('321go')
+  go.play();
+
   // Game timer event. Every 1 second, call countDown function. repeat (this.timer) times
   this.time.addEvent({ delay: 1000, callback: this.preGameCountDown, callbackScope: this, repeat: (this.preGameTimer)});
   this.time.addEvent({ delay: 3000, callback: this.roundStart, callbackScope: this});

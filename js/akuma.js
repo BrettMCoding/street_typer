@@ -7,7 +7,7 @@ export default class PlayerCharacter {
     .setScale(2.5)
     .setBounce(0.2)
     .setCollideWorldBounds(true)
-    this.akuma.body.gravity.y = -700;
+    this.akuma.body.gravity.y = -950;
 
   // AKUMA GOSHORYU ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -15,7 +15,7 @@ export default class PlayerCharacter {
     prefix: 'AkumaClean_', suffix: '.png'
   });
   scene.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
-  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 10, repeat: 0 });
+  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 4, repeat: 0 });
 
   // AKUMA SUPERCHARGE ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -209,7 +209,9 @@ export default class PlayerCharacter {
 
     // Display score
     // Delay = combo length + 2 seconds
-    scene.time.addEvent({ delay: ((200 * scene.combo) + 2000), callback: scene.roundEndScoreTally, args: [scene, self], repeat: 1});
+    scene.time.addEvent({ delay: ((200 * scene.combo) + 2000), callback: scene.roundEndScoreTally, args: [scene, self]});
+
+    // ADD A GLOBAL VARIABLE FOR COMBO ATTACK DELAY, AND TIGHTEN TIMINGS TO VARIABLES FOR CLEANER REFACTORING
   }
 
   superComboFinisher(scene, self) {
@@ -237,7 +239,11 @@ export default class PlayerCharacter {
   goshoryuken(scene, self) {
     scene.background.clearTint();
     self.akuma.anims.play('shoryuken');
-    scene.time.addEvent({ delay: 150, callback: self.createHadokenProjectile, args: [self, scene], repeat: 10});
-    self.akuma.setVelocityY(-400);
+    scene.time.addEvent({ delay: 175, callback: self.createHadokenProjectile, args: [self, scene], repeat: 15});
+
+    scene.boss.boss.anims.play('death');
+    scene.boss.boss.setVelocityY(-200);
+
+    self.akuma.setVelocityY(-200);
   }
 }
