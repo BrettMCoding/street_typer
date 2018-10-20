@@ -48,6 +48,21 @@ export default class Boss {
   destroy() {
     this.sprite.destroy();
   }
+
+  deathEvent(scene) {
+
+    scene.boss.boss.anims.currentAnim.pause();
+    scene.boss.boss.setVelocity(0).setGravityY(-1000);
+    scene.boss.boss.setTint(0xff7373);
+
+    let bossdeath = scene.sound.add('bossdeath');
+    bossdeath.play();
+
+    scene.tweens.add({
+      targets: scene.boss.boss,
+      alpha: { value: 0, duration: 5000, ease: 'Power1'},
+    });
+  }
   
   // After any animation, resume playing idle animation
   BackToIdle() {

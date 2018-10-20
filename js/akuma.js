@@ -15,7 +15,7 @@ export default class PlayerCharacter {
     prefix: 'AkumaClean_', suffix: '.png'
   });
   scene.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
-  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 4, repeat: 0 });
+  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 3.6, repeat: 0 });
 
   // AKUMA SUPERCHARGE ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
@@ -169,7 +169,7 @@ export default class PlayerCharacter {
   }
   
   teleport(self, scene) {
-    self.akuma.x = 950
+    self.akuma.x = 850
 
     let skeleton = { x: 300, y: scene.sys.game.config.height / 2 + 80 };
 
@@ -234,12 +234,13 @@ export default class PlayerCharacter {
     //scene.lazer2.anims.delayedPlay(650,'blast');
     
     scene.time.addEvent({ delay: 1000, callback: self.goshoryuken, args: [scene, self]});
+    scene.time.addEvent({ delay: 5500, callback: scene.boss.deathEvent, args: [ scene ]});
   }
 
   goshoryuken(scene, self) {
     scene.background.clearTint();
     self.akuma.anims.play('shoryuken');
-    scene.time.addEvent({ delay: 175, callback: self.createHadokenProjectile, args: [self, scene], repeat: 15});
+    scene.time.addEvent({ delay: 175, callback: self.createHadokenProjectile, args: [ self, scene ], repeat: 15});
 
     scene.boss.boss.anims.play('death');
     scene.boss.boss.setVelocityY(-200);

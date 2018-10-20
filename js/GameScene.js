@@ -1,5 +1,6 @@
 import PlayerCharacter from "./akuma.js";
 import Boss from "./anakaris.js";
+import Skeleton from "./skeletonmedium.js";
 import DICTIONARY from "./words.js";
 
 class GameScene extends Phaser.Scene {
@@ -22,7 +23,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 60;
+  this.timer = 2;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -31,7 +32,7 @@ create(){
   this.roundEndSwitch = 0;
   
   // Players total word combo
-  this.combo = 0;
+  this.combo = 3;
 
   // At the end of the round
   this.roundEndCombo = 0;
@@ -81,7 +82,7 @@ create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Boss
-  this.boss = new Boss(this, 1100, 670);
+  this.boss = new Boss(this, 950, 670);
 
   // Skeleton Enemy
   this.skeletons = this.add.group();
@@ -462,11 +463,23 @@ hitBoss(boss, hadoken) {
   randomHitSound.play();
 
 
-  this.particles.bone.emitParticleAt(boss.x, boss.y + 300);
+  let emitter = this.particles.bone.createEmitter({
+    x: { min: -75, max: -25 },
+    y: { min: -100, max: -375 },
+    gravityY: 300,
+    speed: {min:300, max:800},
+    rotation: { min: 0, max: 700 },
+    scale: { start: 0.01, end: 0.01 },
+    quantity: { min: 5, max: 15 },
+    on: false
+  });
+  emitter.startFollow(boss);
+  emitter.emitParticle()
+  // this.particles.bone.emitParticleAt(boss.x, boss.y + 300);
   this.particles.bloodchunk.emitParticleAt(boss.x, boss.y + 300);
-  //stone particles
+  // stone particles
 
-  //bigger bone particles
+  // bigger bone particles
 }
 
 summonNewSkeleton(scene) {

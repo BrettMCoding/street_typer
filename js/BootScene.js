@@ -53,9 +53,11 @@ class BootScene extends Phaser.Scene {
     this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
 
     // Load Boss sprites
-    //this.load.image('anakaris', './assets/spritesheets/Anakaris/anakaris.png');
     this.load.multiatlas('boss', './assets/spritesheets/anakaris/anakaris.json', './assets/spritesheets/anakaris');
   
+    // Load skeleton sprites
+    this.load.multiatlas('skeletonmedium', './assets/spritesheets/skeletonmedium/skeletonmedium.json', './assets/spritesheets/skeletonmedium/');
+
     // Load audio assets
     this.load.audio('super', './assets/sounds/super.wav',);
     this.load.audio('fiercekick', './assets/sounds/fiercekickA3.wav',);
@@ -67,6 +69,7 @@ class BootScene extends Phaser.Scene {
     this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.wav',);
     this.load.audio('sewersurfin', './assets/sounds/music/SewerSurfin.mp3',);
     this.load.audio('ff7save', './assets/sounds/UI/ff7save.mp3');
+    this.load.audio('bossdeath', './assets/sounds/bossdeath.mp3');
     this.load.audio('321go', './assets/sounds/321go.wav');
     this.load.audio('54321', './assets/sounds/54321.wav');
     this.load.audio('points', './assets/sounds/points.wav');
