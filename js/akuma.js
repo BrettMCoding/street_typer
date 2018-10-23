@@ -242,8 +242,8 @@ export default class PlayerCharacter {
     self.akuma.anims.play('shoryuken');
     scene.time.addEvent({ delay: 175, callback: self.createHadokenProjectile, args: [ self, scene ], repeat: 15});
 
-    scene.boss.boss.anims.play('death');
-    scene.boss.boss.setVelocityY(-200);
+    scene.boss.anims.play('bossdeath');
+    scene.boss.body.setVelocityY(-200);
 
     self.akuma.setVelocityY(-200);
   }

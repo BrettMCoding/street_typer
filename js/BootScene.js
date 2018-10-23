@@ -93,6 +93,36 @@ class BootScene extends Phaser.Scene {
   }
 
   create() {
+    // Animations
+
+    // Anakaris
+    let frames = this.anims.generateFrameNames('boss', {
+      start: 1, end: 24,
+      prefix: 'anakaris_', suffix: '.png'
+    });
+    this.anims.create({ key: 'bossidle', frames: frames, frameRate: 15, repeat: -1 });
+
+    // Summon
+    frames = this.anims.generateFrameNames('boss', {
+      start: 43, end: 61,
+      prefix: 'anakaris_', suffix: '.png'
+    }); 
+    this.anims.create({ key: 'bosssummon', frames: frames, frameRate: 40, yoyo: true});
+
+    // Hit
+    frames = this.anims.generateFrameNames('boss', {
+      start: 73, end: 74,
+      prefix: 'anakaris_', suffix: '.png'
+    }); 
+    this.anims.create({ key: 'bosshit1', frames: frames, frameRate: 60, yoyo: true })
+
+    // Death
+    frames = this.anims.generateFrameNames('boss', {
+      start: 98, end: 100,
+      prefix: 'anakaris_', suffix: '.png'
+    }); 
+    this.anims.create({ key: 'bossdeath', frames: frames, frameRate: 0.5 });
+
     // TEMPORARY MENU SKIP
     this.scene.start('GameScene');
 

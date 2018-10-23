@@ -1,71 +1,44 @@
-export default class Boss {
-  constructor(scene, x, y) {
-    this.scene = scene;
+export default class Boss extends Phaser.GameObjects.Sprite {
+  constructor(config) {
 
-  // Create boss
-  this.boss = scene.physics.add.sprite(x, y, 'boss', 'anakaris_1.png')
-    .setBounce(0.2)
-    .setOrigin(0.5);
-    this.boss.body.gravity.y = -950;
+    super(config.scene, config.x, config.y, 'boss');
 
-    scene.frameNames = scene.anims.generateFrameNames('boss', {
-      start: 1, end: 24,
-      prefix: 'anakaris_', suffix: '.png'
-    });
+    config.scene.physics.world.enable(this);
 
-    scene.anims.create({ key: 'idle', frames: scene.frameNames, frameRate: 15, repeat: -1 });
+    this.scene = config.scene;
 
-    this.boss.anims.play('idle');
-    this.boss.on('animationcomplete', this.BackToIdle, this);
+    this.body.setBounce(0.2)
 
-  // SUMMON ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('boss', {
-    // messy unshift calls to bypass octal literals strict mode error
-    start: 43, end: 61,
-    prefix: 'anakaris_', suffix: '.png'
-  }); 
+             .setGravityY(-950);
 
-  scene.anims.create({ key: 'summon', frames: scene.frameNames, frameRate: 40, yoyo: true});
+    this.setOrigin(0.5);
 
-  // HIT ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('boss', {
-    start: 73, end: 74,
-    prefix: 'anakaris_', suffix: '.png'
-  }); 
+    this.anims.play('bossidle');
 
-  scene.anims.create({ key: 'hit1', frames: scene.frameNames, frameRate: 60, yoyo: true })
-
-  // DEATH ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('boss', {
-    start: 98, end: 100,
-    prefix: 'anakaris_', suffix: '.png'
-  }); 
-
-  scene.anims.create({ key: 'death', frames: scene.frameNames, frameRate: 0.5 });
-
-  }
-
-  destroy() {
-    this.sprite.destroy();
+    this.on('animationcomplete', this.BackToIdle, this);
+    
+    this.scene.add.existing(this);
   }
 
   deathEvent(scene) {
 
-    scene.boss.boss.anims.currentAnim.pause();
-    scene.boss.boss.setVelocity(0).setGravityY(-1000);
-    scene.boss.boss.setTint(0xff7373);
+    scene.boss.anims.currentAnim.pause();
+
+    scene.boss.body.setVelocity(0).setGravityY(-1000);
+
+    scene.boss.setTint(0xff7373);
 
     let bossdeath = scene.sound.add('bossdeath');
-    bossdeath.play();
+        bossdeath.play();
 
     scene.tweens.add({
-      targets: scene.boss.boss,
+      targets: scene.boss,
       alpha: { value: 0, duration: 5000, ease: 'Power1'},
     });
   }
   
   // After any animation, resume playing idle animation
   BackToIdle() {
-    this.boss.anims.play('idle');
+    this.anims.play('bossidle');
   }
 }

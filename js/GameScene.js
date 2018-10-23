@@ -82,7 +82,7 @@ create(){
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
   // Boss
-  this.boss = new Boss(this, 950, 670);
+  this.boss = new Boss({ scene: this, x: 950, y: 670 });
 
   // Skeleton Enemy
   this.skeletons = this.add.group();
@@ -170,11 +170,11 @@ create(){
   
   this.physics.add.collider(this.skeletons, platforms);
 
-  this.physics.add.collider(this.boss.boss, platforms);
+  this.physics.add.collider(this.boss, platforms);
 
   this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
 
-  this.physics.add.overlap(this.boss.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
+  this.physics.add.overlap(this.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
 
   // Particles
   this.particles = {};
@@ -310,7 +310,7 @@ create(){
 }
 
 update() {
-
+  this.boss.update();
   // spacebar super for testing
   if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
     this.PlayerCharacter.superComboOpeningAnimation(this, this.PlayerCharacter);
@@ -448,7 +448,9 @@ hitBoss(boss, hadoken) {
   this.particles.hadokenFire.emitParticle();
   hadoken.destroy();
 
-  //boss.anims.play('hit1');
+  if(boss.anims.currentAnim.key !== 'bossdeath') {
+    boss.anims.play('bosshit1');
+  }
 
   boss.setTint(0xff0000);
 
@@ -502,7 +504,7 @@ summonNewSkeleton(scene) {
       duration: 250,
     });
 
-    scene.boss.boss.anims.play('summon');
+    //scene.boss.boss.anims.play('summon');
 }
 
 // Called by our create() game this.timer event
