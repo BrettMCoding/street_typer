@@ -485,13 +485,7 @@ hitBoss(boss, hadoken) {
 }
 
 summonNewSkeleton(scene) {
-  scene.skeletons.add
-    (scene.physics.add.sprite(300, scene.sys.game.config.height / 2 + 80, 'skeleton')
-    .setScale(0.0)
-    .setBounce(0.2)
-    .setAlpha(0.0)
-    .setCollideWorldBounds(true)
-    .setFlipX(true));
+  scene.skeletons.add(new Skeleton({scene: scene, x: 330, y: 680}))
 
     this.tweens.add({
       targets: scene.skeletons.children.entries,
@@ -504,7 +498,8 @@ summonNewSkeleton(scene) {
       duration: 250,
     });
 
-    //scene.boss.boss.anims.play('summon');
+    scene.boss.anims.play('bosssummon');
+    scene.skeletons.children.entries[0].anims.play('skeletonmediumsummon');
 }
 
 // Called by our create() game this.timer event

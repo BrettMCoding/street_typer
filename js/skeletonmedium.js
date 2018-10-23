@@ -1,25 +1,21 @@
-export default class Skeleton {
-  constructor(scene, x, y) {
-  // Create skeleton
-  this.skeletonmedium = scene.physics.add.sprite(x, y, 'skeletonmedium', 'skeletonmedium_33.png');
+export default class Skeleton extends Phaser.GameObjects.Sprite {
+  constructor(config) {
 
-    scene.frameNames = scene.anims.generateFrameNames('idle', {
-      start: 31, end: 33,
-      prefix: 'skeletonmedium_', suffix: '.png'
-    });
+    super(config.scene, config.x, config.y, 'skeletonmedium');
+    
+    config.scene.physics.world.enable(this);
 
-    scene.anims.create({ key: 'idle', frames: scene.frameNames, frameRate: 8, repeat: -1 });
+    this.scene = config.scene;
 
-    this.skeletonmedium.anims.play('idle');
+    this.setFrame('skeletonmedium_33.png')
 
-  // // SUMMON ANIMATION
-  // scene.frameNames = scene.anims.generateFrameNames('boss', {
-  //   // messy unshift calls to bypass octal literals strict mode error
-  //   start: 43, end: 61,
-  //   prefix: 'anakaris_', suffix: '.png'
-  // });
+    this.anims.play('skeletonmediumidle');
 
-  // scene.anims.create({ key: 'summon', frames: scene.frameNames, frameRate: 40, yoyo: true});
+    this.on('animationcomplete', this.BackToIdle, this);
+
+    this.scene.add.existing(this);
+
+
 
   // // DEATH ANIMATION
   // scene.frameNames = scene.anims.generateFrameNames('boss', {
@@ -31,12 +27,8 @@ export default class Skeleton {
 
   }
 
-  destroy() {
-    this.sprite.destroy();
-  }
-  
   // After any animation, resume playing idle animation
   BackToIdle() {
-    this.boss.anims.play('idle');
+    this.anims.play('skeletonmediumidle');
   }
 }
