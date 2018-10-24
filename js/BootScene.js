@@ -142,7 +142,7 @@ class BootScene extends Phaser.Scene {
         this.anims.create({ key: 'skeletonmediumsummon', frames: frames, frameRate: 20});
 
     // TEMPORARY MENU SKIP
-    // this.scene.start('GameScene');
+    this.scene.start('GameScene');
 
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height

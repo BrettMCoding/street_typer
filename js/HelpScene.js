@@ -59,6 +59,7 @@ class HelpScene extends Phaser.Scene {
       menusound.play();
 
     });
+    
     xButton.on('pointerdown', function () {
 
       this.scene.start('MenuScene');

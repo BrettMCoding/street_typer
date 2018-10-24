@@ -55,52 +55,74 @@ export default class PlayerCharacter {
     start: 89, end: 91,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'lightpunch', frames: scene.frameNames, frameRate: 25, repeat: 0 });
+  for (let i = 0; i < 5; i++) {
+    scene.frameNames.splice(1, 0, scene.frameNames[1]);
+  }
+  scene.anims.create({ key: 'lightpunch', frames: scene.frameNames, frameRate: 35, repeat: 0 });
 
   // AKUMA MEDIUM PUNCH ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 93, end: 97,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'standinguppercut', frames: scene.frameNames, frameRate: 25, repeat: 0 });
+  for (let i = 0; i < 5; i++) {
+    scene.frameNames.splice(2, 0, scene.frameNames[2]);
+  }
+  let mediumPunchAnim = scene.anims.create({ key: 'standinguppercut', frames: scene.frameNames, frameRate: 35, repeat: 0 });
+  
 
   // AKUMA FIERCE PUNCH ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 99, end: 103,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'fiercepunch', frames: scene.frameNames, frameRate: 25, repeat: 0 });
+  for (let i = 0; i < 5; i++) {
+    scene.frameNames.splice(2, 0, scene.frameNames[2]);
+  }
+  scene.anims.create({ key: 'fiercepunch', frames: scene.frameNames, frameRate: 35, repeat: 0 });
 
   // AKUMA LIGHT KICK ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 105, end: 109,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'lightkick', frames: scene.frameNames, frameRate: 25, repeat: 0 });
+  for (let i = 0; i < 5; i++) {
+    scene.frameNames.splice(2, 0, scene.frameNames[2]);
+  }
+  scene.anims.create({ key: 'lightkick', frames: scene.frameNames, frameRate: 35, repeat: 0 });
 
   // AKUMA MEDIUM KICK ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 111, end: 114,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'mediumkick', frames: scene.frameNames, frameRate: 25, repeat: 0 });
+  for (let i = 0; i < 5; i++) {
+    scene.frameNames.splice(2, 0, scene.frameNames[2]);
+  }
+  scene.anims.create({ key: 'mediumkick', frames: scene.frameNames, frameRate: 35, repeat: 0 });
 
   // AKUMA HEAVY KICK ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 115, end: 120,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'heavykick', frames: scene.frameNames, frameRate: 25, repeat: 0 });
+  for (let i = 0; i < 5; i++) {
+    scene.frameNames.splice(3, 0, scene.frameNames[3]);
+  }
+  scene.anims.create({ key: 'heavykick', frames: scene.frameNames, frameRate: 35, repeat: 0 });
 
   // AKUMA OVERHEAD ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 122, end: 128,
     prefix: 'AkumaClean_', suffix: '.png'
   });
-  scene.anims.create({ key: 'overhead', frames: scene.frameNames, frameRate: 25, repeat: 0 });
+  for (let i = 0; i < 5; i++) {
+    scene.frameNames.splice(5, 0, scene.frameNames[5]);
+  }
+  scene.anims.create({ key: 'overhead', frames: scene.frameNames, frameRate: 35, repeat: 0 });
 
   // Array of string names of attack animations to be used as keys later 'shoryuken'
-  this.akuma.attackNames = ['lightpunch', 'mediumpunch', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
+  this.akuma.attackNames = ['lightpunch', 'standinguppercut', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
   // Hadoken physical body (now used as hit detection)
   this.hadoken = scene.physics.add.group();
@@ -169,7 +191,7 @@ export default class PlayerCharacter {
   }
   
   teleport(self, scene) {
-    self.akuma.x = 850
+    self.akuma.x = 800
 
     let skeleton = { x: 300, y: scene.sys.game.config.height / 2 + 80 };
 
@@ -238,6 +260,7 @@ export default class PlayerCharacter {
   }
 
   goshoryuken(scene, self) {
+    self.akuma.x = 850
     scene.background.clearTint();
     self.akuma.anims.play('shoryuken');
     scene.time.addEvent({ delay: 175, callback: self.createHadokenProjectile, args: [ self, scene ], repeat: 15});
