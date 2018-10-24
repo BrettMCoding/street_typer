@@ -23,7 +23,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 3;
+  this.timer = 60;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -190,33 +190,6 @@ create(){
   
 
   // Emitters
-  this.particles.bone.createEmitter({
-    x: 200,
-    y: 300,
-    lifespan: 2000,
-    quantity: {min: 20, max: 30},
-    speed: { min: 250, max: 500 },
-    angle: { min: 180, max: 440 },
-    rotate: { start:0, end:360, ease: 'Back.easeOut'},
-    gravityY: 700,
-    scale: { start: 0.01, end: 0.004 },
-    //blendMode: 'ADD',
-    on: false
-  });
-
-  this.particles.bloodchunk.createEmitter({
-    x: 200,
-    y: 300,
-    lifespan: {min: 300, max: 2000},
-    quantity: {min: 20, max: 30},
-    speed: { min: 350, max: 600 },
-    angle: { min: 180, max: 440 },
-    rotate: { start:0, end:360, ease: 'Back.easeOut'},
-    gravityY: 700,
-    scale: { start: 0.1, end: 0.004 },
-    //blendMode: 'ADD',
-    on: false
-  });
 
   // add fire to attach to combo
   this.particles.fire.createEmitter({
@@ -427,9 +400,7 @@ hitSkeleton(skeleton, hadoken) {
   this.particles.hadokenFire.emitParticleAt(hadoken.getCenter());
   hadoken.destroy()
 
-  // Emit bones and blood and combo fire
-  this.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
-  this.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
+  skeleton.emitHitParticles();
 
   // Hit sound effect tied to hadoken exploding
   let hitSounds = this.sounds.hits
@@ -465,27 +436,22 @@ hitBoss(boss, hadoken) {
   let random = Math.floor(Math.random() * hitSounds.length)
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
-
-
-  
+    
   boss.emitHitParticles()
-  // this.particles.bone.emitParticleAt(boss.x, boss.y + 300);
-  this.particles.bloodchunk.emitParticleAt(boss.x, boss.y + 300);
-  // stone particles
-
-  // bigger bone particles
 }
 
 summonNewSkeleton(scene) {
   scene.skeletons.add(new Skeleton({scene: scene, x: 330, y: 680}))
 
-    this.tweens.add({
-      targets: scene.skeletons.children.entries,
-      alpha: { value: 1, duration: 250, ease: 'Power1',}
-    });
+  let newSkeleton = scene.skeletons.children.entries[0]
 
-    scene.boss.anims.play('bosssummon');
-    scene.skeletons.children.entries[0].anims.play('skeletonmediumsummon');
+  this.tweens.add({
+    targets: scene.skeletons.children.entries,
+    alpha: { value: 1, duration: 250, ease: 'Power1',}
+  });
+
+  scene.boss.anims.play('bosssummon');
+  newSkeleton.anims.play('skeletonmediumsummon');
 }
 
 // Called by our create() game this.timer event

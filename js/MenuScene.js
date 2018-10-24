@@ -74,7 +74,7 @@ class MenuScene extends Phaser.Scene {
 
     helpbutton.on('pointerdown', function () {
 
-      this.scene.start('GameScene');
+      this.scene.start('HelpScene');
 
    }, this);
 

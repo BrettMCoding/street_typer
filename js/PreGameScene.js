@@ -1,4 +1,5 @@
 import PlayerCharacter from "./akuma.js";
+import Boss from "./anakaris.js";
 
 class PreGameScene extends Phaser.Scene {
   constructor() {
@@ -19,6 +20,13 @@ create(){
   // Add Player Character
   this.PlayerCharacter = new PlayerCharacter(this, this.sys.game.config.width / 8, this.sys.game.config.height / 2 + 180)
 
+
+  // Add Boss
+  this.particles = {};
+  this.particles.bossChunk = this.add.particles('anakaris_chunk1').setDepth(15);
+  this.particles.bossChunkTwo = this.add.particles('anakaris_chunk2').setDepth(15);
+  this.boss = new Boss({ scene: this, x: 950, y: 670 });
+
   // Add 3 second countdown timer to screen
   this.preGameTimerText = this.add
       .text(this.sys.game.config.width / 2, 200, (this.preGameTimer), {
@@ -35,6 +43,7 @@ create(){
         
   // Physics colliders
   this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
+  this.physics.add.collider(this.boss, platforms);
 
 
   let go = this.sound.add('321go')

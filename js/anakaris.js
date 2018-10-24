@@ -18,7 +18,7 @@ export default class Boss extends Phaser.GameObjects.Sprite {
     this.on('animationcomplete', this.BackToIdle, this);
 
     this.setDepth(10);
-
+    
     this.chunkOne = this.scene.particles.bossChunk.createEmitter({
       x: { min: -75, max: 100 },
       y: { min: -100, max: -400 },
