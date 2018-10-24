@@ -193,20 +193,10 @@ export default class PlayerCharacter {
   teleport(self, scene) {
     self.akuma.x = 800
 
-    let skeleton = { x: 300, y: scene.sys.game.config.height / 2 + 80 };
+    let skeleton = scene.skeletons.children.entries[0];
 
-    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y);
-    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y);
-
-    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 80);
-    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 80);
-
-    scene.particles.bone.emitParticleAt(skeleton.x, skeleton.y + 160);
-    scene.particles.bloodchunk.emitParticleAt(skeleton.x, skeleton.y + 160);
-
-
-
-    scene.skeletons.children.entries[0].destroy();
+    skeleton.emitHitParticles();
+    skeleton.destroy();
   }
 
   // At the end of the round, do an attack for every word in combo
