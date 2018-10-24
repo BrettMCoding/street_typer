@@ -23,7 +23,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 2;
+  this.timer = 3;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -80,6 +80,18 @@ create(){
   // Add spacebar for testing attacks
   this.keys.SPACE = this.input.keyboard.addKey
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+  // Particles
+  this.particles = {};
+  this.particles.bone = this.add.particles('bone');
+  this.particles.bossChunk = this.add.particles('anakaris_chunk1').setDepth(15);
+  this.particles.bossChunkTwo = this.add.particles('anakaris_chunk2').setDepth(15);
+  this.particles.bloodchunk = this.add.particles('bloodchunk');
+  this.particles.fire = this.add.particles('fire');
+  this.particles.hadokenFire = this.add.particles('purplefire');
+  this.particles.vortex = this.add.particles('flares');
+  this.particles.vortex2 = this.add.particles('flares');
+  this.particles.summonSkeleton = this.add.particles('sparklered');
 
   // Boss
   this.boss = new Boss({ scene: this, x: 950, y: 670 });
@@ -175,17 +187,9 @@ create(){
   this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
 
   this.physics.add.overlap(this.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
-
-  // Particles
-  this.particles = {};
-  this.particles.bone = this.add.particles('bone');
-  this.particles.bloodchunk = this.add.particles('bloodchunk');
-  this.particles.fire = this.add.particles('fire');
-  this.particles.hadokenFire = this.add.particles('purplefire');
-  this.particles.vortex = this.add.particles('flares');
-  this.particles.vortex2 = this.add.particles('flares');
-  this.particles.summonSkeleton = this.add.particles('sparklered');
   
+
+  // Emitters
   this.particles.bone.createEmitter({
     x: 200,
     y: 300,
@@ -443,9 +447,7 @@ hitSkeleton(skeleton, hadoken) {
 }
 
 hitBoss(boss, hadoken) {
-  this.particles.hadokenFire.x = hadoken.x;
-  this.particles.hadokenFire.y = hadoken.y;
-  this.particles.hadokenFire.emitParticle();
+  //this.particles.hadokenFire.emitParticle();
   hadoken.destroy();
 
   if(boss.anims.currentAnim.key !== 'bossdeath') {
@@ -465,18 +467,8 @@ hitBoss(boss, hadoken) {
   randomHitSound.play();
 
 
-  let emitter = this.particles.bone.createEmitter({
-    x: { min: -75, max: -25 },
-    y: { min: -100, max: -375 },
-    gravityY: 300,
-    speed: {min:300, max:800},
-    rotation: { min: 0, max: 700 },
-    scale: { start: 0.01, end: 0.01 },
-    quantity: { min: 5, max: 15 },
-    on: false
-  });
-  emitter.startFollow(boss);
-  emitter.emitParticle()
+  
+  boss.emitHitParticles()
   // this.particles.bone.emitParticleAt(boss.x, boss.y + 300);
   this.particles.bloodchunk.emitParticleAt(boss.x, boss.y + 300);
   // stone particles
@@ -491,12 +483,6 @@ summonNewSkeleton(scene) {
       targets: scene.skeletons.children.entries,
       alpha: { value: 1, duration: 250, ease: 'Power1',}
     });
-    this.tweens.add({
-      targets: scene.skeletons.children.entries,
-      scaleX: 0.5,
-      scaleY: 0.5,
-      duration: 250,
-    });
 
     scene.boss.anims.play('bosssummon');
     scene.skeletons.children.entries[0].anims.play('skeletonmediumsummon');
@@ -510,7 +496,6 @@ countDown() {
   if (this.timer === 5) {
     let fiveSecondsLeftSound = this.sound.add('54321');
     fiveSecondsLeftSound.play();
-
     this.timertext.setTint(0xff0000);
   }
 }

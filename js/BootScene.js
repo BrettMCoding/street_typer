@@ -35,6 +35,8 @@ class BootScene extends Phaser.Scene {
     this.load.image('ground', './assets/img/platform.png');
     this.load.image('skeleton', './assets/img/skeleton.png');
     this.load.image('bloodchunk', './assets/img/particles/bloodchunk.png');
+    this.load.image('anakaris_chunk1', './assets/img/particles/anakaris_chunk1.png');
+    this.load.image('anakaris_chunk2', './assets/img/particles/anakaris_chunk2.png');
     this.load.image('red', './assets/img/particles/red.png');
     this.load.image('bone', './assets/img/particles/bone.png');
     this.load.image('fire', './assets/img/particles/muzzleflash3.png');
@@ -130,7 +132,7 @@ class BootScene extends Phaser.Scene {
           start: 31, end: 33,
           prefix: 'skeletonmedium_', suffix: '.png'
         });
-        this.anims.create({ key: 'skeletonmediumidle', frames: frames, frameRate: 8, repeat: -1 });
+        this.anims.create({ key: 'skeletonmediumidle', frames: frames, frameRate: 6, repeat: -1 });
 
         // // SUMMON ANIMATION
         frames = this.anims.generateFrameNames('skeletonmedium', {

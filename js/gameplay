@@ -1,19 +1,14 @@
 TO DO:
 
+Add different boss particles
+
+Add fist/foot impact particles?
+
 Add Multi-skeletons
 
-Add summoner boss:
-    add boss knockout animation
-    add boss summon animation
-    add boss on hit particles
-    
-Add play again / menu button
+Add skeleton hit sound effect
 
-Add 3 2 1 GO sounds
-
-Add 5 second countdown sound
-
-Add score tally sound
+Add boss summon-minion sound effect
 
 Add high score system
 
