@@ -30,6 +30,9 @@ create(){
   this.boss = new Boss({ scene: this, x: 950, y: 670 });
   this.boss.anims.play('bossintro');
 
+  let bossintro = this.sound.add('bosssoundintro');
+  bossintro.play();
+
   // Add 3 second countdown timer to screen
   this.preGameTimerText = this.add
       .text(this.sys.game.config.width / 2, 200, (this.preGameTimer), {

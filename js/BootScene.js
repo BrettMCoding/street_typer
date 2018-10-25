@@ -87,7 +87,8 @@ class BootScene extends Phaser.Scene {
     this.load.audio('ff7save', './assets/sounds/UI/ff7save.mp3');
     this.load.audio('summon', './assets/sounds/deathcoil.wav');
     this.load.audio('skeletonemerge', './assets/sounds/skeletonemerge.wav');
-    this.load.audio('bossdeath', './assets/sounds/bossdeath.mp3'); 
+    this.load.audio('bossdeath', './assets/sounds/bossdeath.mp3');
+    this.load.audio('bosssoundintro', './assets/sounds/anakarisintro.wav');  
     this.load.audio('rockcrumble1', './assets/sounds/rockcrumble1.wav');
     this.load.audio('rockcrumble2', './assets/sounds/rockcrumble2.wav');
     this.load.audio('rockcrumble3', './assets/sounds/rockcrumble3.wav');
