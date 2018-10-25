@@ -32,7 +32,7 @@ create(){
   this.roundEndSwitch = 0;
   
   // Players total word combo
-  this.combo = 36;
+  this.combo = 6;
 
   // At the end of the round
   this.roundEndCombo = 0;
@@ -62,13 +62,23 @@ create(){
         padding: { x: 20, y: 10 },
         originX : 0.5
       }).setStroke('#312088', 6)
-      .setDepth(10);
+      .setDepth(20);
       this.goText.x -= this.goText.width / 2;
 
       this.tweens.add({
         targets: this.goText,
         alpha: { value: 0, duration: 1, ease: 'Power1', delay: 1000 },
       });
+
+  this.muteText = this.add
+  .text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "Music Muted", {
+    fontFamily: "arcade",
+    fontSize: 30,
+    fill: "#f8d838",
+    padding: { x: 20, y: 10 }})
+    .setStroke('#312088', 6)
+    .setOrigin(0.5)
+    .setAlpha(0.0);
 
   // Platforms
   let platforms = this.physics.add.staticSprite(this.sys.game.config.width / 2, this.sys.game.config.height - 50, 'ground').setAlpha(0.0);
@@ -288,11 +298,39 @@ create(){
 }
 
 update() {
-  this.boss.update();
+  debugger;
   // spacebar super for testing
+
+
   if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
-    this.PlayerCharacter.superComboOpeningAnimation(this, this.PlayerCharacter);
+    for (let i = 0; i < this.sound.sounds.length; i++) {
+      for (let key in this.sound.sounds[i]) {
+        if (this.sound.sounds[i][key] === "sewersurfin") {
+          var sound = this.sound.sounds[i];
+
+          if (sound.mute === true) {
+            this.muteText.setText("Music unmuted")
+
+            this.tweens.add({
+              targets: this.muteText,
+              alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
+            });
+            sound.mute = false;
+          } else {
+            sound.mute = true;
+            this.muteText.setText("Music muted")
+
+            this.tweens.add({
+              targets: this.muteText,
+              alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
+            });
+          }
+
+        }
+      }
+    }
   }
+
 
   // If there are characters left to type
   if (this.currentWord.length > 0) {
@@ -437,7 +475,8 @@ hitBoss(boss, hadoken) {
   let randomHitSound = this.sound.add(hitSounds[random]);
   randomHitSound.play();
     
-  boss.emitHitParticles()
+  boss.hitSound(this);
+  boss.emitHitParticles();
 }
 
 summonNewSkeleton(scene) {
@@ -449,6 +488,12 @@ summonNewSkeleton(scene) {
     targets: scene.skeletons.children.entries,
     alpha: { value: 1, duration: 250, ease: 'Power1',}
   });
+
+  let summonSound = scene.sound.add('summon');
+  summonSound.play();
+
+  let newSkeletonSound = scene.sound.add('skeletonemerge');
+  newSkeletonSound.play();
 
   scene.boss.anims.play('bosssummon');
   newSkeleton.anims.play('skeletonmediumsummon');
@@ -493,7 +538,7 @@ countDown() {
     scene.scoreTween = scene.tweens.addCounter({
       from: 0,
       to: score,
-      duration: (2.5 * score),
+      duration: (3.5 * score),
     });
     
     scene.scoreTweenStart = 1;
@@ -562,6 +607,10 @@ countDown() {
     menubutton.clearTint();
 
     });
+  }
+
+  muteTextAnim(scene) {
+    scene.muteText = scene.add.text
   }
 }
 

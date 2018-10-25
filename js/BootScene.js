@@ -85,11 +85,16 @@ class BootScene extends Phaser.Scene {
     this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.wav',);
     this.load.audio('sewersurfin', './assets/sounds/music/SewerSurfin.mp3',);
     this.load.audio('ff7save', './assets/sounds/UI/ff7save.mp3');
-    this.load.audio('bossdeath', './assets/sounds/bossdeath.mp3');
+    this.load.audio('summon', './assets/sounds/deathcoil.wav');
+    this.load.audio('skeletonemerge', './assets/sounds/skeletonemerge.wav');
+    this.load.audio('bossdeath', './assets/sounds/bossdeath.mp3'); 
+    this.load.audio('rockcrumble1', './assets/sounds/rockcrumble1.wav');
+    this.load.audio('rockcrumble2', './assets/sounds/rockcrumble2.wav');
+    this.load.audio('rockcrumble3', './assets/sounds/rockcrumble3.wav');
     this.load.audio('321go', './assets/sounds/321go.wav');
     this.load.audio('54321', './assets/sounds/54321.wav');
     this.load.audio('points', './assets/sounds/points.wav');
-    this.load.audio('pointsfinish', './assets/sounds/pointsfinish.wav');
+    this.load.audio('pointsfinish', './assets/sounds/pointsfinish.wav'); 
 
     // Load combo word
     this.load.image('comboword', './assets/img/comboword.png');
@@ -156,7 +161,7 @@ class BootScene extends Phaser.Scene {
         this.anims.create({ key: 'skeletonmediumsummon', frames: frames, frameRate: 20});
 
     // TEMPORARY MENU SKIP
-    this.scene.start('GameScene');
+    // this.scene.start('GameScene');
 
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height

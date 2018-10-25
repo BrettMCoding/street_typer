@@ -72,4 +72,11 @@ export default class Boss extends Phaser.GameObjects.Sprite {
     this.chunkOne.emitParticle();
     this.chunkTwo.emitParticle();
   }
+
+  hitSound(scene){
+    let sounds = [scene.sound.add('rockcrumble1').setVolume(.3),
+                  scene.sound.add('rockcrumble2').setVolume(.3),
+                  scene.sound.add('rockcrumble3').setVolume(.3)]
+    sounds[Math.floor(Math.random() * 3)].play();
+  }
 }

@@ -1,3 +1,7 @@
+body{
+  background-color:#000000;
+}
+
 @font-face {
 	font-family: "arcade";
 	font-style: normal;

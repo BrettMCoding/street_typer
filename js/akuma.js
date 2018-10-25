@@ -264,37 +264,42 @@ export default class PlayerCharacter {
 
     if (scene.combo >= 35) {
       var comboImage = scene.add.image(width, height, 'ultra').setDepth(15).setScale(3.2);
+
+      let textVibrate = scene.tweens.add({
+        targets: comboImage,
+        scaleX: 2,
+        scaleY: 2,
+        duration: 50,
+        yoyo: true,
+        repeat: 5,
+      });
+
       comboSound[6].play();
+
     } else if (scene.combo >= 30) {
-      var comboImage = scene.add.image(width, height, 'killer').setDepth(15);
-      comboSound[5].play();
+        var comboImage = scene.add.image(width, height, 'killer').setDepth(15);
+        comboSound[5].play();
     } else if (scene.combo >= 25) {
-      var comboImage = scene.add.image(width, height, 'beastly').setDepth(15);
-      comboSound[4].play();
+        var comboImage = scene.add.image(width, height, 'beastly').setDepth(15);
+        comboSound[4].play();
     } else if (scene.combo >= 20) {
-      var comboImage = scene.add.image(width, height, 'insane').setDepth(15);
-      comboSound[3].play();
+        var comboImage = scene.add.image(width, height, 'insane').setDepth(15);
+        comboSound[3].play();
     } else if (scene.combo >= 15) {
-      var comboImage = scene.add.image(width, height, 'monster').setDepth(15);
-      comboSound[2].play();
+        var comboImage = scene.add.image(width, height, 'monster').setDepth(15);
+        comboSound[2].play();
     } else if (scene.combo >= 10) {
-      var comboImage = scene.add.image(width, height, 'extreme').setDepth(15);
-      comboSound[1].play();
+        var comboImage = scene.add.image(width, height, 'extreme').setDepth(15);
+        comboSound[1].play();
     } else if (scene.combo >= 5) {
-      var comboImage = scene.add.image(width, height, 'hyper').setDepth(15);
-      comboSound[0].play();
+        var comboImage = scene.add.image(width, height, 'hyper').setDepth(15);
+        comboSound[0].play();
     };
 
-    let textVibrate = scene.tweens.add({
+    let textFade = scene.tweens.add({
       targets: comboImage,
-      scaleX: 2,
-      scaleY: 2,
-      duration: 50,
-      yoyo: true,
-      repeat: 5,
+      alpha: { value: 0, duration: 3000, ease: 'Power1', delay: 1000 },
     });
-
-    let textFade
   }
 
   goshoryuken(scene, self) {
