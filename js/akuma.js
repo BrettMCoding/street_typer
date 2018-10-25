@@ -7,6 +7,7 @@ export default class PlayerCharacter {
     .setScale(2.5)
     .setBounce(0.2)
     .setCollideWorldBounds(true)
+    .setDepth(11)
     this.akuma.body.gravity.y = -950;
 
   // AKUMA GOSHORYU ANIMATION
@@ -221,7 +222,7 @@ export default class PlayerCharacter {
 
     // Display score
     // Delay = combo length + 2 seconds
-    scene.time.addEvent({ delay: ((200 * scene.combo) + 2000), callback: scene.roundEndScoreTally, args: [scene, self]});
+    
 
     // ADD A GLOBAL VARIABLE FOR COMBO ATTACK DELAY, AND TIGHTEN TIMINGS TO VARIABLES FOR CLEANER REFACTORING
   }
@@ -244,9 +245,56 @@ export default class PlayerCharacter {
     // vertical & horizontal lasers
     //scene.lazer.anims.delayedPlay(400,'blast');
     //scene.lazer2.anims.delayedPlay(650,'blast');
-    
+    self.superComboSound(scene);
+    scene.time.addEvent({ delay: 1500, callback: scene.roundEndScoreTally, args: [scene, self]});
     scene.time.addEvent({ delay: 1000, callback: self.goshoryuken, args: [scene, self]});
     scene.time.addEvent({ delay: 5500, callback: scene.boss.deathEvent, args: [ scene ]});
+  }
+
+  superComboSound(scene) {
+    let width = scene.sys.game.config.width / 2;
+    let height = scene.sys.game.config.height / 2;
+    let comboSound = [scene.sound.add('hyper'),
+                      scene.sound.add('extreme'),
+                      scene.sound.add('monster'),
+                      scene.sound.add('insane'),
+                      scene.sound.add('beastly'),
+                      scene.sound.add('killer'),
+                      scene.sound.add('ultra')];
+
+    if (scene.combo >= 35) {
+      var comboImage = scene.add.image(width, height, 'ultra').setDepth(15).setScale(3.2);
+      comboSound[6].play();
+    } else if (scene.combo >= 30) {
+      var comboImage = scene.add.image(width, height, 'killer').setDepth(15);
+      comboSound[5].play();
+    } else if (scene.combo >= 25) {
+      var comboImage = scene.add.image(width, height, 'beastly').setDepth(15);
+      comboSound[4].play();
+    } else if (scene.combo >= 20) {
+      var comboImage = scene.add.image(width, height, 'insane').setDepth(15);
+      comboSound[3].play();
+    } else if (scene.combo >= 15) {
+      var comboImage = scene.add.image(width, height, 'monster').setDepth(15);
+      comboSound[2].play();
+    } else if (scene.combo >= 10) {
+      var comboImage = scene.add.image(width, height, 'extreme').setDepth(15);
+      comboSound[1].play();
+    } else if (scene.combo >= 5) {
+      var comboImage = scene.add.image(width, height, 'hyper').setDepth(15);
+      comboSound[0].play();
+    };
+
+    let textVibrate = scene.tweens.add({
+      targets: comboImage,
+      scaleX: 2,
+      scaleY: 2,
+      duration: 50,
+      yoyo: true,
+      repeat: 5,
+    });
+
+    let textFade
   }
 
   goshoryuken(scene, self) {

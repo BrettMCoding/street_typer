@@ -23,7 +23,7 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 60;
+  this.timer = 3;
   
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -32,7 +32,7 @@ create(){
   this.roundEndSwitch = 0;
   
   // Players total word combo
-  this.combo = 3;
+  this.combo = 36;
 
   // At the end of the round
   this.roundEndCombo = 0;
@@ -166,6 +166,7 @@ create(){
       padding: { x: 20, y: 10 }})
       .setStroke('#312088', 6)
       .setOrigin(0.5)
+      .setDepth(15)
       .setVisible(false);
       this.scoreText.x = this.comboContainer.x
       this.scoreText.y = 500
@@ -350,12 +351,11 @@ update() {
     if(this.score !== this.scoreTween.getValue()) {
       let points = this.sound.add('points');
       points.play();
-    } else if(this.score === this.scoreTween.getValue() & this.pointsfinish !== 1) {
+    } else if (this.score === this.scoreTween.getValue() & this.pointsfinish !== 1) {
       let pointsfinish = this.sound.add('pointsfinish')
       pointsfinish.play();
       this.pointsfinish = 1;
     }
-
   }
 }
 

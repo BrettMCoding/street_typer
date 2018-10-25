@@ -50,6 +50,13 @@ class BootScene extends Phaser.Scene {
     this.load.image('squarebuttonx', './assets/img/menu/squarebuttonx.png');
     this.load.image('againbutton', './assets/img/menu/againbutton.png');
     this.load.image('menubutton', './assets/img/menu/menubutton.png');
+    this.load.image('hyper', './assets/img/combotext/hyper.png');
+    this.load.image('extreme', './assets/img/combotext/extreme.png');
+    this.load.image('monster', './assets/img/combotext/monster.png');
+    this.load.image('insane', './assets/img/combotext/insane.png');
+    this.load.image('beastly', './assets/img/combotext/beastly.png');
+    this.load.image('killer', './assets/img/combotext/killer.png');
+    this.load.image('ultra', './assets/img/combotext/ultra.png');
   
     // Load Akuma sprites
     this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
@@ -61,7 +68,14 @@ class BootScene extends Phaser.Scene {
     this.load.multiatlas('skeletonmedium', './assets/spritesheets/skeletonmedium/skeletonmedium.json', './assets/spritesheets/skeletonmedium/');
 
     // Load audio assets
-    this.load.audio('super', './assets/sounds/super.wav',);
+    this.load.audio('super', './assets/sounds/super.wav');
+    this.load.audio('hyper', './assets/sounds/hyper.wav');
+    this.load.audio('extreme', './assets/sounds/extreme.wav');
+    this.load.audio('monster', './assets/sounds/monster.wav');
+    this.load.audio('insane', './assets/sounds/insane.wav');
+    this.load.audio('beastly', './assets/sounds/beastly.wav');
+    this.load.audio('killer', './assets/sounds/killer.wav');
+    this.load.audio('ultra', './assets/sounds/ultra.wav');
     this.load.audio('fiercekick', './assets/sounds/fiercekickA3.wav',);
     this.load.audio('fiercepunch', './assets/sounds/fiercepunchA3.wav',);
     this.load.audio('lightkick', './assets/sounds/lightkickA3.wav',);
