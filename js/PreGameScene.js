@@ -19,13 +19,16 @@ create(){
 
   // Add Player Character
   this.PlayerCharacter = new PlayerCharacter(this, this.sys.game.config.width / 8, this.sys.game.config.height / 2 + 180)
+  this.PlayerCharacter.akuma.anims.play('supercharge');
 
 
   // Add Boss
   this.particles = {};
   this.particles.bossChunk = this.add.particles('anakaris_chunk1').setDepth(15);
   this.particles.bossChunkTwo = this.add.particles('anakaris_chunk2').setDepth(15);
+
   this.boss = new Boss({ scene: this, x: 950, y: 670 });
+  this.boss.anims.play('bossintro');
 
   // Add 3 second countdown timer to screen
   this.preGameTimerText = this.add

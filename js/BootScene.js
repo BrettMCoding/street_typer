@@ -131,6 +131,13 @@ class BootScene extends Phaser.Scene {
         }); 
         this.anims.create({ key: 'bosssummon', frames: frames, frameRate: 40, yoyo: true});
 
+        // Intro
+        frames = this.anims.generateFrameNames('boss', {
+          start: 62, end: 70,
+          prefix: 'anakaris_', suffix: '.png'
+        }); 
+        this.anims.create({ key: 'bossintro', frames: frames, frameRate: 6, yoyo: true});
+
         // Hit
         frames = this.anims.generateFrameNames('boss', {
           start: 73, end: 74,
