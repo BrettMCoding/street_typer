@@ -106,12 +106,7 @@ class BootScene extends Phaser.Scene {
     for (let i in this.alphabet) {
       this.load.image(this.alphabet[i], "./assets/img/alphabet/"+this.alphabet[i]+".png");
     }
-    // Same for numbers
-    this.numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-    for (let i in this.numbers) {
-      this.load.image('' + i, "./assets/img/alphabet/"+i+".png");
-    }
+    
   }
 
   create() {
@@ -169,7 +164,7 @@ class BootScene extends Phaser.Scene {
         this.anims.create({ key: 'skeletonmediumsummon', frames: frames, frameRate: 20});
 
     // TEMPORARY MENU SKIP
-    // this.scene.start('GameScene');
+    this.scene.start('GameScene');
 
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height

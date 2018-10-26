@@ -1,6 +1,5 @@
 export default class PlayerCharacter {
   constructor(scene, x, y) {
-    this.scene = scene;
 
   // Create Akuma
   this.akuma = scene.physics.add.sprite(x, y, 'akuma', 'AkumaClean_.png')
@@ -69,7 +68,7 @@ export default class PlayerCharacter {
   for (let i = 0; i < 5; i++) {
     scene.frameNames.splice(2, 0, scene.frameNames[2]);
   }
-  let mediumPunchAnim = scene.anims.create({ key: 'standinguppercut', frames: scene.frameNames, frameRate: 35, repeat: 0 });
+  scene.anims.create({ key: 'standinguppercut', frames: scene.frameNames, frameRate: 35, repeat: 0 });
   
 
   // AKUMA FIERCE PUNCH ANIMATION
@@ -125,7 +124,7 @@ export default class PlayerCharacter {
   // Array of string names of attack animations to be used as keys later 'shoryuken'
   this.akuma.attackNames = ['lightpunch', 'standinguppercut', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
-  // Hadoken physical body (now used as hit detection)
+  // Hadoken physical body (used as hit detection)
   this.hadoken = scene.physics.add.group();
 
   }
@@ -228,30 +227,21 @@ export default class PlayerCharacter {
   }
 
   superComboFinisher(scene, self) {
-    
-    // play supercombo sound
-    //let superSound = scene.sound.add('super');
-    //superSound.play();
-    
     // color the background
     scene.background.setTint(0x9f00bc);
     
-    
-    // vortex particles
     scene.particles.vortex.emitParticleAt(self.akuma.getCenter());
     
     self.akuma.anims.play('supercharge');
 
-    // vertical & horizontal lasers
-    //scene.lazer.anims.delayedPlay(400,'blast');
-    //scene.lazer2.anims.delayedPlay(650,'blast');
-    self.superComboSound(scene);
+    self.superComboText(scene);
+
     scene.time.addEvent({ delay: 1500, callback: scene.roundEndScoreTally, args: [scene, self]});
     scene.time.addEvent({ delay: 1000, callback: self.goshoryuken, args: [scene, self]});
     scene.time.addEvent({ delay: 5500, callback: scene.boss.deathEvent, args: [ scene ]});
   }
 
-  superComboSound(scene) {
+  superComboText(scene) {
     let width = scene.sys.game.config.width / 2;
     let height = scene.sys.game.config.height / 2;
     let comboSound = [scene.sound.add('hyper'),
@@ -267,11 +257,11 @@ export default class PlayerCharacter {
 
       let textVibrate = scene.tweens.add({
         targets: comboImage,
-        scaleX: 2,
-        scaleY: 2,
-        duration: 50,
+        scaleX: 3,
+        scaleY: 3,
+        duration: 25,
         yoyo: true,
-        repeat: 5,
+        repeat: -1,
       });
 
       comboSound[6].play();
@@ -304,13 +294,15 @@ export default class PlayerCharacter {
 
   goshoryuken(scene, self) {
     self.akuma.x = 850
-    scene.background.clearTint();
     self.akuma.anims.play('shoryuken');
+    self.akuma.setVelocityY(-200);
+
+    scene.background.clearTint();
+    
     scene.time.addEvent({ delay: 175, callback: self.createHadokenProjectile, args: [ self, scene ], repeat: 15});
 
     scene.boss.anims.play('bossdeath');
     scene.boss.body.setVelocityY(-200);
 
-    self.akuma.setVelocityY(-200);
   }
 }

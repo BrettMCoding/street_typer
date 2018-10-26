@@ -32,7 +32,7 @@ create(){
   this.roundEndSwitch = 0;
   
   // Players total word combo
-  this.combo = 6;
+  this.combo = 36;
 
   // At the end of the round
   this.roundEndCombo = 0;
@@ -45,33 +45,35 @@ create(){
   this.WORDS = this.dictionary.WORDS;
   
   // Points
-  this.score = 800;
+  this.score = 1600;
 
   
   // Background
-  // NOTE: We'll be using this.sys.game.config.width or height a lot to get the dimensions of our game
-  this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "background");
+  this.background = this.add.sprite(this.width / 2, this.height / 2, "background");
   this.background.play("background");
 
   // Add starting "GO!" text to the screen
   this.goText = this.add
-      .text(this.sys.game.config.width / 2, 200, ("GO!"), {
+      .text(this.width / 2, 200, ("GO!"), {
         fontFamily: "arcade",
         fontSize: 100,
         fill: "#ffffff",
         padding: { x: 20, y: 10 },
-        originX : 0.5
-      }).setStroke('#312088', 6)
+        originX : 0.5 })
+      .setStroke('#312088', 6)
       .setDepth(20);
+      // MANUAL TEXT POSITIONING
       this.goText.x -= this.goText.width / 2;
-
+      
+      // Hide goText after 1 second
       this.tweens.add({
         targets: this.goText,
         alpha: { value: 0, duration: 1, ease: 'Power1', delay: 1000 },
       });
-
+      
+      
   this.muteText = this.add
-  .text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "Music Muted", {
+  .text(this.width / 2, this.height / 2, "Music Muted", {
     fontFamily: "arcade",
     fontSize: 30,
     fill: "#f8d838",
@@ -79,15 +81,29 @@ create(){
     .setStroke('#312088', 6)
     .setOrigin(0.5)
     .setAlpha(0.0);
+        
+
+  // Add round timer to screen
+  this.timertext = this.add
+      .text(this.width / 2, 10, ("TIME LEFT: " + this.timer), {
+        fontFamily: "arcade",
+        fontSize: 50,
+        fill: "#ffffff",
+        padding: { x: 20, y: 10 },
+        originX : 0.5
+      }).setStroke('#312088', 6)
+      .setDepth(10);
+      // MANUAL TEXT POSITIONING
+      this.timertext.x -= this.timertext.width / 2;
 
   // Platforms
-  let platforms = this.physics.add.staticSprite(this.sys.game.config.width / 2, this.sys.game.config.height - 50, 'ground').setAlpha(0.0);
-
+  let platforms = this.physics.add.staticSprite(this.width / 2, this.height - 45, 'ground').setAlpha(0.0);
+        
 
   // Add A-Z as clickable keys for our game
   this.keys = this.input.keyboard.addKeys(this.alphabet.join(","));
 
-  // Add spacebar for testing attacks
+  // Add spacebar for music mute
   this.keys.SPACE = this.input.keyboard.addKey
         (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -98,7 +114,6 @@ create(){
   this.particles.bossChunkTwo = this.add.particles('anakaris_chunk2').setDepth(15);
   this.particles.bloodchunk = this.add.particles('bloodchunk');
   this.particles.fire = this.add.particles('fire');
-  this.particles.hadokenFire = this.add.particles('purplefire');
   this.particles.vortex = this.add.particles('flares');
   this.particles.vortex2 = this.add.particles('flares');
   this.particles.summonSkeleton = this.add.particles('sparklered');
@@ -111,28 +126,13 @@ create(){
   this.summonNewSkeleton(this);
   
   // Add Player Character
-  this.PlayerCharacter = new PlayerCharacter(this, this.sys.game.config.width / 8, this.sys.game.config.height / 2 + 180)
+  this.PlayerCharacter = new PlayerCharacter(this, this.width / 8, this.height / 2 + 180)
 
   // Pick & display first word
   this.currentWord = this.newWord(this.WORDS);
   this.currentWordImg = this.currentWord.slice(0);
-  this.wordContainer = this.add.container(this.sys.game.config.width / 2, this.sys.game.config.height / 5);
+  this.wordContainer = this.add.container(this.width / 2, this.height / 5);
   this.newWordToScreen(this);
-
-  // Add round timer to screen
-  this.timertext = this.add
-      .text(this.sys.game.config.width / 2, 10, ("TIME LEFT: " + this.timer), {
-        fontFamily: "arcade",
-        fontSize: 50,
-        fill: "#ffffff",
-        padding: { x: 20, y: 10 },
-        originX : 0.5
-      }).setStroke('#312088', 6)
-      .setDepth(10);
-  // origin and setOrigin are used to change the pivot point of things,
-  // but I can't get it to work great? So width division like below is used a lot
-  this.timertext.x -= this.timertext.width / 2;
-
 
   // comboContainer holds comboText and comboImage to move them together
   this.comboContainer = this.add.container(16, 16);
@@ -153,11 +153,8 @@ create(){
       .setOrigin(0.5);
   this.comboText.x = this.comboImage.x;
   this.comboText.y = 105;
-  // this.comboContainer.tweentarget = this.add.container(0, 0);
 
-  // this.generateNumberImg(this.combo, this.comboContainer.tweentarget, 15, 60, this);
-
-  // Add a tween animation that makes the combo number *pop* every +1
+  // Add a tween animation that makes the combo number pop when updated
   this.comboTween = this.tweens.add({
     targets: this.comboText,
     scaleX: 2,
@@ -181,7 +178,7 @@ create(){
       this.scoreText.x = this.comboContainer.x
       this.scoreText.y = 500
   
-  // add both to container and set depth so the explosion appears under the text
+  // Add both to container and set depth so the explosion appears under the text
   this.comboContainer
         .add(this.comboText)
         .add(this.comboImage)
@@ -202,7 +199,6 @@ create(){
 
   // Emitters
 
-  // add fire to attach to combo
   this.particles.fire.createEmitter({
       alpha: { start: 1, end: 0 },
       scale: { start: 0.5, end: 2.5 },
@@ -220,23 +216,6 @@ create(){
       on: false
   });
 
-  this.particles.hadokenFire.createEmitter({
-    alpha: { start: 1, end: 0 },
-    scale: { start: 1, end: 0 },
-    quantity: 9,
-    speed: {min: 40, max: 200},
-    angle: { min: 0, max: 360 },
-    rotate: { min: -45, max: 0 },
-    lifespan: { min: 100, max: 200 },
-    frequency: 1100,
-    maxParticles: 10,
-    width: 200,
-    height: 200,
-    x: 0,
-    y: 0,
-    on: false
-});
-
   // Super combo vortex particles
   this.circle = new Phaser.Geom.Circle(this.PlayerCharacter.akuma.x, this.PlayerCharacter.akuma.y, 500);
   this.particles.vortex.createEmitter({
@@ -251,7 +230,8 @@ create(){
     blendMode: 'ADD',
     emitZone: { source: this.circle, type: 'random', quantity: 1 },
     on: false
-});
+  });
+
   // Super combo airborn particles
   this.circle2 = new Phaser.Geom.Circle(this.PlayerCharacter.akuma.x, this.PlayerCharacter.akuma.y + 100, 100);
   this.particles.vortex2.createEmitter({
@@ -266,12 +246,12 @@ create(){
     blendMode: 'ADD',
     emitZone: { source: this.circle, type: 'random', quantity: 1 },
     on: false
-});
+  });
 
   // Summon Skeleton particles
   this.particles.summonSkeleton.createEmitter({
     x: { min: 260, max: 340 },
-    y: this.sys.game.config.height / 2 + 280,
+    y: this.height / 2 + 280,
     lifespan: { min: 300, max: 500 },
     speed: { min: 20, max: 1000 },
     angle: 270,
@@ -281,13 +261,17 @@ create(){
     on:false
   });
   
-  // add super combo lazer
-  this.anims.create({ key: 'blast', frames: this.anims.generateFrameNames('lazer', { prefix: 'lazer_', start: 0, end: 22, zeroPad: 2 }), frameRate: 50});
-  this.lazer = this.add.sprite(this.PlayerCharacter.akuma.x, 120 , "lazer").setScale(1.3);
+  // add super combo lasers
+  this.anims.create({ 
+    key: 'blast', 
+    frames: this.anims.generateFrameNames('lazer', { prefix: 'lazer_', start: 0, end: 22, zeroPad: 2 }), 
+    frameRate: 50});
+  this.lazer = this.add
+    .sprite(this.PlayerCharacter.akuma.x, 120 , "lazer").setScale(1.3);
+  this.lazer2 = this.add
+    .sprite(this.width / 2 + 300, this.PlayerCharacter.akuma.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
 
-  this.lazer2 = this.add.sprite(this.sys.game.config.width / 2 + 300, this.PlayerCharacter.akuma.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
-
-
+  // REFACTOR THESE INTO AKUMA JS
   // Attack *Hit* Sound Array
   this.sounds = {};
   this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
@@ -298,10 +282,8 @@ create(){
 }
 
 update() {
-  debugger;
-  // spacebar super for testing
 
-
+  // Spacebar mute
   if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
     for (let i = 0; i < this.sound.sounds.length; i++) {
       for (let key in this.sound.sounds[i]) {
@@ -309,36 +291,37 @@ update() {
           var sound = this.sound.sounds[i];
 
           if (sound.mute === true) {
-            this.muteText.setText("Music unmuted")
+            sound.mute = false;
+
+            this.muteText.setText("Music unmuted");
 
             this.tweens.add({
               targets: this.muteText,
               alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
             });
-            sound.mute = false;
           } else {
             sound.mute = true;
-            this.muteText.setText("Music muted")
+
+            this.muteText.setText("Music muted");
 
             this.tweens.add({
               targets: this.muteText,
               alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
             });
           }
-
         }
       }
     }
   }
 
 
-  // If there are characters left to type
+  // If there are characters left to type in the word
   if (this.currentWord.length > 0) {
     
-    // If the A-Z keyboard key that matches this.currentWord[0] is being pressed AND the round isn't over
+    // If the A-Z keyboard key that matches this.currentWord[0] is being pressed & the round isn't over
     if (Phaser.Input.Keyboard.JustDown(this.keys[this.currentWord[0]]) & this.roundEndSwitch !== 1) {
 
-      // Color it's sprite green, and push it to the back of the array.
+      // Color the letter sprite green, and push it to the back of the array.
       this.currentWordImg[0].setTint(0x00ff00);
       this.currentWordImg.push(this.currentWordImg.shift());
       this.score += 5
@@ -349,6 +332,7 @@ update() {
 
   // If there are not characters left to type,
   } else {
+
     for (let i in this.currentWordImg) {
       // Destroy the word's sprites
       this.currentWordImg[i].destroy();
@@ -357,9 +341,6 @@ update() {
     // Add to combo
     this.combo += 1;
     this.comboText.setText(this.combo);
-
-    // combo text font test
-    // this.generateNumberImg(this.combo, this.comboContainer.tweentarget, 15, 60, this);
 
     // Player comboText animation
     this.comboTween.restart();
@@ -377,13 +358,12 @@ update() {
     // Throw the switch
     this.roundEndSwitch = 1;
 
-    // let meme = this.sound.add('memescream');
-    // meme.play();
-
     // End of round function
     this.roundEnd(this);
   }
 
+  // End of Round score ticker.
+  // Add a ScoreUpdate() function or an update argument and refactor this into it's own function
   if (this.scoreTweenStart === 1) {
     this.scoreText.setText("TOTAL SCORE: " + Math.floor(this.scoreTween.getValue()))
     if(this.score !== this.scoreTween.getValue()) {
@@ -392,6 +372,8 @@ update() {
     } else if (this.score === this.scoreTween.getValue() & this.pointsfinish !== 1) {
       let pointsfinish = this.sound.add('pointsfinish')
       pointsfinish.play();
+
+      // 0 1 switch because I cannot find a way to tie a single sound play to a progress tween finish. Will revisit.
       this.pointsfinish = 1;
     }
   }
@@ -425,17 +407,15 @@ newWordToScreen(scene) {
 
     scene.wordContainer.add([scene.currentWordImg[i]]);
   }
-  // Currently, only the first character is centered
-  // Center the whole word by using 
+  
   scene.wordContainer.x = 
   //(game width center) - (half of (wordlength * x coordinate offsets) 
-  (this.sys.game.config.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
+  (this.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
 }
 
-// Called when our invisible hadoken connects with the skeleton
+// Called when our hadoken connects with the skeleton
 hitSkeleton(skeleton, hadoken) {
   // Destroy the projectile
-  this.particles.hadokenFire.emitParticleAt(hadoken.getCenter());
   hadoken.destroy()
 
   skeleton.emitHitParticles();
@@ -456,7 +436,6 @@ hitSkeleton(skeleton, hadoken) {
 }
 
 hitBoss(boss, hadoken) {
-  //this.particles.hadokenFire.emitParticle();
   hadoken.destroy();
 
   if(boss.anims.currentAnim.key !== 'bossdeath') {
@@ -499,7 +478,7 @@ summonNewSkeleton(scene) {
   newSkeleton.anims.play('skeletonmediumsummon');
 }
 
-// Called by our create() game this.timer event
+
 countDown() {
   this.timer--;
   this.timertext.setText("TIME LEFT: " + this.timer);
@@ -515,7 +494,7 @@ countDown() {
   roundEnd(scene) {
     scene.timertext.destroy();
     scene.comboContainer.setScale(1.5);
-    scene.comboContainer.x = (this.sys.game.config.width / 2) - (scene.comboImage.width / 2 + 27);
+    scene.comboContainer.x = (this.width / 2) - (scene.comboImage.width / 2 + 27);
     scene.comboContainer.y = 50;
     
     scene.comboContainer.setVisible(false);
