@@ -23,20 +23,17 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 3;
-  
-  // this.WORDS will be our imported dictionary of this.words in an array
-  this.WORDS;
-
-  // When this.timer hits 0 we will throw this to 1 to begin the end of round mechanics
-  this.roundEndSwitch = 0;
+  this.timer = 60;
   
   // Players total word combo
-  this.combo = 36;
+  this.combo = 0;
 
-  // At the end of the round
-  this.roundEndCombo = 0;
+  // Points
+  this.score = 0;
 
+  // this.WORDS will be our imported dictionary of this.words in an array
+  this.WORDS;
+  
   // Switch for an "if" statement in our update function
   this.scoreTweenStart = 0;
   
@@ -44,9 +41,11 @@ create(){
   this.dictionary = new DICTIONARY();
   this.WORDS = this.dictionary.WORDS;
   
-  // Points
-  this.score = 1600;
-
+  // When this.timer hits 0 we will throw this to 1 to begin the end of round mechanics
+  this.roundEndSwitch = 0;
+  
+  // At the end of the round
+  this.roundEndCombo = 0;
   
   // Background
   this.background = this.add.sprite(this.width / 2, this.height / 2, "background");

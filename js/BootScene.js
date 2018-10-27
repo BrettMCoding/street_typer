@@ -68,34 +68,34 @@ class BootScene extends Phaser.Scene {
     this.load.multiatlas('skeletonmedium', './assets/spritesheets/skeletonmedium/skeletonmedium.json', './assets/spritesheets/skeletonmedium/');
 
     // Load audio assets
-    this.load.audio('super', './assets/sounds/super.wav');
-    this.load.audio('hyper', './assets/sounds/hyper.wav');
-    this.load.audio('extreme', './assets/sounds/extreme.wav');
-    this.load.audio('monster', './assets/sounds/monster.wav');
-    this.load.audio('insane', './assets/sounds/insane.wav');
-    this.load.audio('beastly', './assets/sounds/beastly.wav');
-    this.load.audio('killer', './assets/sounds/killer.wav');
-    this.load.audio('ultra', './assets/sounds/ultra.wav');
-    this.load.audio('fiercekick', './assets/sounds/fiercekickA3.wav',);
-    this.load.audio('fiercepunch', './assets/sounds/fiercepunchA3.wav',);
-    this.load.audio('lightkick', './assets/sounds/lightkickA3.wav',);
-    this.load.audio('lightpunch', './assets/sounds/lightpunchA3.wav',);
-    this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.wav',);
-    this.load.audio('memescream', './assets/sounds/memescream.wav',);
-    this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.wav',);
+    this.load.audio('super', './assets/sounds/super.mp3');
+    this.load.audio('hyper', './assets/sounds/hyper.mp3');
+    this.load.audio('extreme', './assets/sounds/extreme.mp3');
+    this.load.audio('monster', './assets/sounds/monster.mp3');
+    this.load.audio('insane', './assets/sounds/insane.mp3');
+    this.load.audio('beastly', './assets/sounds/beastly.mp3');
+    this.load.audio('killer', './assets/sounds/killer.mp3');
+    this.load.audio('ultra', './assets/sounds/ultra.mp3');
+    this.load.audio('fiercekick', './assets/sounds/fiercekickA3.mp3',);
+    this.load.audio('fiercepunch', './assets/sounds/fiercepunchA3.mp3',);
+    this.load.audio('lightkick', './assets/sounds/lightkickA3.mp3',);
+    this.load.audio('lightpunch', './assets/sounds/lightpunchA3.mp3',);
+    this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.mp3',);
+    this.load.audio('memescream', './assets/sounds/memescream.mp3',);
+    this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.mp3',);
     this.load.audio('sewersurfin', './assets/sounds/music/SewerSurfin.mp3',);
     this.load.audio('ff7save', './assets/sounds/UI/ff7save.mp3');
-    this.load.audio('summon', './assets/sounds/deathcoil.wav');
-    this.load.audio('skeletonemerge', './assets/sounds/skeletonemerge.wav');
+    this.load.audio('summon', './assets/sounds/deathcoil.mp3');
+    this.load.audio('skeletonemerge', './assets/sounds/skeletonemerge.mp3');
     this.load.audio('bossdeath', './assets/sounds/bossdeath.mp3');
-    this.load.audio('bosssoundintro', './assets/sounds/anakarisintro.wav');  
-    this.load.audio('rockcrumble1', './assets/sounds/rockcrumble1.wav');
-    this.load.audio('rockcrumble2', './assets/sounds/rockcrumble2.wav');
-    this.load.audio('rockcrumble3', './assets/sounds/rockcrumble3.wav');
-    this.load.audio('321go', './assets/sounds/321go.wav');
-    this.load.audio('54321', './assets/sounds/54321.wav');
-    this.load.audio('points', './assets/sounds/points.wav');
-    this.load.audio('pointsfinish', './assets/sounds/pointsfinish.wav'); 
+    this.load.audio('bosssoundintro', './assets/sounds/anakarisintro.mp3');  
+    this.load.audio('rockcrumble1', './assets/sounds/rockcrumble1.mp3');
+    this.load.audio('rockcrumble2', './assets/sounds/rockcrumble2.mp3');
+    this.load.audio('rockcrumble3', './assets/sounds/rockcrumble3.mp3');
+    this.load.audio('321go', './assets/sounds/321go.mp3');
+    this.load.audio('54321', './assets/sounds/54321.mp3');
+    this.load.audio('points', './assets/sounds/points.mp3');
+    this.load.audio('pointsfinish', './assets/sounds/pointsfinish.mp3'); 
 
     // Load combo word
     this.load.image('comboword', './assets/img/comboword.png');
@@ -164,7 +164,7 @@ class BootScene extends Phaser.Scene {
         this.anims.create({ key: 'skeletonmediumsummon', frames: frames, frameRate: 20});
 
     // TEMPORARY MENU SKIP
-    this.scene.start('GameScene');
+    // this.scene.start('GameScene');
 
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height
