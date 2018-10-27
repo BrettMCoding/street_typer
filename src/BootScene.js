@@ -56,16 +56,16 @@ class BootScene extends Phaser.Scene {
     this.load.image('killer', './assets/img/combotext/killer.png');
     this.load.image('ultra', './assets/img/combotext/ultra.png');
   
-    // Load Akuma sprites
+    // load akuma sprites
     this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
 
-    // Load Boss sprites
+    // load boss sprites
     this.load.multiatlas('boss', './assets/spritesheets/anakaris/anakaris.json', './assets/spritesheets/anakaris');
   
-    // Load skeleton sprites
+    // load skeleton sprites
     this.load.multiatlas('skeletonmedium', './assets/spritesheets/skeletonmedium/skeletonmedium.json', './assets/spritesheets/skeletonmedium/');
 
-    // Load audio assets
+    // load audio assets
     this.load.audio('super', './assets/sounds/super.mp3');
     this.load.audio('hyper', './assets/sounds/hyper.mp3');
     this.load.audio('extreme', './assets/sounds/extreme.mp3');
@@ -74,15 +74,15 @@ class BootScene extends Phaser.Scene {
     this.load.audio('beastly', './assets/sounds/beastly.mp3');
     this.load.audio('killer', './assets/sounds/killer.mp3');
     this.load.audio('ultra', './assets/sounds/ultra.mp3');
-    this.load.audio('fiercekick', './assets/sounds/fiercekickA3.mp3',);
-    this.load.audio('fiercepunch', './assets/sounds/fiercepunchA3.mp3',);
-    this.load.audio('lightkick', './assets/sounds/lightkickA3.mp3',);
-    this.load.audio('lightpunch', './assets/sounds/lightpunchA3.mp3',);
-    this.load.audio('mediumpunch', './assets/sounds/mediumpunchA3.mp3',);
+    this.load.audio('fiercekick', './assets/sounds/fiercekicka3.mp3',);
+    this.load.audio('fiercepunch', './assets/sounds/fiercepuncha3.mp3',);
+    this.load.audio('lightkick', './assets/sounds/lightkicka3.mp3',);
+    this.load.audio('lightpunch', './assets/sounds/lightpuncha3.mp3',);
+    this.load.audio('mediumpunch', './assets/sounds/mediumpuncha3.mp3',);
     this.load.audio('memescream', './assets/sounds/memescream.mp3',);
-    this.load.audio('megamanmenu', './assets/sounds/UI/megamanmenu.mp3',);
-    this.load.audio('sewersurfin', './assets/sounds/music/SewerSurfin.mp3',);
-    this.load.audio('ff7save', './assets/sounds/UI/ff7save.mp3');
+    this.load.audio('megamanmenu', './assets/sounds/ui/megamanmenu.mp3',);
+    this.load.audio('sewersurfin', './assets/sounds/music/sewersurfin.mp3',);
+    this.load.audio('ff7save', './assets/sounds/ui/ff7save.mp3');
     this.load.audio('summon', './assets/sounds/deathcoil.mp3');
     this.load.audio('skeletonemerge', './assets/sounds/skeletonemerge.mp3');
     this.load.audio('bossdeath', './assets/sounds/bossdeath.mp3');
