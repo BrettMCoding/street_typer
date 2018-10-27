@@ -6062,7 +6062,7 @@
 			]
 		},
 		{
-			"image": "Akuma-1.png",
+			"image": "akuma-1.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 2047,
@@ -11423,7 +11423,7 @@
 			]
 		},
 		{
-			"image": "Akuma-2.png",
+			"image": "akuma-2.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 2048,
