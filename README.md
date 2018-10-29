@@ -13,6 +13,8 @@ The sounds are from various games I've loved throughout the years. Can you name 
 
 TODO:: 
 
+Get a better wordlist!
+
 Webpack the source code.
 
 More refactoring. Remove a large part of the end of round mechanics from akuma.js
