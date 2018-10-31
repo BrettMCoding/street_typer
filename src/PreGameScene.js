@@ -24,8 +24,8 @@ create(){
 
   // Add Boss
   this.particles = {};
-  this.particles.bossChunk = this.add.particles('anakaris_chunk1').setDepth(15);
-  this.particles.bossChunkTwo = this.add.particles('anakaris_chunk2').setDepth(15);
+  this.particles.bossChunk = this.add.particles('imgpack', 'anakaris_chunk1').setDepth(15);
+  this.particles.bossChunkTwo = this.add.particles('imgpack', 'anakaris_chunk2').setDepth(15);
 
   this.boss = new Boss({ scene: this, x: 950, y: 670 });
   this.boss.anims.play('bossintro');
