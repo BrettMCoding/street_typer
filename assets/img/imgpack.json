@@ -1,0 +1,482 @@
+{
+	"textures": [
+		{
+			"image": "imgpack.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1156,
+				"h": 1010
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "sparkle1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 512
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 512,
+						"h": 512
+					}
+				},
+				{
+					"filename": "sparkle2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 512,
+						"h": 512
+					},
+					"frame": {
+						"x": 515,
+						"y": 1,
+						"w": 512,
+						"h": 512
+					}
+				},
+				{
+					"filename": "ultra",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 402,
+						"h": 186
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 2,
+						"w": 400,
+						"h": 184
+					},
+					"frame": {
+						"x": 1,
+						"y": 515,
+						"w": 400,
+						"h": 184
+					}
+				},
+				{
+					"filename": "monster",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 426,
+						"h": 158
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 2,
+						"w": 423,
+						"h": 155
+					},
+					"frame": {
+						"x": 403,
+						"y": 515,
+						"w": 423,
+						"h": 155
+					}
+				},
+				{
+					"filename": "logo",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 371,
+						"h": 255
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 7,
+						"w": 327,
+						"h": 238
+					},
+					"frame": {
+						"x": 828,
+						"y": 515,
+						"w": 327,
+						"h": 238
+					}
+				},
+				{
+					"filename": "extreme",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 385,
+						"h": 154
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 383,
+						"h": 154
+					},
+					"frame": {
+						"x": 1,
+						"y": 701,
+						"w": 383,
+						"h": 154
+					}
+				},
+				{
+					"filename": "beastly",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 425,
+						"h": 127
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 423,
+						"h": 126
+					},
+					"frame": {
+						"x": 403,
+						"y": 672,
+						"w": 423,
+						"h": 126
+					}
+				},
+				{
+					"filename": "killer",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 373,
+						"h": 145
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 5,
+						"w": 369,
+						"h": 140
+					},
+					"frame": {
+						"x": 1,
+						"y": 857,
+						"w": 369,
+						"h": 140
+					}
+				},
+				{
+					"filename": "insane",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 369,
+						"h": 121
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 368,
+						"h": 119
+					},
+					"frame": {
+						"x": 386,
+						"y": 800,
+						"w": 368,
+						"h": 119
+					}
+				},
+				{
+					"filename": "bloodchunk",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 7,
+						"w": 126,
+						"h": 112
+					},
+					"frame": {
+						"x": 1029,
+						"y": 1,
+						"w": 126,
+						"h": 112
+					}
+				},
+				{
+					"filename": "hyper",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 300,
+						"h": 151
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 12,
+						"w": 300,
+						"h": 139
+					},
+					"frame": {
+						"x": 828,
+						"y": 755,
+						"w": 300,
+						"h": 139
+					}
+				},
+				{
+					"filename": "againbutton",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 216,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 216,
+						"h": 54
+					},
+					"frame": {
+						"x": 372,
+						"y": 921,
+						"w": 216,
+						"h": 54
+					}
+				},
+				{
+					"filename": "fire",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 17,
+						"w": 125,
+						"h": 96
+					},
+					"frame": {
+						"x": 1029,
+						"y": 115,
+						"w": 125,
+						"h": 96
+					}
+				},
+				{
+					"filename": "helpbutton",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 216,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 216,
+						"h": 54
+					},
+					"frame": {
+						"x": 590,
+						"y": 921,
+						"w": 216,
+						"h": 54
+					}
+				},
+				{
+					"filename": "menubutton",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 216,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 216,
+						"h": 54
+					},
+					"frame": {
+						"x": 808,
+						"y": 896,
+						"w": 216,
+						"h": 54
+					}
+				},
+				{
+					"filename": "playbutton",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 216,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 216,
+						"h": 54
+					},
+					"frame": {
+						"x": 808,
+						"y": 952,
+						"w": 216,
+						"h": 54
+					}
+				},
+				{
+					"filename": "comboword",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 160,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 160,
+						"h": 32
+					},
+					"frame": {
+						"x": 372,
+						"y": 977,
+						"w": 160,
+						"h": 32
+					}
+				},
+				{
+					"filename": "bone",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 52,
+						"h": 24
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 52,
+						"h": 24
+					},
+					"frame": {
+						"x": 1029,
+						"y": 213,
+						"w": 52,
+						"h": 24
+					}
+				},
+				{
+					"filename": "squarebutton",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 27,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 27,
+						"h": 27
+					},
+					"frame": {
+						"x": 1026,
+						"y": 896,
+						"w": 27,
+						"h": 27
+					}
+				},
+				{
+					"filename": "squarebuttonx",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 27,
+						"h": 27
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 27,
+						"h": 27
+					},
+					"frame": {
+						"x": 756,
+						"y": 800,
+						"w": 27,
+						"h": 27
+					}
+				},
+				{
+					"filename": "anakaris_chunk1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 6,
+						"h": 8
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 6,
+						"h": 8
+					},
+					"frame": {
+						"x": 386,
+						"y": 701,
+						"w": 6,
+						"h": 8
+					}
+				},
+				{
+					"filename": "anakaris_chunk2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 6,
+						"h": 8
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 5,
+						"h": 5
+					},
+					"frame": {
+						"x": 1130,
+						"y": 755,
+						"w": 5,
+						"h": 5
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:dd8e96456e1e2b72ddfbb9eef9850dc2:6296cb031f52b2aa713b84b993321d8f:5c30425221f5ae63d2cdff7004136616$"
+	}
+}
