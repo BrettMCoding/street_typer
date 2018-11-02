@@ -17,12 +17,12 @@ TODO::
 TODO::
 >>>>>>> gh-pages
 
-Get a better wordlist!
-
 Webpack the source code.
 
-More refactoring. Remove a large part of the end of round mechanics from akuma.js
+More refactoring.
 
 Mix the audio levels.
 
 Add cheat codes.
+
+Add a better help menu.
