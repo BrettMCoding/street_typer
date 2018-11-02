@@ -4,111 +4,11 @@
 			"image": "anakaris-0.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 2044,
-				"h": 2042
+				"w": 2048,
+				"h": 2048
 			},
 			"scale": 4,
 			"frames": [
-				{
-					"filename": "teleport8.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 83,
-						"y": 55,
-						"w": 338,
-						"h": 778
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 338,
-						"h": 778
-					},
-					"anchor": {
-						"x": 0.503876,
-						"y": 0.506224
-					}
-				},
-				{
-					"filename": "teleport9.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 55,
-						"w": 338,
-						"h": 778
-					},
-					"frame": {
-						"x": 1,
-						"y": 781,
-						"w": 338,
-						"h": 778
-					},
-					"anchor": {
-						"x": 0.511628,
-						"y": 0.506224
-					}
-				},
-				{
-					"filename": "anakaris_71.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 436,
-						"h": 480
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 436,
-						"h": 480
-					},
-					"frame": {
-						"x": 1,
-						"y": 1561,
-						"w": 436,
-						"h": 480
-					},
-					"anchor": {
-						"x": 0.0917431,
-						"y": 0.983333
-					}
-				},
-				{
-					"filename": "teleport7.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 83,
-						"y": 159,
-						"w": 338,
-						"h": 674
-					},
-					"frame": {
-						"x": 341,
-						"y": 1,
-						"w": 338,
-						"h": 674
-					},
-					"anchor": {
-						"x": 0.503876,
-						"y": 0.506224
-					}
-				},
 				{
 					"filename": "anakaris_65.png",
 					"rotated": false,
@@ -124,8 +24,8 @@
 						"h": 652
 					},
 					"frame": {
-						"x": 341,
-						"y": 677,
+						"x": 1,
+						"y": 1,
 						"w": 508,
 						"h": 652
 					},
@@ -149,8 +49,8 @@
 						"h": 652
 					},
 					"frame": {
-						"x": 681,
-						"y": 1,
+						"x": 1,
+						"y": 655,
 						"w": 508,
 						"h": 652
 					},
@@ -174,232 +74,7 @@
 						"h": 652
 					},
 					"frame": {
-						"x": 439,
-						"y": 1331,
-						"w": 508,
-						"h": 652
-					},
-					"anchor": {
-						"x": 0.566929,
-						"y": 0.993865
-					}
-				},
-				{
-					"filename": "anakaris_68.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 652
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 652
-					},
-					"frame": {
-						"x": 851,
-						"y": 655,
-						"w": 508,
-						"h": 652
-					},
-					"anchor": {
-						"x": 0.566929,
-						"y": 0.993865
-					}
-				},
-				{
-					"filename": "anakaris_69.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 652
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 652
-					},
-					"frame": {
-						"x": 1191,
-						"y": 1,
-						"w": 508,
-						"h": 652
-					},
-					"anchor": {
-						"x": 0.566929,
-						"y": 0.993865
-					}
-				},
-				{
-					"filename": "teleport6.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 83,
-						"y": 399,
-						"w": 338,
-						"h": 434
-					},
-					"frame": {
-						"x": 1701,
-						"y": 1,
-						"w": 338,
-						"h": 434
-					},
-					"anchor": {
-						"x": 0.503876,
-						"y": 0.506224
-					}
-				},
-				{
-					"filename": "teleport5.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 671,
-						"w": 338,
-						"h": 162
-					},
-					"frame": {
-						"x": 1701,
-						"y": 437,
-						"w": 338,
-						"h": 162
-					},
-					"anchor": {
-						"x": 0.503876,
-						"y": 0.510373
-					}
-				},
-				{
-					"filename": "teleport3.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 723,
-						"w": 338,
-						"h": 110
-					},
-					"frame": {
-						"x": 1701,
-						"y": 601,
-						"w": 338,
-						"h": 110
-					},
-					"anchor": {
-						"x": 0.503876,
-						"y": 0.506224
-					}
-				},
-				{
-					"filename": "teleport4.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 723,
-						"w": 338,
-						"h": 110
-					},
-					"frame": {
-						"x": 1361,
-						"y": 655,
-						"w": 338,
-						"h": 110
-					},
-					"anchor": {
-						"x": 0.503876,
-						"y": 0.506224
-					}
-				},
-				{
-					"filename": "teleport2.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 743,
-						"w": 338,
-						"h": 74
-					},
-					"frame": {
-						"x": 1701,
-						"y": 713,
-						"w": 338,
-						"h": 74
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "teleport1.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 516,
-						"h": 964
-					},
-					"spriteSourceSize": {
-						"x": 131,
-						"y": 763,
-						"w": 250,
-						"h": 34
-					},
-					"frame": {
-						"x": 439,
-						"y": 1985,
-						"w": 250,
-						"h": 34
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_70.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 652
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 652
-					},
-					"frame": {
-						"x": 949,
+						"x": 1,
 						"y": 1309,
 						"w": 508,
 						"h": 652
@@ -407,31 +82,6 @@
 					"anchor": {
 						"x": 0.566929,
 						"y": 0.993865
-					}
-				},
-				{
-					"filename": "anakaris_15.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 516
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 516
-					},
-					"frame": {
-						"x": 1361,
-						"y": 789,
-						"w": 372,
-						"h": 516
-					},
-					"anchor": {
-						"x": 0.526882,
-						"y": 0.992248
 					}
 				},
 				{
@@ -449,8 +99,8 @@
 						"h": 396
 					},
 					"frame": {
-						"x": 1459,
-						"y": 1307,
+						"x": 511,
+						"y": 1,
 						"w": 584,
 						"h": 396
 					},
@@ -474,150 +124,14 @@
 						"h": 324
 					},
 					"frame": {
-						"x": 1459,
-						"y": 1705,
-						"w": 572,
-						"h": 324
-					},
-					"anchor": {
-						"x": 0.335664,
-						"y": 0.987654
-					}
-				}
-			]
-		},
-		{
-			"image": "anakaris-1.png",
-			"format": "RGBA8888",
-			"size": {
-				"w": 2048,
-				"h": 2048
-			},
-			"scale": 4,
-			"frames": [
-				{
-					"filename": "reverse/anakaris_65.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 652
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 652
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 508,
-						"h": 652
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_66.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 652
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 652
-					},
-					"frame": {
-						"x": 1,
-						"y": 655,
-						"w": 508,
-						"h": 652
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_67.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 652
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 652
-					},
-					"frame": {
-						"x": 1,
-						"y": 1309,
-						"w": 508,
-						"h": 652
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_99.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 584,
-						"h": 396
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 584,
-						"h": 396
-					},
-					"frame": {
-						"x": 511,
-						"y": 1,
-						"w": 584,
-						"h": 396
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_100.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 572,
-						"h": 324
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 572,
-						"h": 324
-					},
-					"frame": {
 						"x": 1097,
 						"y": 1,
 						"w": 572,
 						"h": 324
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.335664,
+						"y": 0.987654
 					}
 				},
 				{
@@ -696,31 +210,6 @@
 					}
 				},
 				{
-					"filename": "reverse/anakaris_74.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 520,
-						"h": 488
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 520,
-						"h": 488
-					},
-					"frame": {
-						"x": 511,
-						"y": 399,
-						"w": 520,
-						"h": 488
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
 					"filename": "anakaris_43.png",
 					"rotated": false,
 					"trimmed": false,
@@ -735,7 +224,32 @@
 						"h": 568
 					},
 					"frame": {
-						"x": 1033,
+						"x": 511,
+						"y": 399,
+						"w": 516,
+						"h": 568
+					},
+					"anchor": {
+						"x": 0.643411,
+						"y": 0.992958
+					}
+				},
+				{
+					"filename": "anakaris_44.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 516,
+						"h": 568
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 516,
+						"h": 568
+					},
+					"frame": {
+						"x": 1029,
 						"y": 817,
 						"w": 516,
 						"h": 568
@@ -760,7 +274,7 @@
 						"h": 496
 					},
 					"frame": {
-						"x": 1551,
+						"x": 1547,
 						"y": 1029,
 						"w": 496,
 						"h": 496
@@ -796,31 +310,6 @@
 					}
 				},
 				{
-					"filename": "reverse/anakaris_9.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 380,
-						"h": 520
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 380,
-						"h": 520
-					},
-					"frame": {
-						"x": 893,
-						"y": 1527,
-						"w": 380,
-						"h": 520
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
 					"filename": "anakaris_18.png",
 					"rotated": false,
 					"trimmed": false,
@@ -835,7 +324,7 @@
 						"h": 520
 					},
 					"frame": {
-						"x": 1275,
+						"x": 893,
 						"y": 1527,
 						"w": 376,
 						"h": 520
@@ -860,7 +349,7 @@
 						"h": 520
 					},
 					"frame": {
-						"x": 1653,
+						"x": 1271,
 						"y": 1527,
 						"w": 376,
 						"h": 520
@@ -871,93 +360,68 @@
 					}
 				},
 				{
-					"filename": "anakaris_44.png",
+					"filename": "anakaris_16.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 516,
-						"h": 568
+						"w": 372,
+						"h": 520
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 516,
-						"h": 568
+						"w": 372,
+						"h": 520
+					},
+					"frame": {
+						"x": 1649,
+						"y": 1527,
+						"w": 372,
+						"h": 520
+					},
+					"anchor": {
+						"x": 0.526882,
+						"y": 0.992308
+					}
+				},
+				{
+					"filename": "anakaris_63.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 452,
+						"h": 552
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 452,
+						"h": 552
 					},
 					"frame": {
 						"x": 511,
-						"y": 889,
-						"w": 516,
-						"h": 568
+						"y": 969,
+						"w": 452,
+						"h": 552
 					},
 					"anchor": {
-						"x": 0.643411,
-						"y": 0.992958
+						"x": 0.584071,
+						"y": 0.992754
 					}
 				}
 			]
 		},
 		{
-			"image": "anakaris-2.png",
+			"image": "anakaris-1.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 2036,
-				"h": 1874
+				"w": 2040,
+				"h": 1794
 			},
 			"scale": 4,
 			"frames": [
 				{
-					"filename": "reverse/anakaris_43.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 516,
-						"h": 568
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 516,
-						"h": 568
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 516,
-						"h": 568
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_68.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 652
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 652
-					},
-					"frame": {
-						"x": 519,
-						"y": 1,
-						"w": 508,
-						"h": 652
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_69.png",
+					"filename": "anakaris_68.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -972,42 +436,42 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 571,
+						"y": 1,
 						"w": 508,
 						"h": 652
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.566929,
+						"y": 0.993865
 					}
 				},
 				{
-					"filename": "reverse/anakaris_44.png",
+					"filename": "anakaris_69.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 516,
-						"h": 568
+						"w": 508,
+						"h": 652
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 516,
-						"h": 568
+						"w": 508,
+						"h": 652
 					},
 					"frame": {
 						"x": 511,
-						"y": 655,
-						"w": 516,
-						"h": 568
+						"y": 1,
+						"w": 508,
+						"h": 652
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.566929,
+						"y": 0.993865
 					}
 				},
 				{
-					"filename": "reverse/anakaris_70.png",
+					"filename": "anakaris_70.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1021,14 +485,14 @@
 						"h": 652
 					},
 					"frame": {
-						"x": 1029,
+						"x": 1021,
 						"y": 1,
 						"w": 508,
 						"h": 652
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.566929,
+						"y": 0.993865
 					}
 				},
 				{
@@ -1046,39 +510,14 @@
 						"h": 648
 					},
 					"frame": {
-						"x": 1029,
-						"y": 655,
+						"x": 1531,
+						"y": 1,
 						"w": 508,
 						"h": 648
 					},
 					"anchor": {
 						"x": 0.559055,
 						"y": 0.993827
-					}
-				},
-				{
-					"filename": "reverse/anakaris_64.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 648
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 648
-					},
-					"frame": {
-						"x": 1,
-						"y": 1225,
-						"w": 508,
-						"h": 648
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				},
 				{
@@ -1096,8 +535,8 @@
 						"h": 568
 					},
 					"frame": {
-						"x": 511,
-						"y": 1225,
+						"x": 1531,
+						"y": 651,
 						"w": 508,
 						"h": 568
 					},
@@ -1121,8 +560,8 @@
 						"h": 568
 					},
 					"frame": {
-						"x": 1021,
-						"y": 1305,
+						"x": 1,
+						"y": 655,
 						"w": 508,
 						"h": 568
 					},
@@ -1131,67 +570,6 @@
 						"y": 0.992958
 					}
 				},
-				{
-					"filename": "anakaris_98.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 472,
-						"h": 528
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 472,
-						"h": 528
-					},
-					"frame": {
-						"x": 1531,
-						"y": 1305,
-						"w": 472,
-						"h": 528
-					},
-					"anchor": {
-						"x": 0.432203,
-						"y": 0.992424
-					}
-				},
-				{
-					"filename": "reverse/anakaris_73.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 496,
-						"h": 496
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 496,
-						"h": 496
-					},
-					"frame": {
-						"x": 1539,
-						"y": 1,
-						"w": 496,
-						"h": 496
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				}
-			]
-		},
-		{
-			"image": "anakaris-3.png",
-			"format": "RGBA8888",
-			"size": {
-				"w": 2040,
-				"h": 1710
-			},
-			"scale": 4,
-			"frames": [
 				{
 					"filename": "anakaris_56.png",
 					"rotated": false,
@@ -1207,8 +585,8 @@
 						"h": 568
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 511,
+						"y": 655,
 						"w": 508,
 						"h": 568
 					},
@@ -1232,14 +610,39 @@
 						"h": 568
 					},
 					"frame": {
-						"x": 1,
-						"y": 571,
+						"x": 1021,
+						"y": 1221,
 						"w": 508,
 						"h": 568
 					},
 					"anchor": {
 						"x": 0.637795,
 						"y": 0.992958
+					}
+				},
+				{
+					"filename": "anakaris_98.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 472,
+						"h": 528
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 472,
+						"h": 528
+					},
+					"frame": {
+						"x": 1021,
+						"y": 655,
+						"w": 472,
+						"h": 528
+					},
+					"anchor": {
+						"x": 0.432203,
+						"y": 0.992424
 					}
 				},
 				{
@@ -1257,8 +660,8 @@
 						"h": 568
 					},
 					"frame": {
-						"x": 1,
-						"y": 1141,
+						"x": 1531,
+						"y": 1221,
 						"w": 508,
 						"h": 568
 					},
@@ -1282,164 +685,14 @@
 						"h": 568
 					},
 					"frame": {
-						"x": 511,
-						"y": 1,
+						"x": 1,
+						"y": 1225,
 						"w": 508,
 						"h": 568
 					},
 					"anchor": {
 						"x": 0.637795,
 						"y": 0.992958
-					}
-				},
-				{
-					"filename": "reverse/anakaris_52.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 568
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 568
-					},
-					"frame": {
-						"x": 1021,
-						"y": 1,
-						"w": 508,
-						"h": 568
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_53.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 568
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 568
-					},
-					"frame": {
-						"x": 1531,
-						"y": 1,
-						"w": 508,
-						"h": 568
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_56.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 568
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 568
-					},
-					"frame": {
-						"x": 511,
-						"y": 571,
-						"w": 508,
-						"h": 568
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_57.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 568
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 568
-					},
-					"frame": {
-						"x": 511,
-						"y": 1141,
-						"w": 508,
-						"h": 568
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_59.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 568
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 568
-					},
-					"frame": {
-						"x": 1021,
-						"y": 571,
-						"w": 508,
-						"h": 568
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_60.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 508,
-						"h": 568
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 508,
-						"h": 568
-					},
-					"frame": {
-						"x": 1531,
-						"y": 571,
-						"w": 508,
-						"h": 568
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				},
 				{
@@ -1457,8 +710,8 @@
 						"h": 564
 					},
 					"frame": {
-						"x": 1021,
-						"y": 1141,
+						"x": 511,
+						"y": 1225,
 						"w": 464,
 						"h": 564
 					},
@@ -1466,40 +719,15 @@
 						"x": 0.612069,
 						"y": 0.992908
 					}
-				},
-				{
-					"filename": "reverse/anakaris_98.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 472,
-						"h": 528
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 472,
-						"h": 528
-					},
-					"frame": {
-						"x": 1487,
-						"y": 1141,
-						"w": 472,
-						"h": 528
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
 				}
 			]
 		},
 		{
-			"image": "anakaris-4.png",
+			"image": "anakaris-2.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1864,
-				"h": 1698
+				"w": 1958,
+				"h": 1646
 			},
 			"scale": 4,
 			"frames": [
@@ -1629,6 +857,56 @@
 					}
 				},
 				{
+					"filename": "anakaris_71.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 436,
+						"h": 480
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 436,
+						"h": 480
+					},
+					"frame": {
+						"x": 1,
+						"y": 1133,
+						"w": 436,
+						"h": 480
+					},
+					"anchor": {
+						"x": 0.0917431,
+						"y": 0.983333
+					}
+				},
+				{
+					"filename": "anakaris_10.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 384,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 384,
+						"h": 512
+					},
+					"frame": {
+						"x": 439,
+						"y": 1133,
+						"w": 384,
+						"h": 512
+					},
+					"anchor": {
+						"x": 0.541667,
+						"y": 0.992188
+					}
+				},
+				{
 					"filename": "anakaris_48.png",
 					"rotated": false,
 					"trimmed": false,
@@ -1643,8 +921,8 @@
 						"h": 564
 					},
 					"frame": {
-						"x": 1,
-						"y": 1133,
+						"x": 467,
+						"y": 1,
 						"w": 464,
 						"h": 564
 					},
@@ -1668,8 +946,8 @@
 						"h": 564
 					},
 					"frame": {
-						"x": 1,
-						"y": 1133,
+						"x": 467,
+						"y": 1,
 						"w": 464,
 						"h": 564
 					},
@@ -1694,13 +972,38 @@
 					},
 					"frame": {
 						"x": 467,
-						"y": 1,
+						"y": 567,
 						"w": 464,
 						"h": 564
 					},
 					"anchor": {
 						"x": 0.612069,
 						"y": 0.992908
+					}
+				},
+				{
+					"filename": "anakaris_11.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 380,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 380,
+						"h": 508
+					},
+					"frame": {
+						"x": 825,
+						"y": 1133,
+						"w": 380,
+						"h": 508
+					},
+					"anchor": {
+						"x": 0.536842,
+						"y": 0.992126
 					}
 				},
 				{
@@ -1743,811 +1046,14 @@
 						"h": 564
 					},
 					"frame": {
-						"x": 1399,
-						"y": 1,
+						"x": 933,
+						"y": 567,
 						"w": 464,
 						"h": 564
 					},
 					"anchor": {
 						"x": 0.612069,
 						"y": 0.992908
-					}
-				},
-				{
-					"filename": "reverse/anakaris_45.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 467,
-						"y": 567,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_46.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 467,
-						"y": 1133,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_50.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 467,
-						"y": 1133,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_55.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 467,
-						"y": 1133,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_61.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 467,
-						"y": 1133,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_47.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 933,
-						"y": 567,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_48.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 1399,
-						"y": 567,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_58.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 1399,
-						"y": 567,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_49.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 933,
-						"y": 1133,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_51.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 1399,
-						"y": 1133,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				}
-			]
-		},
-		{
-			"image": "anakaris-5.png",
-			"format": "RGBA8888",
-			"size": {
-				"w": 2026,
-				"h": 2004
-			},
-			"scale": 4,
-			"frames": [
-				{
-					"filename": "reverse/anakaris_54.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 464,
-						"h": 564
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 464,
-						"h": 564
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 464,
-						"h": 564
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_63.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 452,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 452,
-						"h": 552
-					},
-					"frame": {
-						"x": 1,
-						"y": 567,
-						"w": 452,
-						"h": 552
-					},
-					"anchor": {
-						"x": 0.584071,
-						"y": 0.992754
-					}
-				},
-				{
-					"filename": "reverse/anakaris_63.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 452,
-						"h": 552
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 452,
-						"h": 552
-					},
-					"frame": {
-						"x": 1,
-						"y": 1121,
-						"w": 452,
-						"h": 552
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_7.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 536
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 536
-					},
-					"frame": {
-						"x": 455,
-						"y": 567,
-						"w": 372,
-						"h": 536
-					},
-					"anchor": {
-						"x": 0.505376,
-						"y": 0.992537
-					}
-				},
-				{
-					"filename": "reverse/anakaris_7.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 536
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 536
-					},
-					"frame": {
-						"x": 467,
-						"y": 1,
-						"w": 372,
-						"h": 536
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_62.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 380,
-						"h": 532
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 380,
-						"h": 532
-					},
-					"frame": {
-						"x": 455,
-						"y": 1105,
-						"w": 380,
-						"h": 532
-					},
-					"anchor": {
-						"x": 0.515789,
-						"y": 0.992481
-					}
-				},
-				{
-					"filename": "reverse/anakaris_62.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 380,
-						"h": 532
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 380,
-						"h": 532
-					},
-					"frame": {
-						"x": 829,
-						"y": 539,
-						"w": 380,
-						"h": 532
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_6.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 532
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 532
-					},
-					"frame": {
-						"x": 841,
-						"y": 1,
-						"w": 372,
-						"h": 532
-					},
-					"anchor": {
-						"x": 0.505376,
-						"y": 0.992481
-					}
-				},
-				{
-					"filename": "reverse/anakaris_71.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 436,
-						"h": 480
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 436,
-						"h": 480
-					},
-					"frame": {
-						"x": 1215,
-						"y": 1,
-						"w": 436,
-						"h": 480
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_6.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 532
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 532
-					},
-					"frame": {
-						"x": 1653,
-						"y": 1,
-						"w": 372,
-						"h": 532
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_72.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 400,
-						"h": 496
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 400,
-						"h": 496
-					},
-					"frame": {
-						"x": 1215,
-						"y": 483,
-						"w": 400,
-						"h": 496
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_10.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 384,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 384,
-						"h": 512
-					},
-					"frame": {
-						"x": 1617,
-						"y": 535,
-						"w": 384,
-						"h": 512
-					},
-					"anchor": {
-						"x": 0.541667,
-						"y": 0.992188
-					}
-				},
-				{
-					"filename": "reverse/anakaris_10.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 384,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 384,
-						"h": 512
-					},
-					"frame": {
-						"x": 1211,
-						"y": 981,
-						"w": 384,
-						"h": 512
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_5.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 528
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 528
-					},
-					"frame": {
-						"x": 837,
-						"y": 1073,
-						"w": 372,
-						"h": 528
-					},
-					"anchor": {
-						"x": 0.505376,
-						"y": 0.992424
-					}
-				},
-				{
-					"filename": "anakaris_11.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 380,
-						"h": 508
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 380,
-						"h": 508
-					},
-					"frame": {
-						"x": 1211,
-						"y": 1495,
-						"w": 380,
-						"h": 508
-					},
-					"anchor": {
-						"x": 0.536842,
-						"y": 0.992126
-					}
-				},
-				{
-					"filename": "reverse/anakaris_8.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 376,
-						"h": 528
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 376,
-						"h": 528
-					},
-					"frame": {
-						"x": 1597,
-						"y": 1049,
-						"w": 376,
-						"h": 528
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				}
-			]
-		},
-		{
-			"image": "anakaris-6.png",
-			"format": "RGBA8888",
-			"size": {
-				"w": 1886,
-				"h": 1562
-			},
-			"scale": 4,
-			"frames": [
-				{
-					"filename": "reverse/anakaris_5.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 528
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 528
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 372,
-						"h": 528
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_18.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 376,
-						"h": 520
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 376,
-						"h": 520
-					},
-					"frame": {
-						"x": 1,
-						"y": 531,
-						"w": 376,
-						"h": 520
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_3.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 376,
-						"h": 520
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 376,
-						"h": 520
-					},
-					"frame": {
-						"x": 375,
-						"y": 1,
-						"w": 376,
-						"h": 520
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_11.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 380,
-						"h": 508
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 380,
-						"h": 508
-					},
-					"frame": {
-						"x": 1,
-						"y": 1053,
-						"w": 380,
-						"h": 508
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_19.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 524
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 524
-					},
-					"frame": {
-						"x": 379,
-						"y": 523,
-						"w": 372,
-						"h": 524
-					},
-					"anchor": {
-						"x": 0.526882,
-						"y": 0.992366
 					}
 				},
 				{
@@ -2565,14 +1071,150 @@
 						"h": 512
 					},
 					"frame": {
-						"x": 383,
-						"y": 1049,
+						"x": 1207,
+						"y": 1133,
 						"w": 376,
 						"h": 512
 					},
 					"anchor": {
 						"x": 0.521277,
 						"y": 0.992188
+					}
+				},
+				{
+					"filename": "anakaris_7.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 372,
+						"h": 536
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 372,
+						"h": 536
+					},
+					"frame": {
+						"x": 1585,
+						"y": 1,
+						"w": 372,
+						"h": 536
+					},
+					"anchor": {
+						"x": 0.505376,
+						"y": 0.992537
+					}
+				},
+				{
+					"filename": "anakaris_62.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 380,
+						"h": 532
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 380,
+						"h": 532
+					},
+					"frame": {
+						"x": 1399,
+						"y": 539,
+						"w": 380,
+						"h": 532
+					},
+					"anchor": {
+						"x": 0.515789,
+						"y": 0.992481
+					}
+				},
+				{
+					"filename": "anakaris_6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 372,
+						"h": 532
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 372,
+						"h": 532
+					},
+					"frame": {
+						"x": 1585,
+						"y": 1073,
+						"w": 372,
+						"h": 532
+					},
+					"anchor": {
+						"x": 0.505376,
+						"y": 0.992481
+					}
+				}
+			]
+		},
+		{
+			"image": "anakaris-3.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1866,
+				"h": 1550
+			},
+			"scale": 4,
+			"frames": [
+				{
+					"filename": "anakaris_5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 372,
+						"h": 528
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 372,
+						"h": 528
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 372,
+						"h": 528
+					},
+					"anchor": {
+						"x": 0.505376,
+						"y": 0.992424
+					}
+				},
+				{
+					"filename": "anakaris_19.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 372,
+						"h": 524
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 372,
+						"h": 524
+					},
+					"frame": {
+						"x": 375,
+						"y": 1,
+						"w": 372,
+						"h": 524
+					},
+					"anchor": {
+						"x": 0.526882,
+						"y": 0.992366
 					}
 				},
 				{
@@ -2590,7 +1232,7 @@
 						"h": 524
 					},
 					"frame": {
-						"x": 753,
+						"x": 749,
 						"y": 1,
 						"w": 372,
 						"h": 524
@@ -2601,153 +1243,53 @@
 					}
 				},
 				{
-					"filename": "anakaris_16.png",
+					"filename": "anakaris_20.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 372,
+						"w": 368,
 						"h": 520
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 372,
+						"w": 368,
 						"h": 520
 					},
 					"frame": {
-						"x": 753,
-						"y": 527,
-						"w": 372,
+						"x": 1123,
+						"y": 1,
+						"w": 368,
 						"h": 520
 					},
 					"anchor": {
-						"x": 0.526882,
+						"x": 0.532609,
 						"y": 0.992308
 					}
 				},
 				{
-					"filename": "reverse/anakaris_17.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 376,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 376,
-						"h": 512
-					},
-					"frame": {
-						"x": 761,
-						"y": 1049,
-						"w": 376,
-						"h": 512
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_19.png",
+					"filename": "anakaris_15.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
 						"w": 372,
-						"h": 524
+						"h": 516
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
 						"w": 372,
-						"h": 524
+						"h": 516
 					},
 					"frame": {
-						"x": 1127,
-						"y": 1,
+						"x": 1123,
+						"y": 523,
 						"w": 372,
-						"h": 524
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_16.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 520
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 520
-					},
-					"frame": {
-						"x": 1127,
-						"y": 527,
-						"w": 372,
-						"h": 520
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_13.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 508
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 508
-					},
-					"frame": {
-						"x": 1139,
-						"y": 1049,
-						"w": 372,
-						"h": 508
+						"h": 516
 					},
 					"anchor": {
 						"x": 0.526882,
-						"y": 0.992126
-					}
-				},
-				{
-					"filename": "reverse/anakaris_4.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 524
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 524
-					},
-					"frame": {
-						"x": 1501,
-						"y": 1,
-						"w": 372,
-						"h": 524
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"y": 0.992248
 					}
 				},
 				{
@@ -2765,150 +1307,14 @@
 						"h": 516
 					},
 					"frame": {
-						"x": 1501,
-						"y": 527,
+						"x": 1493,
+						"y": 1,
 						"w": 372,
 						"h": 516
 					},
 					"anchor": {
 						"x": 0.526882,
 						"y": 0.992248
-					}
-				},
-				{
-					"filename": "anakaris_24.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 508
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 508
-					},
-					"frame": {
-						"x": 1513,
-						"y": 1045,
-						"w": 372,
-						"h": 508
-					},
-					"anchor": {
-						"x": 0.505376,
-						"y": 0.992126
-					}
-				}
-			]
-		},
-		{
-			"image": "anakaris-7.png",
-			"format": "RGBA8888",
-			"size": {
-				"w": 1866,
-				"h": 2044
-			},
-			"scale": 4,
-			"frames": [
-				{
-					"filename": "anakaris_20.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 368,
-						"h": 520
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 368,
-						"h": 520
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 368,
-						"h": 520
-					},
-					"anchor": {
-						"x": 0.532609,
-						"y": 0.992308
-					}
-				},
-				{
-					"filename": "reverse/anakaris_20.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 368,
-						"h": 520
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 368,
-						"h": 520
-					},
-					"frame": {
-						"x": 1,
-						"y": 523,
-						"w": 368,
-						"h": 520
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_15.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 516
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 516
-					},
-					"frame": {
-						"x": 371,
-						"y": 1,
-						"w": 372,
-						"h": 516
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_2.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 516
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 516
-					},
-					"frame": {
-						"x": 371,
-						"y": 519,
-						"w": 372,
-						"h": 516
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				},
 				{
@@ -2926,8 +1332,8 @@
 						"h": 512
 					},
 					"frame": {
-						"x": 745,
-						"y": 1,
+						"x": 375,
+						"y": 527,
 						"w": 372,
 						"h": 512
 					},
@@ -2951,64 +1357,14 @@
 						"h": 512
 					},
 					"frame": {
-						"x": 745,
-						"y": 515,
+						"x": 1,
+						"y": 531,
 						"w": 372,
 						"h": 512
 					},
 					"anchor": {
 						"x": 0.526882,
 						"y": 0.984375
-					}
-				},
-				{
-					"filename": "reverse/anakaris_1.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 512
-					},
-					"frame": {
-						"x": 1119,
-						"y": 1,
-						"w": 372,
-						"h": 512
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_14.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 512
-					},
-					"frame": {
-						"x": 1119,
-						"y": 515,
-						"w": 372,
-						"h": 512
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				},
 				{
@@ -3026,114 +1382,14 @@
 						"h": 512
 					},
 					"frame": {
-						"x": 1,
-						"y": 1045,
+						"x": 749,
+						"y": 527,
 						"w": 368,
 						"h": 512
 					},
 					"anchor": {
 						"x": 0.532609,
 						"y": 0.992188
-					}
-				},
-				{
-					"filename": "reverse/anakaris_13.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 508
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 508
-					},
-					"frame": {
-						"x": 371,
-						"y": 1037,
-						"w": 372,
-						"h": 508
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_24.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 508
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 508
-					},
-					"frame": {
-						"x": 745,
-						"y": 1029,
-						"w": 372,
-						"h": 508
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_21.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 368,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 368,
-						"h": 512
-					},
-					"frame": {
-						"x": 1493,
-						"y": 1,
-						"w": 368,
-						"h": 512
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "anakaris_12.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 504
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 504
-					},
-					"frame": {
-						"x": 1119,
-						"y": 1029,
-						"w": 372,
-						"h": 504
-					},
-					"anchor": {
-						"x": 0.526882,
-						"y": 0.992063
 					}
 				},
 				{
@@ -3151,8 +1407,8 @@
 						"h": 508
 					},
 					"frame": {
-						"x": 1493,
-						"y": 515,
+						"x": 1497,
+						"y": 519,
 						"w": 368,
 						"h": 508
 					},
@@ -3162,28 +1418,78 @@
 					}
 				},
 				{
-					"filename": "reverse/anakaris_22.png",
+					"filename": "anakaris_13.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 368,
+						"w": 372,
 						"h": 508
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 368,
+						"w": 372,
 						"h": 508
 					},
 					"frame": {
-						"x": 1493,
-						"y": 1025,
-						"w": 368,
+						"x": 375,
+						"y": 1041,
+						"w": 372,
 						"h": 508
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.526882,
+						"y": 0.992126
+					}
+				},
+				{
+					"filename": "anakaris_12.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 372,
+						"h": 504
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 372,
+						"h": 504
+					},
+					"frame": {
+						"x": 1,
+						"y": 1045,
+						"w": 372,
+						"h": 504
+					},
+					"anchor": {
+						"x": 0.526882,
+						"y": 0.992063
+					}
+				},
+				{
+					"filename": "anakaris_24.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 372,
+						"h": 508
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 372,
+						"h": 508
+					},
+					"frame": {
+						"x": 749,
+						"y": 1041,
+						"w": 372,
+						"h": 508
+					},
+					"anchor": {
+						"x": 0.505376,
+						"y": 0.992126
 					}
 				},
 				{
@@ -3201,64 +1507,14 @@
 						"h": 504
 					},
 					"frame": {
-						"x": 745,
-						"y": 1539,
+						"x": 1123,
+						"y": 1041,
 						"w": 372,
 						"h": 504
 					},
 					"anchor": {
 						"x": 0.5,
 						"y": 1
-					}
-				},
-				{
-					"filename": "reverse/anakaris_12.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 504
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 504
-					},
-					"frame": {
-						"x": 1119,
-						"y": 1535,
-						"w": 372,
-						"h": 504
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "reverse/anakaris_23.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 372,
-						"h": 504
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 372,
-						"h": 504
-					},
-					"frame": {
-						"x": 1493,
-						"y": 1535,
-						"w": 372,
-						"h": 504
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				}
 			]
@@ -3267,6 +1523,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:d19955bffc2799d84f338fe036968980:9f45ea94a71d8518bbafbb6a3477f534:c15ca40c7fe33f2e440009dab0017f50$"
+		"smartupdate": "$TexturePacker:SmartUpdate:eb7d3961806e6c7780174c83b94f1b9e:cc9b0add7858797d65e8e3d92fe6163b:530f25978ace968751310917400d438c$"
 	}
 }
