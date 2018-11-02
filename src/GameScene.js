@@ -23,13 +23,13 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 60;
+  this.timer = 2;
   
   // Players total word combo
-  this.combo = 0;
+  this.combo = 24;
 
   // Points
-  this.score = 0;
+  this.score = 500;
 
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
@@ -191,7 +191,7 @@ create(){
 
   this.physics.add.collider(this.boss, platforms);
 
-  this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
+  //this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
 
   this.physics.add.overlap(this.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
   
@@ -337,10 +337,15 @@ update() {
       this.currentWordImg[i].destroy();
     }
 
+    // Kill the skeleton
+    this.PlayerCharacter.randomAttackAnimation(this)
+
+    this.time.addEvent({ delay: 100, callback: this.hitSkeleton, args: [this.skeletons.children.entries[0], this]});
+
     // Add to combo
     this.combo += 1;
     this.comboText.setText(this.combo);
-
+  
     // Player comboText animation
     this.comboTween.restart();
 
@@ -349,7 +354,7 @@ update() {
     this.newWordToScreen(this);
 
     // Attack the enemy
-    this.PlayerCharacter.akumaAttack(this);
+    // this.PlayerCharacter.akumaAttack(this);
   }
 
   // If the round is over and we haven't thrown the switch yet,
@@ -413,47 +418,48 @@ newWordToScreen(scene) {
 }
 
 // Called when our hadoken connects with the skeleton
-hitSkeleton(skeleton, hadoken) {
+hitSkeleton(skeleton, scene) {
   // Destroy the projectile
-  hadoken.destroy()
+  //hadoken.destroy()
 
   skeleton.emitHitParticles();
 
   // Hit sound effect tied to hadoken exploding
-  let hitSounds = this.sounds.hits
+  let hitSounds = scene.sounds.hits
 
   // Grab a random hitsound from sounds.hits array
   let random = Math.floor(Math.random() * hitSounds.length)
-  let randomHitSound = this.sound.add(hitSounds[random]);
+  let randomHitSound = scene.sound.add(hitSounds[random]);
   randomHitSound.play();
 
   skeleton.destroy();
 
-  this.particles.summonSkeleton.emitParticle();
+  scene.particles.summonSkeleton.emitParticle();
 
-  this.summonNewSkeleton(this);
+  scene.summonNewSkeleton(scene);
 }
 
-hitBoss(boss, hadoken) {
-  hadoken.destroy();
+hitBoss(scene) {
+  let boss = scene.boss
+  //hadoken.destroy();
 
-  if(boss.anims.currentAnim.key !== 'bossdeath') {
-    boss.anims.play('bosshit1');
+  if(scene.boss.anims.currentAnim.key !== 'bossdeath') {
+    scene.boss.anims.play('bosshit1');
   }
 
   boss.setTint(0xff0000);
 
-  this.time.addEvent({ delay: 50, callback: boss.clearTint, callbackScope: boss});
+  scene.time.addEvent({ delay: 50, callback: boss.clearTint, callbackScope: boss});
 
   // Hit sound effect tied to hadoken exploding
-  let hitSounds = this.sounds.hits
+  let hitSounds = scene.sounds.hits
 
   // Grab a random hitsound from sounds.hits array
   let random = Math.floor(Math.random() * hitSounds.length)
-  let randomHitSound = this.sound.add(hitSounds[random]);
+  let randomHitSound = scene.sound.add(hitSounds[random]);
   randomHitSound.play();
     
-  boss.hitSound(this);
+  boss.hitSound(scene);
   boss.emitHitParticles();
 }
 
@@ -502,11 +508,18 @@ countDown() {
     for (let i in scene.currentWordImg) {
       scene.currentWordImg[i].destroy();
     }
-    // Call the attack function with end of round = true & combo > 0.
+    // If combo is > 0, supercombo functions.
     if (scene.combo > 0) {
       scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter);
+      // All the while, this delay has been ticking down. 1 second after launching the function, call superCombo function
+      scene.time.addEvent({ delay: 1000, callback: scene.PlayerCharacter.superCombo, args: [scene, scene.PlayerCharacter]});
+
+      scene.time.addEvent({ delay: (1100 + (200 * scene.combo)), callback: scene.PlayerCharacter.superComboFinisher, args: [scene, scene.PlayerCharacter]});
     }
 
+
+    scene.time.addEvent({ delay: 2100 + (200 * scene.combo), callback: scene.roundEndScoreTally, args: [scene]});
+    // Add play again buttons after end of round functions
     scene.time.addEvent({ delay: ((200 * scene.combo) + (175 * 15) + 4000), callback: scene.roundEndButtons, args: [ scene ] });
   }
 

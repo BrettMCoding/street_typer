@@ -149,7 +149,7 @@ export default class PlayerCharacter {
 
   
   // Random attack animation
-  randomAttackAnimation(scene, self) {
+  randomAttackAnimation(scene) {
     const shakecam = scene.cameras.add().setName('shakecam');
     shakecam.shake(100, 0.01);
     let attack = scene.PlayerCharacter.akuma.attackNames;
@@ -185,9 +185,6 @@ export default class PlayerCharacter {
     // vertical & horizontal lasers
     scene.lazer.anims.delayedPlay(400,'blast');
     scene.lazer2.anims.delayedPlay(650,'blast');
-    
-    // All the while, this delay has been ticking down. 1 second after launching the function, call superCombo function
-    scene.time.addEvent({ delay: 1000, callback: self.superCombo, args: [scene, self]});
   }
   
   teleport(self, scene) {
@@ -212,12 +209,10 @@ export default class PlayerCharacter {
     scene.time.addEvent({ delay: 200, callback: self.randomAttackAnimation, args: [scene], repeat: scene.combo - 1});
     
     // Attack collisions
-    scene.time.addEvent({ delay: 200, callback: self.createHadokenProjectile, args: [self, scene], repeat: scene.combo - 1});
+    scene.time.addEvent({ delay: 200, callback: scene.hitBoss, args: [scene], repeat: scene.combo - 1});
     
     // Combo++ animation
     scene.time.addEvent({ delay: 200, callback: scene.superComboTally, args: [scene], repeat: scene.combo - 1});
-    
-    scene.time.addEvent({ delay: ((200 * scene.combo)), callback: self.superComboFinisher, args: [scene, self]});
 
     // Display score
     // Delay = combo length + 2 seconds
@@ -231,12 +226,11 @@ export default class PlayerCharacter {
     scene.background.setTint(0x9f00bc);
     
     scene.particles.vortex.emitParticleAt(self.akuma.getCenter());
-    
+
     self.akuma.anims.play('supercharge');
 
     self.superComboText(scene);
 
-    scene.time.addEvent({ delay: 1500, callback: scene.roundEndScoreTally, args: [scene, self]});
     scene.time.addEvent({ delay: 1000, callback: self.goshoryuken, args: [scene, self]});
     scene.time.addEvent({ delay: 5500, callback: scene.boss.deathEvent, args: [ scene ]});
   }
@@ -299,7 +293,7 @@ export default class PlayerCharacter {
 
     scene.background.clearTint();
     
-    scene.time.addEvent({ delay: 175, callback: self.createHadokenProjectile, args: [ self, scene ], repeat: 15});
+    scene.time.addEvent({ delay: 175, callback: scene.hitBoss, args: [ scene ], repeat: 15});
 
     scene.boss.anims.play('bossdeath');
     scene.boss.body.setVelocityY(-200);

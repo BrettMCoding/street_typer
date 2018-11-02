@@ -75,9 +75,6 @@ class BootScene extends Phaser.Scene {
     this.load.audio('54321', './assets/sounds/54321.mp3');
     this.load.audio('points', './assets/sounds/points.mp3');
     this.load.audio('pointsfinish', './assets/sounds/pointsfinish.mp3'); 
-
-    // Load combo word
-    this.load.image('comboword', './assets/img/comboword.png');
     
     this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     // Load alphabet images (in a for loop to save space)
@@ -142,7 +139,7 @@ class BootScene extends Phaser.Scene {
         this.anims.create({ key: 'skeletonmediumsummon', frames: frames, frameRate: 20});
 
     // TEMPORARY MENU SKIP
-    // this.scene.start('GameScene');
+    this.scene.start('GameScene');
 
     let width = this.sys.game.config.width
     let height = this.sys.game.config.height
