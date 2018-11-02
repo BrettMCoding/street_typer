@@ -11,7 +11,11 @@ The sprites were mostly from spritedatabase. I animated, pivot-adjusted and pack
 
 The sounds are from various games I've loved throughout the years. Can you name them all? :D
 
+<<<<<<< HEAD
 TODO:: 
+=======
+TODO::
+>>>>>>> gh-pages
 
 Get a better wordlist!
 

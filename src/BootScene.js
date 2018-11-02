@@ -30,31 +30,12 @@ class BootScene extends Phaser.Scene {
       this.load.image("background" + i, "./assets/img/backgroundsprite/cathedral/cathedral" + i + ".png")
       console.log("background" + i)
     }
+
+    this.load.multiatlas('imgpack', './assets/img/imgpack.json', './assets/img')
+
     this.load.image('black', './assets/img/black.png');
-    this.load.image('logo', './assets/img/logo.png');
     this.load.image('ground', './assets/img/platform.png');
-    this.load.image('bloodchunk', './assets/img/particles/bloodchunk.png');
-    this.load.image('anakaris_chunk1', './assets/img/particles/anakaris_chunk1.png');
-    this.load.image('anakaris_chunk2', './assets/img/particles/anakaris_chunk2.png');
-    this.load.image('red', './assets/img/particles/red.png');
-    this.load.image('bone', './assets/img/particles/bone.png');
-    this.load.image('fire', './assets/img/particles/muzzleflash3.png');
-    this.load.image('flares', './assets/img/particles/sparkle1.png');
-    this.load.image('sparklered', './assets/img/particles/sparkle2.png');
-    this.load.atlas('lazer', './assets/img/particles/lazer/lazer.png', './assets/img/particles/lazer/lazer.json');
-    this.load.image('playbutton', './assets/img/menu/playbutton.png');
-    this.load.image('helpbutton', './assets/img/menu/helpbutton.png');
-    this.load.image('squarebutton', './assets/img/menu/squarebutton.png');
-    this.load.image('squarebuttonx', './assets/img/menu/squarebuttonx.png');
-    this.load.image('againbutton', './assets/img/menu/againbutton.png');
-    this.load.image('menubutton', './assets/img/menu/menubutton.png');
-    this.load.image('hyper', './assets/img/combotext/hyper.png');
-    this.load.image('extreme', './assets/img/combotext/extreme.png');
-    this.load.image('monster', './assets/img/combotext/monster.png');
-    this.load.image('insane', './assets/img/combotext/insane.png');
-    this.load.image('beastly', './assets/img/combotext/beastly.png');
-    this.load.image('killer', './assets/img/combotext/killer.png');
-    this.load.image('ultra', './assets/img/combotext/ultra.png');
+    this.load.atlas('lazer', './assets/img/lazer/lazer.png', './assets/img/lazer/lazer.json');
   
     // load akuma sprites
     this.load.multiatlas('akuma', './assets/spritesheets/akuma/akuma.json', './assets/spritesheets/akuma');
@@ -98,7 +79,6 @@ class BootScene extends Phaser.Scene {
     // Load combo word
     this.load.image('comboword', './assets/img/comboword.png');
     
-    // this.alphabet is our array of A-Z strings that we use as keys to make new letter sprites
     this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     // Load alphabet images (in a for loop to save space)
     for (let i in this.alphabet) {
@@ -226,7 +206,7 @@ class BootScene extends Phaser.Scene {
     this.time.addEvent({ delay: 3000, callback: this.backgroundMusic, callbackScope: this, repeat: (this.timer)});
 
     // Create physics logo
-    this.logo = this.physics.add.sprite( width / 2, height / 2 - 20000, "logo")
+    this.logo = this.physics.add.sprite( width / 2, height / 2 - 20000, 'imgpack', 'logo')
       .setBounce(0.2)
 
     // Create invisible platform for logo to land on

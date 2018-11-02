@@ -30,13 +30,13 @@ class MenuScene extends Phaser.Scene {
 
     this.background.play("background");
 
-    this.logo = this.add.sprite( width / 2, height / 2 - 200, "logo")
+    this.logo = this.add.sprite( width / 2, height / 2 - 200, 'imgpack', 'logo')
 
-    let playbutton = this.add.image(0, 0, 'playbutton');
+    let playbutton = this.add.image(0, 0, 'imgpack', 'playbutton');
 
-    let helpbutton = this.add.image(0, 80, 'helpbutton');
+    let helpbutton = this.add.image(0, 80, 'imgpack', 'helpbutton');
 
-    let memebutton = this.add.image(-80, 80, 'squarebutton');
+    let memebutton = this.add.image(-80, 80, 'imgpack', 'squarebutton');
 
     let buttoncontainer = this.add.container( width / 2, height / 2 + 50, [ playbutton, helpbutton ] );
 

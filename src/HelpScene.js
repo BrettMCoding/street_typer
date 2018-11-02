@@ -48,7 +48,7 @@ class HelpScene extends Phaser.Scene {
 
     let menusound = this.sound.add('megamanmenu');
 
-    let xButton = this.add.image(200, 200, 'squarebuttonx');
+    let xButton = this.add.image(200, 200, 'imgpack', 'squarebuttonx');
 
     xButton.setScale(1.3)
            .setInteractive();

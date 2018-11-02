@@ -108,14 +108,14 @@ create(){
 
   // Particles
   this.particles = {};
-  this.particles.bone = this.add.particles('bone');
-  this.particles.bossChunk = this.add.particles('anakaris_chunk1').setDepth(15);
-  this.particles.bossChunkTwo = this.add.particles('anakaris_chunk2').setDepth(15);
-  this.particles.bloodchunk = this.add.particles('bloodchunk');
-  this.particles.fire = this.add.particles('fire');
-  this.particles.vortex = this.add.particles('flares');
-  this.particles.vortex2 = this.add.particles('flares');
-  this.particles.summonSkeleton = this.add.particles('sparklered');
+  this.particles.bone = this.add.particles('imgpack', 'bone');
+  this.particles.bossChunk = this.add.particles('imgpack', 'anakaris_chunk1').setDepth(15);
+  this.particles.bossChunkTwo = this.add.particles('imgpack', 'anakaris_chunk2').setDepth(15);
+  this.particles.bloodchunk = this.add.particles('imgpack', 'bloodchunk');
+  this.particles.fire = this.add.particles('imgpack', 'fire');
+  this.particles.vortex = this.add.particles('imgpack', 'flares');
+  this.particles.vortex2 = this.add.particles('imgpack', 'flares');
+  this.particles.summonSkeleton = this.add.particles('imgpack', 'sparkle2');
 
   // Boss
   this.boss = new Boss({ scene: this, x: 950, y: 670 });
@@ -137,7 +137,7 @@ create(){
   this.comboContainer = this.add.container(16, 16);
 
   // comboImage is a prebuilt "COMBO" png from the arcade font      
-  this.comboImage = this.add.image(70, 40, 'comboword')
+  this.comboImage = this.add.image(70, 40, 'imgpack', 'comboword')
     .setDepth(20)
     .setOrigin(0.5);
   
@@ -538,10 +538,10 @@ countDown() {
   }
 
   roundEndButtons(scene) {
-    let againbutton = scene.add.image(0, 0, 'againbutton').setOrigin(0.5, 0.5);
+    let againbutton = scene.add.image(0, 0, 'imgpack', 'againbutton').setOrigin(0.5, 0.5);
     againbutton.setInteractive();
 
-    let menubutton = scene.add.image(0, 80, 'menubutton').setOrigin(0.5, 0.5);
+    let menubutton = scene.add.image(0, 80, 'imgpack', 'menubutton').setOrigin(0.5, 0.5);
     menubutton.setInteractive();
 
     let buttoncontainer = scene.add.container(scene.width / 2, scene.height / 2 + 50, [ againbutton, menubutton ] );
