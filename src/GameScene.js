@@ -23,13 +23,13 @@ create(){
   this.currentWordImg;
   
   // Timer. Adjust to change the length of a round
-  this.timer = 2;
+  this.timer = 60;
   
   // Players total word combo
-  this.combo = 24;
+  this.combo = 0;
 
   // Points
-  this.score = 500;
+  this.score = 0;
 
   // this.WORDS will be our imported dictionary of this.words in an array
   this.WORDS;
