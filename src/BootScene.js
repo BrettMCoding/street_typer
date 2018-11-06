@@ -243,7 +243,7 @@ class BootScene extends Phaser.Scene {
         this.anims.create({ key: 'overhead', frames: frames, frameRate: 35, repeat: 0 });
 
     // TEMPORARY MENU SKIP
-    this.scene.start('GameScene');
+    // this.scene.start('GameScene');
 
     this.anims.create({
       key: "background",

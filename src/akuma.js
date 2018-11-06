@@ -1,7 +1,7 @@
 export default class PlayerCharacter extends Phaser.GameObjects.Sprite {
   constructor(config) {
 
-    super(config.scene, config.x, config.y, 'akuma')
+    super(config.scene, config.x, config.y, 'akuma', 'AkumaClean_.png')
 
     config.scene.physics.world.enable(this);
 
@@ -23,10 +23,6 @@ export default class PlayerCharacter extends Phaser.GameObjects.Sprite {
     this.attackNames = ['lightpunch', 'standinguppercut', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
     this.scene.add.existing(this);
-  }
-
-  destroy() {
-    this.sprite.destroy();
   }
   
   // After any animation, resume playing idle animation
@@ -173,7 +169,7 @@ export default class PlayerCharacter extends Phaser.GameObjects.Sprite {
   goshoryuken(scene, self) {
     self.x = 850
     self.anims.play('shoryuken');
-    self.setVelocityY(-200);
+    self.body.setVelocityY(-200);
 
     scene.background.clearTint();
     

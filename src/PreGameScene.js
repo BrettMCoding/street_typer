@@ -53,7 +53,7 @@ create(){
   this.preGameTimerText.x -= this.preGameTimerText.width / 2;
         
   // Physics colliders
-  this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
+  this.physics.add.collider(this.PlayerCharacter, platforms);
   this.physics.add.collider(this.boss, platforms);
 
 
