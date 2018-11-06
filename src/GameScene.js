@@ -263,11 +263,6 @@ create(){
   this.lazer2 = this.add
     .sprite(this.width / 2 + 300, this.PlayerCharacter.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
 
-  // REFACTOR THESE INTO AKUMA JS
-  // Attack *Hit* Sound Array
-  this.sounds = {};
-  this.sounds.hits = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
-
   // Game timer event. Every 1 second, call countDown function. repeat (this.timer) times
   this.time.addEvent({ delay: 1000, callback: this.countDown, callbackScope: this, repeat: (this.timer)});
 
@@ -384,13 +379,8 @@ hitSkeleton(skeleton, scene) {
 
   skeleton.emitHitParticles();
 
-  // Hit sound effect
-  let hitSounds = scene.sounds.hits
-
-  // Grab a random hitsound from sounds.hits array
-  let random = Math.floor(Math.random() * hitSounds.length)
-  let randomHitSound = scene.sound.add(hitSounds[random]);
-  randomHitSound.play();
+  // Akuma attack sound
+  scene.PlayerCharacter.attackSound(scene);
 
   skeleton.destroy();
 
@@ -410,13 +400,8 @@ hitBoss(scene) {
 
   scene.time.addEvent({ delay: 50, callback: boss.clearTint, callbackScope: boss});
 
-  // Hit sound effect
-  let hitSounds = scene.sounds.hits
-
-  // Grab a random hitsound from sounds.hits array
-  let random = Math.floor(Math.random() * hitSounds.length)
-  let randomHitSound = scene.sound.add(hitSounds[random]);
-  randomHitSound.play();
+  // Akuma attack sound
+  scene.PlayerCharacter.attackSound(scene);
     
   boss.hitSound(scene);
   boss.emitHitParticles();

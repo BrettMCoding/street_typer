@@ -179,4 +179,11 @@ export default class PlayerCharacter extends Phaser.GameObjects.Sprite {
     scene.boss.body.setVelocityY(-200);
 
   }
+
+  attackSound(scene) {
+    let sounds = ['fiercepunch', 'fiercekick', 'lightpunch', 'lightkick', 'mediumpunch']; 
+    let random = Math.floor(Math.random() * sounds.length)
+    let randomSound = scene.sound.add(sounds[random]);
+    randomSound.play();
+  }
 }
