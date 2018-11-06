@@ -139,8 +139,111 @@ class BootScene extends Phaser.Scene {
         });
         this.anims.create({ key: 'skeletonmediumsummon', frames: frames, frameRate: 20});
 
+    // Akuma
+        // AKUMA GOSHORYU ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 248, end: 266,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        frames.push({ key:'akuma', frame:'AkumaClean_246.png' });
+        this.anims.create({ key: 'shoryuken', frames: frames, frameRate: 3.6, repeat: 0 });
+
+        // AKUMA SUPERCHARGE ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          // messy unshift calls to bypass octal literals strict mode error
+          start: 10, end: 17,
+          prefix: 'AkumaClean_', suffix: '.png'
+        }); let b=frames;b.unshift({ key:'akuma', frame:'AkumaClean_09.png' });b.unshift({ key:'akuma', frame:'AkumaClean_08.png' });b.unshift({ key:'akuma', frame:'AkumaClean_07.png' });b.unshift({ key:'akuma', frame:'AkumaClean_06.png' });b.unshift({ key:'akuma', frame:'AkumaClean_05.png' });b.unshift({ key:'akuma', frame:'AkumaClean_04.png' });b.unshift({ key:'akuma', frame:'AkumaClean_03.png' });
+        this.anims.create({ key: 'supercharge', frames: frames, frameRate: 20  , yoyo: true});
+
+        // AKUMA SUPERCHARGE IMAGE
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 15, end: 17,
+          prefix: 'AkumaClean_', suffix: '.png'
+        }); 
+
+        this.anims.create({ key: 'superchargeimage', frames: frames, frameRate: 20  , repeat: -1});
+
+        // AKUMA IDLE ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 18, end: 28,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        this.anims.create({ key: 'idleright', frames: frames, frameRate: 15, repeat: -1 });
+
+        // AKUMA LIGHT PUNCH ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 89, end: 91,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        for (let i = 0; i < 5; i++) {
+          frames.splice(1, 0, frames[1]);
+        }
+        this.anims.create({ key: 'lightpunch', frames: frames, frameRate: 35, repeat: 0 });
+
+        // AKUMA MEDIUM PUNCH ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 93, end: 97,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        for (let i = 0; i < 5; i++) {
+          frames.splice(2, 0, frames[2]);
+        }
+        this.anims.create({ key: 'standinguppercut', frames: frames, frameRate: 35, repeat: 0 });
+        
+
+        // AKUMA FIERCE PUNCH ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 99, end: 103,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        for (let i = 0; i < 5; i++) {
+          frames.splice(2, 0, frames[2]);
+        }
+        this.anims.create({ key: 'fiercepunch', frames: frames, frameRate: 35, repeat: 0 });
+
+        // AKUMA LIGHT KICK ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 105, end: 109,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        for (let i = 0; i < 5; i++) {
+          frames.splice(2, 0, frames[2]);
+        }
+        this.anims.create({ key: 'lightkick', frames: frames, frameRate: 35, repeat: 0 });
+
+        // AKUMA MEDIUM KICK ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 111, end: 114,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        for (let i = 0; i < 5; i++) {
+          frames.splice(2, 0, frames[2]);
+        }
+        this.anims.create({ key: 'mediumkick', frames: frames, frameRate: 35, repeat: 0 });
+
+        // AKUMA HEAVY KICK ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 115, end: 120,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        for (let i = 0; i < 5; i++) {
+          frames.splice(3, 0, frames[3]);
+        }
+        this.anims.create({ key: 'heavykick', frames: frames, frameRate: 35, repeat: 0 });
+
+        // AKUMA OVERHEAD ANIMATION
+        frames = this.anims.generateFrameNames('akuma', {
+          start: 122, end: 128,
+          prefix: 'AkumaClean_', suffix: '.png'
+        });
+        for (let i = 0; i < 5; i++) {
+          frames.splice(5, 0, frames[5]);
+        }
+        this.anims.create({ key: 'overhead', frames: frames, frameRate: 35, repeat: 0 });
+
     // TEMPORARY MENU SKIP
-    // this.scene.start('GameScene');
+    this.scene.start('GameScene');
 
     this.anims.create({
       key: "background",

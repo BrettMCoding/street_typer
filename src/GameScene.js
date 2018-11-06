@@ -124,7 +124,7 @@ create(){
   this.summonNewSkeleton(this);
   
   // Add Player Character
-  this.PlayerCharacter = new PlayerCharacter(this, this.width / 8, this.height / 2 + 180)
+  this.PlayerCharacter = new PlayerCharacter({ scene:this, x: this.width / 8, y: this.height / 2 + 180 });
 
   // Pick & display first word
   this.currentWord = this.newWord(this.WORDS);
@@ -184,7 +184,7 @@ create(){
   
         
   // Physics colliders
-  this.physics.add.collider(this.PlayerCharacter.akuma, platforms);
+  this.physics.add.collider(this.PlayerCharacter, platforms);
   
   this.physics.add.collider(this.skeletons, platforms);
 
@@ -209,12 +209,12 @@ create(){
   });
 
   // Super combo vortex particles
-  this.circle = new Phaser.Geom.Circle(this.PlayerCharacter.akuma.x, this.PlayerCharacter.akuma.y, 500);
+  this.circle = new Phaser.Geom.Circle(this.PlayerCharacter.x, this.PlayerCharacter.y, 500);
   this.particles.vortex.createEmitter({
     x: 0,
     y: 0,
-    moveToX: {min: this.PlayerCharacter.akuma.x -15, max: this.PlayerCharacter.akuma.x +15},
-    moveToY: {min: this.PlayerCharacter.akuma.y -15, max: this.PlayerCharacter.akuma.y +15},
+    moveToX: {min: this.PlayerCharacter.x -15, max: this.PlayerCharacter.x +15},
+    moveToY: {min: this.PlayerCharacter.y -15, max: this.PlayerCharacter.y +15},
     lifespan: {min:100,max:300},
     quantity: 100,
     scale: { start: 0.00, end: 0.08 },
@@ -225,12 +225,12 @@ create(){
   });
 
   // Super combo airborn particles
-  this.circle2 = new Phaser.Geom.Circle(this.PlayerCharacter.akuma.x, this.PlayerCharacter.akuma.y + 100, 100);
+  this.circle2 = new Phaser.Geom.Circle(this.PlayerCharacter.x, this.PlayerCharacter.y + 100, 100);
   this.particles.vortex2.createEmitter({
     x: 0,
     y: 0,
-    moveToX: {min: this.PlayerCharacter.akuma.x -50, max: this.PlayerCharacter.akuma.x +50},
-    moveToY: {min: this.PlayerCharacter.akuma.y -50, max: this.PlayerCharacter.akuma.y -100},
+    moveToX: {min: this.PlayerCharacter.x -50, max: this.PlayerCharacter.x +50},
+    moveToY: {min: this.PlayerCharacter.y -50, max: this.PlayerCharacter.y -100},
     lifespan: {min:200,max:400},
     quantity: 20,
     scale: { start: 0.00, end: 0.08 },
@@ -259,9 +259,9 @@ create(){
     frames: this.anims.generateFrameNames('lazer', { prefix: 'lazer_', start: 0, end: 22, zeroPad: 2 }), 
     frameRate: 50});
   this.lazer = this.add
-    .sprite(this.PlayerCharacter.akuma.x, 120 , "lazer").setScale(1.3);
+    .sprite(this.PlayerCharacter.x, 120 , "lazer").setScale(1.3);
   this.lazer2 = this.add
-    .sprite(this.width / 2 + 300, this.PlayerCharacter.akuma.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
+    .sprite(this.width / 2 + 300, this.PlayerCharacter.y, "lazer").setAlpha(1, 1, 0, 1 ).setScale(2).setAngle(90);
 
   // REFACTOR THESE INTO AKUMA JS
   // Attack *Hit* Sound Array

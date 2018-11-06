@@ -1,122 +1,28 @@
-export default class PlayerCharacter {
-  constructor(scene, x, y) {
+export default class PlayerCharacter extends Phaser.GameObjects.Sprite {
+  constructor(config) {
 
-  // Create Akuma
-  this.akuma = scene.physics.add.sprite(x, y, 'akuma', 'AkumaClean_.png')
-    .setScale(2.5)
-    .setBounce(0.2)
-    .setCollideWorldBounds(true)
-    .setDepth(11)
-    this.akuma.body.gravity.y = -950;
+    super(config.scene, config.x, config.y, 'akuma')
 
-  // AKUMA GOSHORYU ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 248, end: 266,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  scene.frameNames.push({ key:'akuma', frame:'AkumaClean_246.png' });
-  scene.anims.create({ key: 'shoryuken', frames: scene.frameNames, frameRate: 3.6, repeat: 0 });
+    config.scene.physics.world.enable(this);
 
-  // AKUMA SUPERCHARGE ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    // messy unshift calls to bypass octal literals strict mode error
-    start: 10, end: 17,
-    prefix: 'AkumaClean_', suffix: '.png'
-  }); let b=scene.frameNames;b.unshift({ key:'akuma', frame:'AkumaClean_09.png' });b.unshift({ key:'akuma', frame:'AkumaClean_08.png' });b.unshift({ key:'akuma', frame:'AkumaClean_07.png' });b.unshift({ key:'akuma', frame:'AkumaClean_06.png' });b.unshift({ key:'akuma', frame:'AkumaClean_05.png' });b.unshift({ key:'akuma', frame:'AkumaClean_04.png' });b.unshift({ key:'akuma', frame:'AkumaClean_03.png' });
+    this.body
+      .setBounce(0.2)
+      .setGravityY(-950)
+      .setCollideWorldBounds(true);
 
-  scene.anims.create({ key: 'supercharge', frames: scene.frameNames, frameRate: 20  , yoyo: true});
+    this
+      .setScale(2.5)
+      .setDepth(11);
 
-  // AKUMA SUPERCHARGE IMAGE
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 15, end: 17,
-    prefix: 'AkumaClean_', suffix: '.png'
-  }); 
 
-  scene.anims.create({ key: 'superchargeimage', frames: scene.frameNames, frameRate: 20  , repeat: -1});
+    this.anims.play('idleright');
 
-  // AKUMA IDLE ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 18, end: 28,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  scene.anims.create({ key: 'idleright', frames: scene.frameNames, frameRate: 15, repeat: -1 });
-  this.akuma.anims.play('idleright');
-  this.akuma.on('animationcomplete', this.BackToIdle, this);
+    this.on('animationcomplete', this.BackToIdle, this);
 
-  // AKUMA LIGHT PUNCH ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 89, end: 91,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  for (let i = 0; i < 5; i++) {
-    scene.frameNames.splice(1, 0, scene.frameNames[1]);
-  }
-  scene.anims.create({ key: 'lightpunch', frames: scene.frameNames, frameRate: 35, repeat: 0 });
+    // Array of string names of attack animations to be used as keys later 'shoryuken'
+    this.attackNames = ['lightpunch', 'standinguppercut', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
-  // AKUMA MEDIUM PUNCH ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 93, end: 97,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  for (let i = 0; i < 5; i++) {
-    scene.frameNames.splice(2, 0, scene.frameNames[2]);
-  }
-  scene.anims.create({ key: 'standinguppercut', frames: scene.frameNames, frameRate: 35, repeat: 0 });
-  
-
-  // AKUMA FIERCE PUNCH ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 99, end: 103,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  for (let i = 0; i < 5; i++) {
-    scene.frameNames.splice(2, 0, scene.frameNames[2]);
-  }
-  scene.anims.create({ key: 'fiercepunch', frames: scene.frameNames, frameRate: 35, repeat: 0 });
-
-  // AKUMA LIGHT KICK ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 105, end: 109,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  for (let i = 0; i < 5; i++) {
-    scene.frameNames.splice(2, 0, scene.frameNames[2]);
-  }
-  scene.anims.create({ key: 'lightkick', frames: scene.frameNames, frameRate: 35, repeat: 0 });
-
-  // AKUMA MEDIUM KICK ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 111, end: 114,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  for (let i = 0; i < 5; i++) {
-    scene.frameNames.splice(2, 0, scene.frameNames[2]);
-  }
-  scene.anims.create({ key: 'mediumkick', frames: scene.frameNames, frameRate: 35, repeat: 0 });
-
-  // AKUMA HEAVY KICK ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 115, end: 120,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  for (let i = 0; i < 5; i++) {
-    scene.frameNames.splice(3, 0, scene.frameNames[3]);
-  }
-  scene.anims.create({ key: 'heavykick', frames: scene.frameNames, frameRate: 35, repeat: 0 });
-
-  // AKUMA OVERHEAD ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 122, end: 128,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  for (let i = 0; i < 5; i++) {
-    scene.frameNames.splice(5, 0, scene.frameNames[5]);
-  }
-  scene.anims.create({ key: 'overhead', frames: scene.frameNames, frameRate: 35, repeat: 0 });
-
-  // Array of string names of attack animations to be used as keys later 'shoryuken'
-  this.akuma.attackNames = ['lightpunch', 'standinguppercut', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
-
+    this.scene.add.existing(this);
   }
 
   destroy() {
@@ -125,7 +31,7 @@ export default class PlayerCharacter {
   
   // After any animation, resume playing idle animation
   BackToIdle() {
-    this.akuma.anims.play('idleright');
+    this.anims.play('idleright');
   }
   
   // Call a random attack animation
@@ -139,8 +45,8 @@ export default class PlayerCharacter {
   randomAttackAnimation(scene) {
     const shakecam = scene.cameras.add().setName('shakecam');
     shakecam.shake(100, 0.01);
-    let attack = scene.PlayerCharacter.akuma.attackNames;
-    scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
+    let attack = scene.PlayerCharacter.attackNames;
+    scene.PlayerCharacter.anims.play(attack[Math.floor(Math.random() * attack.length)]);
   }
   
   // the first call after end of round
@@ -158,7 +64,7 @@ export default class PlayerCharacter {
     scene.particles.vortex.emitParticle();
     scene.particles.vortex2.emitParticle();
     
-    self.akuma.anims.play('supercharge');
+    self.anims.play('supercharge');
 
     // vertical & horizontal lasers
     scene.lazer.anims.delayedPlay(400,'blast');
@@ -166,7 +72,7 @@ export default class PlayerCharacter {
   }
   
   teleport(self, scene) {
-    self.akuma.x = 800
+    self.x = 800
 
     let skeleton = scene.skeletons.children.entries[0];
 
@@ -203,9 +109,9 @@ export default class PlayerCharacter {
     // color the background
     scene.background.setTint(0x9f00bc);
     
-    scene.particles.vortex.emitParticleAt(self.akuma.getCenter());
+    scene.particles.vortex.emitParticleAt(self.getCenter());
 
-    self.akuma.anims.play('supercharge');
+    self.anims.play('supercharge');
 
     self.superComboText(scene);
 
@@ -265,9 +171,9 @@ export default class PlayerCharacter {
   }
 
   goshoryuken(scene, self) {
-    self.akuma.x = 850
-    self.akuma.anims.play('shoryuken');
-    self.akuma.setVelocityY(-200);
+    self.x = 850
+    self.anims.play('shoryuken');
+    self.setVelocityY(-200);
 
     scene.background.clearTint();
     

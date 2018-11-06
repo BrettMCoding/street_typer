@@ -15,14 +15,14 @@ create(){
   this.background = this.add.sprite(this.width / 2, this.height / 2, "background");
   this.background.play("background");
 
-  this.preGameTimer = 3
+  this.preGameTimer = 3;
 
   // Platforms
   let platforms = this.physics.add.staticSprite(this.width / 2, this.height - 50, 'ground').setAlpha(0.0);
 
   // Add Player Character
-  this.PlayerCharacter = new PlayerCharacter(this, this.width / 8, this.height / 2 + 180)
-  this.PlayerCharacter.akuma.anims.play('supercharge');
+  this.PlayerCharacter = new PlayerCharacter({ scene:this, x: this.width / 8, y: this.height / 2 + 180 });
+  this.PlayerCharacter.anims.play('supercharge');
 
 
   // Add Boss
