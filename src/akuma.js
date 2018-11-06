@@ -93,12 +93,6 @@ export default class PlayerCharacter extends Phaser.GameObjects.Sprite {
     
     // Combo++ animation
     scene.time.addEvent({ delay: 200, callback: scene.superComboTally, args: [scene], repeat: scene.combo - 1});
-
-    // Display score
-    // Delay = combo length + 2 seconds
-    
-
-    // ADD A GLOBAL VARIABLE FOR COMBO ATTACK DELAY, AND TIGHTEN TIMINGS TO VARIABLES FOR CLEANER REFACTORING
   }
 
   superComboFinisher(scene, self) {
