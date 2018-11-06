@@ -12,7 +12,6 @@ create(){
   this.bootScene = this.scene.get('BootScene');
 
   // Background
-  // NOTE: We'll be using this.width or height a lot to get the dimensions of our game
   this.background = this.add.sprite(this.width / 2, this.height / 2, "background");
   this.background.play("background");
 

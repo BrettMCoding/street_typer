@@ -17,7 +17,6 @@ create(){
 
   this.numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-
   // this.currentWord will be a random word from our Dictionary
   this.currentWord;
   
@@ -111,8 +110,8 @@ create(){
   this.particles.bossChunkTwo = this.add.particles('imgpack', 'anakaris_chunk2').setDepth(15);
   this.particles.bloodchunk = this.add.particles('imgpack', 'bloodchunk');
   this.particles.fire = this.add.particles('imgpack', 'fire');
-  this.particles.vortex = this.add.particles('imgpack', 'flares');
-  this.particles.vortex2 = this.add.particles('imgpack', 'flares');
+  this.particles.vortex = this.add.particles('imgpack', 'sparkle1');
+  this.particles.vortex2 = this.add.particles('imgpack', 'sparkle1');
   this.particles.summonSkeleton = this.add.particles('imgpack', 'sparkle2');
 
   this.bootScene.createMusicMuter(this);
@@ -191,13 +190,7 @@ create(){
 
   this.physics.add.collider(this.boss, platforms);
 
-  //this.physics.add.overlap(this.skeletons, this.PlayerCharacter.hadoken, this.hitSkeleton, null, this);
-
-  this.physics.add.overlap(this.boss, this.PlayerCharacter.hadoken, this.hitBoss, null, this);
-  
-
   // Emitters
-
   this.particles.fire.createEmitter({
       alpha: { start: 1, end: 0 },
       scale: { start: 0.5, end: 2.5 },
@@ -325,9 +318,6 @@ update() {
     // New word to screen
     this.currentWord = this.newWord(this.WORDS);
     this.newWordToScreen(this);
-
-    // Attack the enemy
-    // this.PlayerCharacter.akumaAttack(this);
   }
 
   // If the round is over and we haven't thrown the switch yet,
@@ -364,7 +354,6 @@ newWord(arrayOfWords) {
 
   // Output random word
   return arrayOfWords[randIndex].toUpperCase().split(""); // LOOKUP INNERHTML
-
 }
 
 // Generate a word's letters in an array, and assign sprites to them
@@ -390,14 +379,12 @@ newWordToScreen(scene) {
   (this.width / 2 - (((scene.currentWord.length * xCharacterOffset) - 40 ) / 2));
 }
 
-// Called when our hadoken connects with the skeleton
+// Attack and kill the skeleton upon finishing a word
 hitSkeleton(skeleton, scene) {
-  // Destroy the projectile
-  //hadoken.destroy()
 
   skeleton.emitHitParticles();
 
-  // Hit sound effect tied to hadoken exploding
+  // Hit sound effect
   let hitSounds = scene.sounds.hits
 
   // Grab a random hitsound from sounds.hits array
@@ -414,7 +401,6 @@ hitSkeleton(skeleton, scene) {
 
 hitBoss(scene) {
   let boss = scene.boss
-  //hadoken.destroy();
 
   if(scene.boss.anims.currentAnim.key !== 'bossdeath') {
     scene.boss.anims.play('bosshit1');
@@ -424,7 +410,7 @@ hitBoss(scene) {
 
   scene.time.addEvent({ delay: 50, callback: boss.clearTint, callbackScope: boss});
 
-  // Hit sound effect tied to hadoken exploding
+  // Hit sound effect
   let hitSounds = scene.sounds.hits
 
   // Grab a random hitsound from sounds.hits array
@@ -484,14 +470,14 @@ countDown() {
     // If combo is > 0, supercombo functions.
     if (scene.combo > 0) {
       scene.PlayerCharacter.superComboOpeningAnimation(scene, scene.PlayerCharacter);
-      // All the while, this delay has been ticking down. 1 second after launching the function, call superCombo function
+  
       scene.time.addEvent({ delay: 1000, callback: scene.PlayerCharacter.superCombo, args: [scene, scene.PlayerCharacter]});
 
       scene.time.addEvent({ delay: (1100 + (200 * scene.combo)), callback: scene.PlayerCharacter.superComboFinisher, args: [scene, scene.PlayerCharacter]});
     }
 
-
     scene.time.addEvent({ delay: 2100 + (200 * scene.combo), callback: scene.roundEndScoreTally, args: [scene]});
+
     // Add play again buttons after end of round functions
     scene.time.addEvent({ delay: ((200 * scene.combo) + (175 * 15) + 4000), callback: scene.roundEndButtons, args: [ scene ] });
   }

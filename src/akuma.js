@@ -34,14 +34,7 @@ export default class PlayerCharacter {
 
   scene.anims.create({ key: 'superchargeimage', frames: scene.frameNames, frameRate: 20  , repeat: -1});
 
-  // AKUMA HADOKEN ANIMATION
-  scene.frameNames = scene.anims.generateFrameNames('akuma', {
-    start: 199, end: 203,
-    prefix: 'AkumaClean_', suffix: '.png'
-  });
-  scene.anims.create({ key: 'hadoken', frames: scene.frameNames, frameRate: 20, repeat: 0, yoyo: true})
-  
-  // AKUMA WALK ANIMATION
+  // AKUMA IDLE ANIMATION
   scene.frameNames = scene.anims.generateFrameNames('akuma', {
     start: 18, end: 28,
     prefix: 'AkumaClean_', suffix: '.png'
@@ -124,9 +117,6 @@ export default class PlayerCharacter {
   // Array of string names of attack animations to be used as keys later 'shoryuken'
   this.akuma.attackNames = ['lightpunch', 'standinguppercut', 'fiercepunch', 'lightkick', 'mediumkick', 'heavykick', 'overhead'];
 
-  // Hadoken physical body (used as hit detection)
-  this.hadoken = scene.physics.add.group();
-
   }
 
   destroy() {
@@ -138,12 +128,9 @@ export default class PlayerCharacter {
     this.akuma.anims.play('idleright');
   }
   
-  // Main attack function. Calls a random animation, and creates a hadoken projectile.
-  // The sound effect and particles are tied to the hitSkeleton function
+  // Call a random attack animation
   akumaAttack(scene) {
     this.randomAttackAnimation(scene);
-    
-    scene.time.delayedCall(100, this.createHadokenProjectile, [this, scene]);
   }
 
 
@@ -154,15 +141,6 @@ export default class PlayerCharacter {
     shakecam.shake(100, 0.01);
     let attack = scene.PlayerCharacter.akuma.attackNames;
     scene.PlayerCharacter.akuma.anims.play(attack[Math.floor(Math.random() * attack.length)]);
-  }
-  
-  
-  // Hadoken construct
-  createHadokenProjectile(PlayerCharacter, scene) { 
-    let hadoken = PlayerCharacter.hadoken.create(PlayerCharacter.akuma.getCenter().x + 100, PlayerCharacter.akuma.getCenter().y - 20, 'akuma', 'AkumaClean_207.png');
-    hadoken.body.gravity.y = -(scene.physics.config.gravity.y)
-    hadoken.body.width = 100;
-    hadoken.setVelocityX(500);
   }
   
   // the first call after end of round

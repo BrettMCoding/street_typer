@@ -154,14 +154,14 @@ class BootScene extends Phaser.Scene {
         { key: "background7"},
         { key: "background8"}
       ],
-      frameRate: 15,
+      frameRate: 8,
       repeat: -1
     });
-    this.background = this.add.sprite( this.width / 2, this.height / 2, "background" );
+    let background = this.add.sprite( this.width / 2, this.height / 2, "background" );
 
-    this.black = this.add.image( this.width / 2, this.height / 2, "black");
+    let black = this.add.image( this.width / 2, this.height / 2, "black");
 
-    this.background.play("background");
+    background.play("background");
 
     let presentText = this.add
       .text(this.width / 2, this.height / 2, "MONKEY GAMES", {
@@ -179,7 +179,7 @@ class BootScene extends Phaser.Scene {
 
     // Fade out black to background
     this.tweens.add({
-      targets: this.black,
+      targets: black,
       alpha: { value: 0, duration: 5000, ease: 'Power1', delay: 3000 },
     });
 
@@ -202,19 +202,18 @@ class BootScene extends Phaser.Scene {
     this.time.addEvent({ delay: 3000, callback: this.backgroundMusic, callbackScope: this, repeat: (this.timer)});
 
     // Create physics logo
-    this.logo = this.physics.add.sprite( this.width / 2, this.height / 2 - 20000, 'imgpack', 'logo')
+    let logo = this.physics.add.sprite( this.width / 2, this.height / 2 - 20000, 'imgpack', 'logo')
       .setBounce(0.2)
 
     // Create invisible platform for logo to land on
-    this.platform = this.physics.add.staticSprite( this.width / 2, 310);
+    let platform = this.physics.add.staticSprite( this.width / 2, 310);
 
-    this.physics.add.collider(this.logo, this.platform, this.bounceSoundAndNextScene, null, this);
+    this.physics.add.collider(logo, platform, this.bounceSoundAndNextScene, null, this);
   }
 
   update() {
     this.muteMusic(this);
   }
-  // MUTED SOUND EFFECTS LIE BELOW
 
   monkeyGamesSound() {
     let presentSound = this.sound.add('ff7save');
@@ -228,7 +227,6 @@ class BootScene extends Phaser.Scene {
 
   createMusicMuter(scene) {
     // Add spacebar for music mute
-    debugger;
     scene.SPACE = scene.input.keyboard.addKey
       (Phaser.Input.Keyboard.KeyCodes.SPACE);
 
