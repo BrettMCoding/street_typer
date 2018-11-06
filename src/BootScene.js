@@ -28,7 +28,6 @@ class BootScene extends Phaser.Scene {
 
     for (let i = 1; i <= 8; i++) {
       this.load.image("background" + i, "./assets/img/backgroundsprite/cathedral/cathedral" + i + ".png")
-      console.log("background" + i)
     }
 
     this.load.multiatlas('imgpack', './assets/img/imgpack.json', './assets/img')
@@ -86,6 +85,8 @@ class BootScene extends Phaser.Scene {
 
   create() {
     // Animations
+    this.width = this.sys.game.config.width;
+    this.height = this.sys.game.config.height;
 
     // Anakaris
         // Idle
@@ -141,9 +142,6 @@ class BootScene extends Phaser.Scene {
     // TEMPORARY MENU SKIP
     // this.scene.start('GameScene');
 
-    let width = this.sys.game.config.width
-    let height = this.sys.game.config.height
-
     this.anims.create({
       key: "background",
       frames: [
@@ -159,14 +157,14 @@ class BootScene extends Phaser.Scene {
       frameRate: 15,
       repeat: -1
     });
-    this.background = this.add.sprite( width / 2, height / 2, "background" );
+    this.background = this.add.sprite( this.width / 2, this.height / 2, "background" );
 
-    this.black = this.add.image( width / 2, height / 2, "black");
+    this.black = this.add.image( this.width / 2, this.height / 2, "black");
 
     this.background.play("background");
 
     let presentText = this.add
-      .text(width / 2, height / 2, "MONKEY GAMES", {
+      .text(this.width / 2, this.height / 2, "MONKEY GAMES", {
         fontFamily: "arcade",
         fontSize: 60,
         fill: "#f8d838",
@@ -174,9 +172,10 @@ class BootScene extends Phaser.Scene {
         .setStroke('#312088', 6)
         .setOrigin(0.5)
         .setAlpha(0.0);
-    presentText.x = width / 2;
-    presentText.y = height / 2;
-    
+    presentText.x = this.width / 2;
+    presentText.y = this.height / 2;
+
+    this.createMusicMuter(this);
 
     // Fade out black to background
     this.tweens.add({
@@ -203,15 +202,18 @@ class BootScene extends Phaser.Scene {
     this.time.addEvent({ delay: 3000, callback: this.backgroundMusic, callbackScope: this, repeat: (this.timer)});
 
     // Create physics logo
-    this.logo = this.physics.add.sprite( width / 2, height / 2 - 20000, 'imgpack', 'logo')
+    this.logo = this.physics.add.sprite( this.width / 2, this.height / 2 - 20000, 'imgpack', 'logo')
       .setBounce(0.2)
 
     // Create invisible platform for logo to land on
-    this.platform = this.physics.add.staticSprite( width / 2, 310);
+    this.platform = this.physics.add.staticSprite( this.width / 2, 310);
 
     this.physics.add.collider(this.logo, this.platform, this.bounceSoundAndNextScene, null, this);
   }
 
+  update() {
+    this.muteMusic(this);
+  }
   // MUTED SOUND EFFECTS LIE BELOW
 
   monkeyGamesSound() {
@@ -222,6 +224,55 @@ class BootScene extends Phaser.Scene {
   backgroundMusic() {
     let bgm = this.sound.add('sewersurfin');
     bgm.play()
+  }
+
+  createMusicMuter(scene) {
+    // Add spacebar for music mute
+    debugger;
+    scene.SPACE = scene.input.keyboard.addKey
+      (Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+    scene.muteText = scene.add
+    .text(scene.width / 2, scene.height / 2, "Music Muted", {
+      fontFamily: "arcade",
+      fontSize: 30,
+      fill: "#f8d838",
+      padding: { x: 20, y: 10 }})
+      .setStroke('#312088', 6)
+      .setOrigin(0.5)
+      .setAlpha(0.0);
+  }
+
+  muteMusic(scene) {
+    if (Phaser.Input.Keyboard.JustDown(scene.SPACE)) {
+      for (let i = 0; i < scene.sound.sounds.length; i++) {
+        for (let key in scene.sound.sounds[i]) {
+          if (scene.sound.sounds[i][key] === "sewersurfin") {
+            var sound = scene.sound.sounds[i];
+  
+            if (sound.mute === true) {
+              sound.mute = false;
+  
+              scene.muteText.setText("Music unmuted");
+  
+              scene.tweens.add({
+                targets: scene.muteText,
+                alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
+              });
+            } else {
+              sound.mute = true;
+  
+              scene.muteText.setText("Music muted");
+  
+              scene.tweens.add({
+                targets: scene.muteText,
+                alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
+              });
+            }
+          }
+        }
+      }
+    }
   }
 
   bounceSoundAndNextScene(logo, platform) {

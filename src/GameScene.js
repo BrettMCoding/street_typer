@@ -11,6 +11,8 @@ class GameScene extends Phaser.Scene {
 create(){
   this.width = this.sys.game.config.width;
   this.height = this.sys.game.config.height;
+  this.bootScene = this.scene.get('BootScene');
+
   this.alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
   this.numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -71,15 +73,15 @@ create(){
       });
       
       
-  this.muteText = this.add
-  .text(this.width / 2, this.height / 2, "Music Muted", {
-    fontFamily: "arcade",
-    fontSize: 30,
-    fill: "#f8d838",
-    padding: { x: 20, y: 10 }})
-    .setStroke('#312088', 6)
-    .setOrigin(0.5)
-    .setAlpha(0.0);
+  // this.muteText = this.add
+  // .text(this.width / 2, this.height / 2, "Music Muted", {
+  //   fontFamily: "arcade",
+  //   fontSize: 30,
+  //   fill: "#f8d838",
+  //   padding: { x: 20, y: 10 }})
+  //   .setStroke('#312088', 6)
+  //   .setOrigin(0.5)
+  //   .setAlpha(0.0);
         
 
   // Add round timer to screen
@@ -102,10 +104,6 @@ create(){
   // Add A-Z as clickable keys for our game
   this.keys = this.input.keyboard.addKeys(this.alphabet.join(","));
 
-  // Add spacebar for music mute
-  this.keys.SPACE = this.input.keyboard.addKey
-        (Phaser.Input.Keyboard.KeyCodes.SPACE);
-
   // Particles
   this.particles = {};
   this.particles.bone = this.add.particles('imgpack', 'bone');
@@ -116,6 +114,8 @@ create(){
   this.particles.vortex = this.add.particles('imgpack', 'flares');
   this.particles.vortex2 = this.add.particles('imgpack', 'flares');
   this.particles.summonSkeleton = this.add.particles('imgpack', 'sparkle2');
+
+  this.bootScene.createMusicMuter(this);
 
   // Boss
   this.boss = new Boss({ scene: this, x: 950, y: 670 });
@@ -278,41 +278,14 @@ create(){
   // Game timer event. Every 1 second, call countDown function. repeat (this.timer) times
   this.time.addEvent({ delay: 1000, callback: this.countDown, callbackScope: this, repeat: (this.timer)});
 
+  this.muteMusic = function(scene) {
+    
+  }
+
 }
 
 update() {
-
-  // Spacebar mute
-  if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
-    for (let i = 0; i < this.sound.sounds.length; i++) {
-      for (let key in this.sound.sounds[i]) {
-        if (this.sound.sounds[i][key] === "sewersurfin") {
-          var sound = this.sound.sounds[i];
-
-          if (sound.mute === true) {
-            sound.mute = false;
-
-            this.muteText.setText("Music unmuted");
-
-            this.tweens.add({
-              targets: this.muteText,
-              alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
-            });
-          } else {
-            sound.mute = true;
-
-            this.muteText.setText("Music muted");
-
-            this.tweens.add({
-              targets: this.muteText,
-              alpha: { value: 1, duration: 250, ease: 'Power1', yoyo: true },
-            });
-          }
-        }
-      }
-    }
-  }
-
+  this.bootScene.muteMusic(this);
 
   // If there are characters left to type in the word
   if (this.currentWord.length > 0) {

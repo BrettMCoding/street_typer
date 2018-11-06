@@ -8,8 +8,9 @@ class MenuScene extends Phaser.Scene {
   }
 
   create() {
-    let width = this.sys.game.config.width
-    let height = this.sys.game.config.height
+    this.width = this.sys.game.config.width;
+    this.height = this.sys.game.config.height;
+    this.bootScene = this.scene.get('BootScene');
 
     this.anims.create({
       key: "background",
@@ -26,11 +27,21 @@ class MenuScene extends Phaser.Scene {
       frameRate: 15,
       repeat: -1
     });
-    this.background = this.add.sprite( width / 2, height / 2, "background" );
+    this.background = this.add.sprite( this.width / 2, this.height / 2, "background" );
 
     this.background.play("background");
 
-    this.logo = this.add.sprite( width / 2, height / 2 - 200, 'imgpack', 'logo')
+    let muteTextHelp = this.add
+      .text(20, this.height - 40, "PRESS SPACE TO MUTE MUSIC", {
+        fontFamily: "arcade",
+        fontSize: 30,
+        fill: "#f8d838",
+        padding: { x: 20, y: 10 }})
+        .setStroke('#312088', 6);
+
+    this.bootScene.createMusicMuter(this);
+
+    this.logo = this.add.sprite( this.width / 2, this.height / 2 - 200, 'imgpack', 'logo')
 
     let playbutton = this.add.image(0, 0, 'imgpack', 'playbutton');
 
@@ -38,7 +49,7 @@ class MenuScene extends Phaser.Scene {
 
     let memebutton = this.add.image(-80, 80, 'imgpack', 'squarebutton');
 
-    let buttoncontainer = this.add.container( width / 2, height / 2 + 50, [ playbutton, helpbutton ] );
+    let buttoncontainer = this.add.container( this.width / 2, this.height / 2 + 50, [ playbutton, helpbutton ] );
 
     let menusound = this.sound.add('megamanmenu');
 
@@ -85,38 +96,10 @@ class MenuScene extends Phaser.Scene {
     });
     
     // memescream can be a cheat code later
-    ///////////////////////////////////////////////////////////////
-    // X BUTTON TEST
-    // memebutton.setInteractive();
+  }
 
-    // memebutton.on('pointerover', function () {
-
-    //   memebutton.setTint(0x44ff44);
-    //   menusound.play();
-
-    // });
-
-    // memebutton.on('pointerup', function () { 
-    //     if (memebutton.texture.key === "squarebutton") {
-    //       memebutton.setTexture('squarebuttonx');
-    //     } else {
-    //       memebutton.setTexture('squarebutton');
-    //     }
-    //  }, this);
-
-    // memebutton.on('pointerout', function () {
-
-    //   memebutton.clearTint();
-
-    // });
-    //////////////////////////////////////////////////////////////////
-
-
-    // this.input.manager.enabled = true;
-
-    // this.input.once('pointerdown', function () {
-    //   this.scene.start('GameScene');
-    // }, this);
+  update() {
+    this.bootScene.muteMusic(this);
   }
 }
 

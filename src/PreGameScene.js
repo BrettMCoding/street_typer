@@ -7,18 +7,22 @@ class PreGameScene extends Phaser.Scene {
   }
 
 create(){
+  this.width = this.sys.game.config.width;
+  this.height = this.sys.game.config.height;
+  this.bootScene = this.scene.get('BootScene');
+
   // Background
-  // NOTE: We'll be using this.sys.game.config.width or height a lot to get the dimensions of our game
-  this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, "background");
+  // NOTE: We'll be using this.width or height a lot to get the dimensions of our game
+  this.background = this.add.sprite(this.width / 2, this.height / 2, "background");
   this.background.play("background");
 
   this.preGameTimer = 3
 
   // Platforms
-  let platforms = this.physics.add.staticSprite(this.sys.game.config.width / 2, this.sys.game.config.height - 50, 'ground').setAlpha(0.0);
+  let platforms = this.physics.add.staticSprite(this.width / 2, this.height - 50, 'ground').setAlpha(0.0);
 
   // Add Player Character
-  this.PlayerCharacter = new PlayerCharacter(this, this.sys.game.config.width / 8, this.sys.game.config.height / 2 + 180)
+  this.PlayerCharacter = new PlayerCharacter(this, this.width / 8, this.height / 2 + 180)
   this.PlayerCharacter.akuma.anims.play('supercharge');
 
 
@@ -33,9 +37,11 @@ create(){
   let bossintro = this.sound.add('bosssoundintro');
   bossintro.play();
 
+  this.bootScene.createMusicMuter(this);
+
   // Add 3 second countdown timer to screen
   this.preGameTimerText = this.add
-      .text(this.sys.game.config.width / 2, 200, (this.preGameTimer), {
+      .text(this.width / 2, 200, (this.preGameTimer), {
         fontFamily: "arcade",
         fontSize: 100,
         fill: "#ffffff",
@@ -63,6 +69,7 @@ create(){
 }
 
   update() {
+    this.bootScene.muteMusic(this);
   }
 
   // Called by our create() game this.timer event
